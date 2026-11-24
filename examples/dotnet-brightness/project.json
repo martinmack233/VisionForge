@@ -1,0 +1,29 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "566b0933-3cd2-4f03-bd0e-53c256c55145",
+  "ProjectName": "Bright pixel ratio plugin example",
+  "Nodes": [
+    {
+      "NodeId": "image",
+      "NodeTypeId": "ImageInput",
+      "Name": "Image input",
+      "Parameters": { "Path": "input.png", "PixelFormat": "Mono8" },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "bright",
+      "NodeTypeId": "Example.BrightPixelRatio",
+      "Name": "Count bright pixels",
+      "Parameters": { "Threshold": 128 },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    { "SourceNodeId": "image", "SourcePort": "Image", "TargetNodeId": "bright", "TargetPort": "Image" }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}
