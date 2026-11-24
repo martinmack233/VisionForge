@@ -1,6 +1,6 @@
 # 视构 VisionForge
 
-[Read in English](#english) · [快速开始](docs/quick-start.md) · [开发者接入](docs/integration.md) · [AI 辅助写算法](docs/ai-assisted-development.md) · [发行下载](https://github.com/martinmack233/VisionForge/releases)
+[Read in English](#english) · [快速开始](docs/quick-start.md) · [开发者接入](docs/integration.md) · [AI 辅助写算法](docs/ai-assisted-development.md) · [0.6.3 发行资料](release-info/v0.6.3/) · [发行下载](https://github.com/martinmack233/VisionForge/releases)
 
 视构是一款面向 **Windows 11 x64** 的工业视觉工作台。用可视化节点编排图像采集、预处理、定位、测量、检测和结果输出。算法流程可以在桌面调试，也可以交给 Console、RuntimeHost 或 .NET 程序执行。
 
@@ -65,7 +65,7 @@
 
 ## English
 
-[Quick start](docs/quick-start.md) · [Developer integration](docs/integration.md) · [AI-assisted development](docs/ai-assisted-development.md) · [Release downloads](https://github.com/martinmack233/VisionForge/releases)
+[Quick start](docs/quick-start.md) · [Developer integration](docs/integration.md) · [AI-assisted development](docs/ai-assisted-development.md) · [0.6.3 release information](release-info/v0.6.3/) · [Release downloads](https://github.com/martinmack233/VisionForge/releases)
 
 VisionForge is an industrial machine vision workbench for **Windows 11 x64**. Its visual editor lets you connect acquisition, preprocessing, alignment, measurement, inspection, and result output. You can debug a workflow in the desktop app and run it through Console, RuntimeHost, or a .NET application.
 

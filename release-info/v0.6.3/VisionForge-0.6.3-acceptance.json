@@ -1,0 +1,84 @@
+{
+  "product": "视构 VisionForge",
+  "version": "0.6.3",
+  "platform": "Windows 11 x64",
+  "runtime": "10.0.15",
+  "sdk": "10.0.404",
+  "verified_date": "2026-11-24",
+  "build": {
+    "state": "clean",
+    "source_manifest_sha256": "d793bfa97a32b24e063e912ca3f69597b9563fa26d66664d88f99acf752e87f9",
+    "locked_restore": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "tests": {
+    "total": 850,
+    "passed": 850,
+    "failed": 0,
+    "notExecuted": 0
+  },
+  "nuget_audit": {
+    "projects": 35,
+    "reported_packages": 0,
+    "scope": "NuGet advisory feed for resolved dependency graph"
+  },
+  "package": {
+    "filename": "VisionForge-0.6.3-win-x64.zip",
+    "sha256": "e2940a66259021c4395a9ef97d99187c4e088e8e11e114523ce124bfa316f92f",
+    "verified_files": 882,
+    "separate_extraction_path_with_fresh_configuration": true,
+    "publisher_signature": "unsigned",
+    "distribution": "public portable ZIP",
+    "runtime_binaries_from_validated_0_6_3": true,
+    "public_package_smoke_verified": true,
+    "public_smoke_examples": 25
+  },
+  "acceptance": {
+    "console_and_host_offline_examples": [
+      "basic",
+      "barcode",
+      "qr-code",
+      "ocr",
+      "blob-filter",
+      "caliper",
+      "circle",
+      "template-follow",
+      "rotated-crop",
+      "collection-blob-measure",
+      "collection-multi-ocr",
+      "virtual-camera",
+      "inspection-aligned-difference",
+      "inspection-color-shapes",
+      "inspection-hough-measure",
+      "operators-contrast-edges",
+      "operators-file-read",
+      "operators-matrix-warp",
+      "operators-random-logic",
+      "logic",
+      "beginner-01-display",
+      "beginner-02-crop",
+      "beginner-03-rotated-crop",
+      "beginner-04-collection",
+      "beginner-05-loop"
+    ],
+    "wpf_first_launch_and_core_entry": true,
+    "wpf_examples": 5,
+    "wpf_saved_and_reopened": true,
+    "wpf_narrow_window": "1024x720",
+    "wpf_image_leases_after_bytes": 0,
+    "relocated_beginner_projects": 5,
+    "loopback_tcp_modbus": true,
+    "rtu_protocol_simulation_frames": 9
+  },
+  "issues_observed": [
+    "初次验收脚本把示例预期的业务NG退出码2当作执行失败。按Console契约区分业务和执行状态后复核通过。",
+    "首次工程包重定位有一次目录移动权限错误。保留原异常，独立目录重试五项通过，原因未确认。"
+  ],
+  "not_verified": [
+    "干净Windows虚拟机或第二台机器",
+    "真实博峤相机、串口和PLC",
+    "外部AI引擎和生产模型",
+    "全天稳定性及现场业务准确率"
+  ]
+}
