@@ -1,0 +1,26 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "2d8e3f1d-54f1-4c9a-92c0-9e91e6f5cc16",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "X": 0,
+      "Y": 0
+    },
+    {
+      "NodeId": "match",
+      "X": 330,
+      "Y": 0
+    },
+    {
+      "NodeId": "crop",
+      "X": 660,
+      "Y": 0
+    },
+    {
+      "NodeId": "display",
+      "X": 990,
+      "Y": 0
+    }
+  ]
+}

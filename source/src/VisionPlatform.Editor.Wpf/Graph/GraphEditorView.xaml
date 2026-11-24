@@ -1,0 +1,156 @@
+<UserControl x:Class="VisionPlatform.Editor.Wpf.Graph.GraphEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:n="https://miroiu.github.io/nodify"
+             xmlns:local="clr-namespace:VisionPlatform.Editor.Wpf.Graph"
+             x:Name="Root" Background="{DynamicResource StudioBackground}" Foreground="{DynamicResource StudioForeground}">
+    <UserControl.Resources>
+        <Style x:Key="GraphButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="9,5"/><Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style x:Key="GraphCombo" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="MinWidth" Value="150"/><Setter Property="MaxWidth" Value="300"/>
+            <Setter Property="Margin" Value="3"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <DataTemplate x:Key="WireTemplate">
+            <n:Connection Source="{Binding Source.Anchor}" Target="{Binding Target.Anchor}" n:BaseConnection.IsSelectable="True" n:BaseConnection.IsSelected="{Binding IsSelected,Mode=TwoWay}">
+                <n:Connection.Style><Style TargetType="n:Connection"><Setter Property="Stroke" Value="{DynamicResource StudioPrimary}"/><Setter Property="Fill" Value="{DynamicResource StudioPrimary}"/><Setter Property="StrokeThickness" Value="2.5"/><Style.Triggers><DataTrigger Binding="{Binding IsControl}" Value="True"><Setter Property="Stroke" Value="{DynamicResource StudioWarning}"/><Setter Property="Fill" Value="{DynamicResource StudioWarning}"/><Setter Property="StrokeDashArray" Value="4,2"/></DataTrigger></Style.Triggers></Style></n:Connection.Style>
+            </n:Connection>
+        </DataTemplate>
+        <DataTemplate x:Key="PendingTemplate">
+            <n:PendingConnection IsVisible="{Binding IsVisible,Mode=TwoWay}" Stroke="{DynamicResource StudioPrimary}"
+                Foreground="{DynamicResource StudioForeground}" Background="{DynamicResource StudioPanel}" BorderBrush="{DynamicResource StudioBorder}"
+                Source="{Binding Source,Mode=OneWayToSource}" Target="{Binding Target,Mode=OneWayToSource}"
+                StartedCommand="{Binding DataContext.StartConnectionCommand, RelativeSource={RelativeSource AncestorType=n:NodifyEditor}}"
+                CompletedCommand="{Binding DataContext.CompleteConnectionCommand, RelativeSource={RelativeSource AncestorType=n:NodifyEditor}}"/>
+        </DataTemplate>
+        <Style x:Key="NodeContainer" TargetType="n:ItemContainer" BasedOn="{StaticResource {x:Type n:ItemContainer}}">
+            <Setter Property="Location" Value="{Binding Location,Mode=TwoWay}"/>
+            <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource StudioBorder}"/><Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SelectedBrush" Value="{DynamicResource StudioPrimary}"/><Setter Property="SelectedBorderThickness" Value="2.5"/>
+        </Style>
+        <Style x:Key="NodeStatus" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Foreground" Value="{DynamicResource StudioMutedForeground}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Node.Status}" Value="Success"><Setter Property="Foreground" Value="{DynamicResource StudioSuccess}"/></DataTrigger>
+                <DataTrigger Binding="{Binding Node.Status}" Value="Failed"><Setter Property="Foreground" Value="{DynamicResource StudioFailure}"/></DataTrigger>
+                <DataTrigger Binding="{Binding Node.Status}" Value="Cancelled"><Setter Property="Foreground" Value="{DynamicResource StudioWarning}"/></DataTrigger>
+                <DataTrigger Binding="{Binding Node.Status}" Value="Skipped"><Setter Property="Foreground" Value="{DynamicResource StudioWarning}"/></DataTrigger>
+                <DataTrigger Binding="{Binding Node.Status}" Value="Running"><Setter Property="Foreground" Value="{DynamicResource StudioPrimary}"/></DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToolboxItem" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,3"/><Setter Property="Background" Value="{DynamicResource StudioCard}"/>
+            <Setter Property="Foreground" Value="{DynamicResource StudioForeground}"/><Setter Property="BorderBrush" Value="{DynamicResource StudioBorder}"/>
+            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><Border Height="72" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="5" Padding="9,7"><ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/></Border></ControlTemplate></Setter.Value></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{DynamicResource StudioCardHover}"/></Trigger>
+                <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="{DynamicResource StudioCardSelected}"/><Setter Property="BorderBrush" Value="{DynamicResource StudioPrimary}"/></Trigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="ToolboxCard">
+            <Grid ToolTip="{Binding DisplayName}">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="25"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                <TextBlock Text="◇" FontSize="20" Foreground="{DynamicResource StudioPrimary}" VerticalAlignment="Top" Margin="0,1,0,0"/>
+                <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="22"/><RowDefinition Height="15"/><RowDefinition Height="15"/></Grid.RowDefinitions>
+                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"/>
+                    <TextBlock Grid.Row="1" Text="{Binding TypeId}" FontSize="10" Foreground="{DynamicResource StudioMutedForeground}" TextTrimming="CharacterEllipsis" ToolTip="{Binding TypeId}"/>
+                    <TextBlock Grid.Row="2" Text="{Binding Category}" FontSize="10" Foreground="{DynamicResource StudioMutedForeground}" TextTrimming="CharacterEllipsis"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:GraphNodeViewModel}">
+            <n:Node Input="{Binding Inputs}" Output="{Binding Outputs}" Width="320" ContentPadding="8,0"
+                    Background="{DynamicResource StudioPanel}" ContentBrush="{DynamicResource StudioPanel}" HeaderBrush="{DynamicResource StudioCard}" FooterBrush="{DynamicResource StudioBackground}"
+                    Foreground="{DynamicResource StudioForeground}" BorderThickness="0" ToolTip="{Binding Node.ErrorMessage}">
+                <n:Node.Style><Style TargetType="n:Node"><Style.Triggers><DataTrigger Binding="{Binding Node.IsEnabled}" Value="False"><Setter Property="Opacity" Value="0.48"/></DataTrigger></Style.Triggers></Style></n:Node.Style>
+                <n:Node.Header>
+                    <StackPanel><TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" TextWrapping="Wrap" MaxWidth="300"/>
+                        <TextBlock Text="{Binding Node.NodeId}" FontSize="10" Foreground="{DynamicResource StudioMutedForeground}" TextWrapping="Wrap" MaxWidth="300"/></StackPanel>
+                </n:Node.Header>
+                <n:Node.InputConnectorTemplate>
+                    <DataTemplate>
+                        <n:NodeInput Anchor="{Binding Anchor,Mode=OneWayToSource}" BorderBrush="{DynamicResource StudioPrimary}"
+                            IsEnabled="{Binding IsEnabled}" IsConnected="{Binding IsConnected}" ToolTip="{Binding Label}" Foreground="{DynamicResource StudioForeground}" Background="Transparent">
+                            <n:NodeInput.Header><TextBlock Text="{Binding DisplayName}" MaxWidth="130" TextWrapping="Wrap"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding IsControl}" Value="True"><Setter Property="Foreground" Value="{DynamicResource StudioWarning}"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock></n:NodeInput.Header>
+                        </n:NodeInput>
+                    </DataTemplate>
+                </n:Node.InputConnectorTemplate>
+                <n:Node.OutputConnectorTemplate>
+                    <DataTemplate>
+                        <n:NodeOutput Anchor="{Binding Anchor,Mode=OneWayToSource}" BorderBrush="{DynamicResource StudioPrimary}"
+                            IsEnabled="{Binding IsEnabled}" IsConnected="{Binding IsConnected}" ToolTip="{Binding Label}" Foreground="{DynamicResource StudioForeground}" Background="Transparent">
+                            <n:NodeOutput.Header><TextBlock Text="{Binding DisplayName}" MaxWidth="130" TextWrapping="Wrap"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding IsControl}" Value="True"><Setter Property="Foreground" Value="{DynamicResource StudioWarning}"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock></n:NodeOutput.Header>
+                        </n:NodeOutput>
+                    </DataTemplate>
+                </n:Node.OutputConnectorTemplate>
+                <n:Node.Footer>
+                    <StackPanel Margin="4,3">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Node.Status}" Style="{StaticResource NodeStatus}"/>
+                            <TextBlock Text="{Binding Node.ExecutionMilliseconds,StringFormat={}{0:F3} ms}" FontSize="11" Foreground="{DynamicResource StudioMutedForeground}" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Node.Summary}" MaxHeight="140" MaxWidth="300" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" ToolTip="点击输出端口查看当前会话完整结果" Margin="0,4,0,2"/>
+                        <TextBlock Text="{Binding Node.ErrorMessage}" MaxWidth="300" TextWrapping="Wrap" Foreground="{DynamicResource StudioFailure}" FontSize="10"/>
+                    </StackPanel>
+                </n:Node.Footer>
+            </n:Node>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid DataContext="{Binding State,ElementName=Root}">
+        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="215" MinWidth="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Border Background="{DynamicResource StudioToolbox}" BorderBrush="{DynamicResource StudioBorder}" BorderThickness="0,0,1,0" Padding="7">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="算法工具箱" FontWeight="SemiBold" Margin="4,5"/>
+                    <TextBlock Text="拖入画布，或双击添加" Foreground="{DynamicResource StudioMutedForeground}" FontSize="10" Margin="4,2,4,6"/>
+                    <DockPanel Margin="0,0,0,5"><Button DockPanel.Dock="Right" Content="×" Command="{Binding ClearSearchCommand}" ToolTip="清除搜索" AutomationProperties.Name="清除搜索" Padding="7,3" Margin="3,0,0,0"/><TextBox Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="搜索算法" ToolTip="输入中文名称或英文节点 ID" Padding="7,5"/></DockPanel>
+                    <TextBlock Text="按中文名称或英文标识搜索" Foreground="{DynamicResource StudioMutedForeground}" FontSize="10" Margin="3,0,3,5"/>
+                    <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory,Mode=TwoWay}" AutomationProperties.Name="算法分类" Margin="0,0,0,6" Padding="4"/>
+                    <TextBlock Text="没有匹配的算子，请清除搜索或切换分类。" TextWrapping="Wrap" Margin="4,10" Foreground="{DynamicResource StudioMutedForeground}"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding HasToolboxResults}" Value="False"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                </StackPanel>
+                <ListBox x:Name="ToolboxList" AutomationProperties.Name="算法工具箱" ItemsSource="{Binding Toolbox}"
+                    Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ItemContainerStyle="{StaticResource ToolboxItem}" ItemTemplate="{StaticResource ToolboxCard}"
+                    PreviewMouseLeftButtonDown="ToolboxMouseDown" PreviewMouseMove="ToolboxMouseMove" MouseDoubleClick="ToolboxDoubleClick"/>
+            </DockPanel>
+        </Border>
+        <Grid Grid.Column="1">
+            <n:NodifyEditor x:Name="NodeCanvas" AutomationProperties.Name="算法流程画布"
+                ItemsSource="{Binding Nodes}" Connections="{Binding Connections}"
+                PendingConnection="{Binding Pending}" PendingConnectionTemplate="{StaticResource PendingTemplate}"
+                ConnectionTemplate="{StaticResource WireTemplate}" ItemContainerStyle="{StaticResource NodeContainer}"
+                ItemsDragStartedCommand="{Binding DragStartedCommand}" ItemsDragCompletedCommand="{Binding DragCompletedCommand}"
+                DisconnectConnectorCommand="{Binding DisconnectPortCommand}" RemoveConnectionCommand="{Binding RemoveConnectionCommand}"
+                Background="{DynamicResource StudioCanvas}" AllowDrop="True" Drop="CanvasDrop" Focusable="True">
+            </n:NodifyEditor>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="6">
+                <Button Content="适应流程" Click="FitClicked" Style="{StaticResource GraphButton}" AutomationProperties.Name="适应流程"/>
+                <Button Content="删除节点" Command="{Binding DeleteCommand}" Style="{StaticResource GraphButton}" AutomationProperties.Name="删除节点"/>
+            </StackPanel>
+            <TextBlock Text="滚轮缩放 · 右键拖动平移 · 拖拽端口连线 · Alt+点击端口断开"
+                Foreground="{DynamicResource StudioMutedForeground}" Background="{DynamicResource StudioCanvas}" FontSize="10" IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="6"/>
+        </Grid>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource StudioPanel}" Padding="5" BorderBrush="{DynamicResource StudioBorder}" BorderThickness="0,1,0,0">
+          <Expander Header="高级连接操作（端口列表）" IsExpanded="False">
+            <StackPanel>
+                <WrapPanel>
+                    <TextBlock Text="输出" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox x:Name="SourcePortBox" AutomationProperties.Name="连接输出端口" ItemsSource="{Binding AllOutputPorts}" DisplayMemberPath="Label" Style="{StaticResource GraphCombo}"/>
+                    <TextBlock Text="→ 输入" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox x:Name="TargetPortBox" AutomationProperties.Name="连接输入端口" ItemsSource="{Binding AllInputPorts}" DisplayMemberPath="Label" Style="{StaticResource GraphCombo}"/>
+                    <Button Content="连接" Click="ConnectClicked" Style="{StaticResource GraphButton}" AutomationProperties.Name="连接选定端口"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <ComboBox x:Name="ConnectionBox" AutomationProperties.Name="已有连接" ItemsSource="{Binding Connections}" DisplayMemberPath="Label" Style="{StaticResource GraphCombo}" MinWidth="320" MaxWidth="530"/>
+                    <Button Content="断开连接" Click="DisconnectClicked" Style="{StaticResource GraphButton}" AutomationProperties.Name="断开选定连接"/>
+                    <TextBlock Text="{Binding ConnectionMessage}" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource StudioWarning}" MaxWidth="520" Margin="6"/>
+                </WrapPanel>
+            </StackPanel>
+          </Expander>
+        </Border>
+    </Grid>
+</UserControl>

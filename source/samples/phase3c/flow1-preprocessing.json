@@ -1,0 +1,77 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "404316ce-bf2c-496b-92c1-c7b4e0035876",
+  "ProjectName": "C1-\u4E2D\u503C\u4E0EOtsu\u9884\u5904\u7406",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "inspection.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "median",
+      "NodeTypeId": "MedianBlur",
+      "Name": "MedianBlur",
+      "Parameters": {
+        "KernelSize": 3
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "otsu",
+      "NodeTypeId": "OtsuThreshold",
+      "Name": "OtsuThreshold",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "morph",
+      "NodeTypeId": "Morphology",
+      "Name": "Morphology",
+      "Parameters": {
+        "Operation": "Open"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "median",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "median",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "otsu",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "otsu",
+      "SourcePort": "BinaryImage",
+      "TargetNodeId": "morph",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "morph",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

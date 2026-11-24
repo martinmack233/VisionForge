@@ -1,0 +1,288 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "4acd7045-74e4-4cbd-8c11-4f406490c821",
+  "ProjectName": "\u77E9\u9635\u4E0E\u4EFF\u5C04/\u900F\u89C6\u6620\u5C04",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "affine",
+      "NodeTypeId": "TransformCreate",
+      "Name": "TransformCreate",
+      "Parameters": {
+        "Kind": "Affine",
+        "SourceSpaceId": "image",
+        "TargetSpaceId": "affine-demo",
+        "MatrixText": "1,0.15,20;-0.05,1,15",
+        "Invert": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "affine_image",
+      "NodeTypeId": "WarpImage",
+      "Name": "WarpImage",
+      "Parameters": {
+        "Width": 320,
+        "Height": 240,
+        "Interpolation": "Linear",
+        "BorderMode": "Constant",
+        "BorderValue": 0,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "perspective",
+      "NodeTypeId": "TransformCreate",
+      "Name": "TransformCreate",
+      "Parameters": {
+        "Kind": "Perspective",
+        "SourceSpaceId": "image",
+        "TargetSpaceId": "perspective-demo",
+        "MatrixText": "1,0.04,8;0.02,1,5;0.0008,0.0003,1",
+        "Invert": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "perspective_image",
+      "NodeTypeId": "WarpImage",
+      "Name": "WarpImage",
+      "Parameters": {
+        "Width": 320,
+        "Height": 240,
+        "Interpolation": "Linear",
+        "BorderMode": "Constant",
+        "BorderValue": 0,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "reference_roi",
+      "NodeTypeId": "RoiCollection",
+      "Name": "RoiCollection",
+      "Parameters": {
+        "MaximumItems": 1000,
+        "Regions": [
+          {
+            "CenterX": 80,
+            "CenterY": 80,
+            "Width": 60,
+            "Height": 40,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          }
+        ]
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "mapped_roi",
+      "NodeTypeId": "MapGeometry",
+      "Name": "MapGeometry",
+      "Parameters": {
+        "X": 0,
+        "Y": 0,
+        "CoordinateSpaceId": "image"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "mapped_point",
+      "NodeTypeId": "MapGeometry",
+      "Name": "MapGeometry",
+      "Parameters": {
+        "X": 80,
+        "Y": 80,
+        "CoordinateSpaceId": "image"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "estimate",
+      "NodeTypeId": "EstimateTransform",
+      "Name": "EstimateTransform",
+      "Parameters": {
+        "Kind": "Affine",
+        "SourceSpaceId": "image",
+        "TargetSpaceId": "estimated-demo",
+        "SourcePointsText": "0,0;100,0;0,100;100,100",
+        "TargetPointsText": "20,15;120,10;35,115;135,110"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "matrix",
+      "NodeTypeId": "MatrixCreate",
+      "Name": "MatrixCreate",
+      "Parameters": {
+        "Rows": 2,
+        "Columns": 2,
+        "ValuesText": "4,7;2,6"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "inverse",
+      "NodeTypeId": "MatrixMath",
+      "Name": "MatrixMath",
+      "Parameters": {
+        "Operation": "Inverse"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "element",
+      "NodeTypeId": "MatrixElement",
+      "Name": "MatrixElement",
+      "Parameters": {
+        "Row": 0,
+        "Column": 1
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "precision_matrix",
+      "NodeTypeId": "MatrixCreate",
+      "Name": "MatrixCreate",
+      "Parameters": {
+        "Rows": 2,
+        "Columns": 2,
+        "ValuesText": "1.2345678901234567,0;0,1"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,PointCount,Closed",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 20
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "affine_image",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "affine",
+      "SourcePort": "Transform",
+      "TargetNodeId": "affine_image",
+      "TargetPort": "Transform"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "perspective_image",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "perspective",
+      "SourcePort": "Transform",
+      "TargetNodeId": "perspective_image",
+      "TargetPort": "Transform"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "reference_roi",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "reference_roi",
+      "SourcePort": "Collection",
+      "TargetNodeId": "mapped_roi",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "perspective",
+      "SourcePort": "Transform",
+      "TargetNodeId": "mapped_roi",
+      "TargetPort": "Transform"
+    },
+    {
+      "SourceNodeId": "perspective",
+      "SourcePort": "Transform",
+      "TargetNodeId": "mapped_point",
+      "TargetPort": "Transform"
+    },
+    {
+      "SourceNodeId": "mapped_roi",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "perspective_image",
+      "SourcePort": "TransformedImage",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "matrix",
+      "SourcePort": "Matrix",
+      "TargetNodeId": "inverse",
+      "TargetPort": "A"
+    },
+    {
+      "SourceNodeId": "inverse",
+      "SourcePort": "Matrix",
+      "TargetNodeId": "element",
+      "TargetPort": "Matrix"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

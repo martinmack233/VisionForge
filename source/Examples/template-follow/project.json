@@ -1,0 +1,177 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "c1b885b5-2572-4098-b0f6-f3b9d30d11db",
+  "ProjectName": "\u6A21\u677F\u5339\u914D\u4E0E ROI \u8DDF\u968F",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/sample.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "match",
+      "NodeTypeId": "TemplateMatching",
+      "Name": "TemplateMatching",
+      "Parameters": {
+        "AlgorithmId": "cvinspect.pattern",
+        "TemplatePath": "images/template.json",
+        "Options": {
+          "MinimumScore": 0.7,
+          "AngleMinDegrees": -20,
+          "AngleMaxDegrees": 20,
+          "AngleStepDegrees": 5,
+          "FineAngleStepDegrees": 0.25,
+          "ScaleMin": 0.8,
+          "ScaleMax": 1.2,
+          "ScaleStep": 0.05,
+          "CoarseScale": 0.5,
+          "SearchRoi": {
+            "X": 80,
+            "Y": 65,
+            "Width": 270,
+            "Height": 210
+          }
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "roi",
+      "NodeTypeId": "ROITransform",
+      "Name": "ROITransform",
+      "Parameters": {
+        "ReferencePose": {
+          "CenterX": 100,
+          "CenterY": 100,
+          "AngleDegrees": 0,
+          "Scale": 1,
+          "CoordinateSpaceId": "image"
+        },
+        "ReferenceROI": {
+          "CenterX": 165,
+          "CenterY": 100,
+          "Width": 50,
+          "Height": 34,
+          "AngleDegrees": 0,
+          "CoordinateSpaceId": "image"
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "Threshold": 180,
+        "MinArea": 10,
+        "MaxArea": 200,
+        "DarkForeground": false
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "match",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "roi",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "Pose2D",
+      "TargetNodeId": "roi",
+      "TargetPort": "Pose2D"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "roi",
+      "SourcePort": "ROI",
+      "TargetNodeId": "blob",
+      "TargetPort": "ROI"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "Success",
+      "TargetNodeId": "decision",
+      "TargetPort": "MatchSuccess"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "MatchResult",
+      "TargetNodeId": "report",
+      "TargetPort": "MatchResult"
+    }
+  ],
+  "ROI": [
+    {
+      "CenterX": 165,
+      "CenterY": 100,
+      "Width": 50,
+      "Height": 34,
+      "AngleDegrees": 0,
+      "CoordinateSpaceId": "image"
+    }
+  ],
+  "TemplateResources": [
+    {
+      "ResourceId": "locator",
+      "Path": "images/template.json",
+      "Sha256": null
+    }
+  ],
+  "AlgorithmVersion": {
+    "cvinspect.pattern": "0.34.0\u002B0eddfbaa"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "SchemaVersion": 1,
+  "Id": "operators-random-logic",
+  "Name": "\u968F\u673A\u6570\u4E0E\u7EDF\u4E00\u5E03\u5C14\u5224\u5B9A",
+  "Category": "\u672C\u8F6E\u7B97\u5B50\u6269\u5145",
+  "Description": "\u56FA\u5B9A\u79CD\u5B50\u751F\u62104\u4E2A[0,10)\u6574\u6570\uFF0C\u4EE50\u57FA\u7D22\u5F152\u663E\u5F0F\u9009\u53D6\uFF1B\u5206\u522B\u6BD4\u8F83\u22650\u548C\u003C10\uFF0C\u63A5\u7EDF\u4E00AND\u540E\u4E1A\u52A1\u5224\u5B9AOK\u3002\u6CA1\u6709\u5077\u5077\u9009\u62E9\u7B2C\u4E00\u9879\uFF1B\u65B0\u4F1A\u8BDD\u590D\u73B0\uFF0C\u540C\u4F1A\u8BDD\u518D\u6B21\u8FD0\u884C\u63A8\u8FDB\u968F\u673A\u6D41\u3002\u9884\u89C8\u662F\u9759\u6001\u793A\u610F\u56FE\uFF0C\u4E0D\u662F\u8FD0\u884C\u968F\u673A\u503C\u6216\u7F3A\u9677\u771F\u503C\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u81EA\u5236\u8D44\u6E90",
+    "\u79BB\u7EBF",
+    "\u6570\u636E\u4E0E\u903B\u8F91"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u56FA\u5B9A\u79CD\u5B50\u751F\u62104\u4E2A[0,10)\u6574\u6570\uFF0C\u4EE50\u57FA\u7D22\u5F152\u663E\u5F0F\u9009\u53D6\uFF1B\u5206\u522B\u6BD4\u8F83\u22650\u548C\u003C10\uFF0C\u63A5\u7EDF\u4E00AND\u540E\u4E1A\u52A1\u5224\u5B9AOK\u3002\u6CA1\u6709\u5077\u5077\u9009\u62E9\u7B2C\u4E00\u9879\uFF1B\u65B0\u4F1A\u8BDD\u590D\u73B0\uFF0C\u540C\u4F1A\u8BDD\u518D\u6B21\u8FD0\u884C\u63A8\u8FDB\u968F\u673A\u6D41\u3002\u9884\u89C8\u662F\u9759\u6001\u793A\u610F\u56FE\uFF0C\u4E0D\u662F\u8FD0\u884C\u968F\u673A\u503C\u6216\u7F3A\u9677\u771F\u503C\u3002",
+  "Verification": "random.Count=4\uFF1Bboolean.Result=True\uFF1Bresult.IsOk=True",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "random",
+      "Port": "Count",
+      "Expected": 4,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "boolean",
+      "Port": "Result",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "result",
+      "Port": "IsOk",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "0C63E956847D1CAF55EE566927C9976331B1863078DD24AAEB2FF892DBCAAFEE",
+    "project.json": "2877646C44BA3E176EA46D1A9CC388C6209694933615486A221B003C605D1108",
+    "README.md": "3E1D0A2013351769CCAFD60E02A3A9AD77C59B9E48A97A8938563CE281E8BAAA"
+  }
+}

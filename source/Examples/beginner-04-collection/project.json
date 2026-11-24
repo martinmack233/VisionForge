@@ -1,0 +1,255 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "c8f932df-3e38-4f4c-a4de-b4b9d82ab4cf",
+  "ProjectName": "04 \u96C6\u5408\uFF1A\u7B5B\u9009\u3001\u6392\u5E8F\u548C\u9009\u62E9\u4E00\u9879",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "\u2460 \u8BFB\u53D6\u81EA\u5236\u56FE\u7247",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "blobs",
+      "NodeTypeId": "BlobDetection",
+      "Name": "\u2461 \u627E\u52304\u4E2A\u76EE\u6807\uFF08\u542B\u5C0F\u70B9\uFF09",
+      "Parameters": {
+        "Threshold": 180,
+        "MinArea": 3,
+        "MaxArea": 2147483647,
+        "DarkForeground": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "adapt",
+      "NodeTypeId": "CollectionAdapter",
+      "Name": "\u2462 \u8F6C\u4E3ABlob\u96C6\u5408",
+      "Parameters": {
+        "MaximumItems": 10000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "\u2463 \u4FDD\u7559\u9762\u79EF\u2265100\u50CF\u7D20\u00B2",
+      "Parameters": {
+        "Field": "Area",
+        "Comparison": "GreaterOrEqual",
+        "Number": 100,
+        "Text": "",
+        "Boolean": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "sort",
+      "NodeTypeId": "CollectionSort",
+      "Name": "\u2464 \u6309X\u4ECE\u5DE6\u5230\u53F3\u6392\u5E8F",
+      "Parameters": {
+        "Field": "X",
+        "Descending": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "select",
+      "NodeTypeId": "CollectionSelect",
+      "Name": "\u2465 \u7D22\u5F151\uFF1D\u7B2C2\u4E2A\u76EE\u6807",
+      "Parameters": {
+        "Index": 1
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "roi",
+      "NodeTypeId": "ItemToRoi",
+      "Name": "\u2466 \u5F53\u524D\u76EE\u6807\u8F6CROI",
+      "Parameters": {
+        "AxisAlignedEnvelope": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "crop",
+      "NodeTypeId": "RotatedCrop",
+      "Name": "\u2467 \u6309\u6240\u9009ROI\u88C1\u5207",
+      "Parameters": {
+        "CenterX": 49.5,
+        "CenterY": 49.5,
+        "Width": 100,
+        "Height": 100,
+        "Angle": 0,
+        "Interpolation": "Linear",
+        "BorderMode": "Constant",
+        "BorderValue": 0
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "cropped",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2468 \u770B\u7B2C2\u4E2A\u76EE\u6807\u5C40\u90E8\u56FE",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "count",
+      "NodeTypeId": "CollectionCount",
+      "Name": "\u2469 \u7B5B\u9009\u540E\u6709\u591A\u5C11\u9879",
+      "Parameters": {
+        "FilterState": false,
+        "State": "Ok"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "\u246A \u663E\u793A\u96C6\u5408\u6570\u91CF",
+      "Parameters": {
+        "Prefix": "\u7B5B\u9009\u540E\u76EE\u6807\u6570\uFF1A"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "\u246B \u770B\u5168\u90E8\u7B5B\u9009\u7ED3\u679C",
+      "Parameters": {
+        "Fields": "Index,Area,X,Y,Width,Height",
+        "DecimalPlaces": 2,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 100
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blobs",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blobs",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "adapt",
+      "TargetPort": "Blobs"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "adapt",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "adapt",
+      "SourcePort": "Collection",
+      "TargetNodeId": "filter",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "Collection",
+      "TargetNodeId": "sort",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "select",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "select",
+      "SourcePort": "Item",
+      "TargetNodeId": "roi",
+      "TargetPort": "Item"
+    },
+    {
+      "SourceNodeId": "roi",
+      "SourcePort": "ROI",
+      "TargetNodeId": "crop",
+      "TargetPort": "ROI"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "crop",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "crop",
+      "SourcePort": "CroppedImage",
+      "TargetNodeId": "cropped",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "count",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "count",
+      "SourcePort": "Count",
+      "TargetNodeId": "text",
+      "TargetPort": "Integer"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

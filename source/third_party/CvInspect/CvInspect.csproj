@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.34.0</Version>
+    <Authors>kintaein</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenCvSharp4" Version="4.13.0.20260627" />
+    <EmbeddedResource Include="Assets\lang\*.json" WithCulture="false" LogicalName="CvInspect.Assets.lang.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

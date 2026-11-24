@@ -1,0 +1,31 @@
+﻿<Project>
+  <Import Project="$(MSBuildThisFileDirectory)build/Version.props" />
+  <Import Project="$(MSBuildThisFileDirectory)build/BuildIdentity.props" Condition="Exists('$(MSBuildThisFileDirectory)build/BuildIdentity.props')" />
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <Deterministic>true</Deterministic>
+    <RuntimeFrameworkVersion>10.0.15</RuntimeFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$([System.String]::Copy('$(MSBuildProjectName)').StartsWith('VisionPlatform.'))">
+    <Version>$(VisionProductVersion)</Version>
+    <Product>$(VisionProductName)</Product>
+    <Description>$(VisionProductName) 工业视觉算法开发平台</Description>
+    <AssemblyVersion>$(VisionAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(VisionFileVersion)</FileVersion>
+    <SourceRevisionId>$(VisionSourceCommit)</SourceRevisionId>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <InformationalVersion>$(VisionProductVersion)+$(VisionSourceCommit).$(VisionSourceState).$(VisionSourceHash)</InformationalVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="$([System.String]::Copy('$(MSBuildProjectName)').StartsWith('VisionPlatform.'))">
+    <AssemblyMetadata Include="VisionProductName" Value="$(VisionProductName)" />
+    <AssemblyMetadata Include="VisionSourceCommit" Value="$(VisionSourceCommit)" />
+    <AssemblyMetadata Include="VisionSourceState" Value="$(VisionSourceState)" />
+    <AssemblyMetadata Include="VisionSourceHash" Value="$(VisionSourceHash)" />
+  </ItemGroup>
+</Project>

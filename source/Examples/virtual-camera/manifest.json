@@ -1,0 +1,69 @@
+{
+  "SchemaVersion": 1,
+  "Id": "virtual-camera",
+  "Name": "\u865A\u62DF\u76F8\u673A\u5B9A\u4F4D\u68C0\u6D4B",
+  "Category": "\u56FE\u50CF\u91C7\u96C6",
+  "Description": "\u4ECE\u672C\u5730\u6587\u4EF6\u5939\u91C7\u96C6\u771F\u5B9E\u5E27\uFF0C\u7ECF\u539F\u6A21\u677F\u5B9A\u4F4D\u3001ROI\u8DDF\u968F\u3001Blob\u68C0\u6D4B\u548COK/NG\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "VirtualCamera",
+    "\u6A21\u677F\u5339\u914D",
+    "ROI",
+    "\u7B2C\u56DB\u9636\u6BB5C"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u6253\u5F00\u6216\u4E00\u952E\u8FD0\u884C\u3002\u9996\u6B21\u56FE\u50CF\u4E3A\u002B10\u5EA6\uFF0C\u4E0B\u4E00\u6B21\u4E3A\u5E73\u79FB/-10\u5EA6\uFF0C\u518D\u4E0B\u4E00\u6B21\u65E0\u76EE\u6807\uFF1B\u5FAA\u73AF\u56DE\u5230\u9996\u5E27\u3002\u7B2C\u4E09\u5E27\u5E94\u5339\u914D\u5931\u8D25\u5E76\u8DF3\u8FC7ROI/Blob\uFF0C\u4E0D\u6CBF\u7528\u65E7\u59FF\u6001\u3002\u8BBE\u5907\u9875\u53EF\u4ECE\u5F53\u524D\u8282\u70B9\u540C\u6B65\u914D\u7F6E\uFF0C\u9884\u89C8\u4E0E\u8FD0\u884C\u5206\u5F00\uFF1B\u8FD0\u884C\u524D\u505C\u6B62\u9884\u89C8\uFF0C\u8282\u70B9\u91C7\u96C6\u4E0B\u4E00\u5E27\u3002",
+  "Verification": "\u65B0\u4F1A\u8BDD\u9996\u5E27FrameInfo.Sequence=1\u3001\u6A21\u677F\u6210\u529F\u3001BlobCount=2\u3001IsOk=True\uFF1B\u7B2C\u4E8C\u5E27\u5B9A\u4F4D\u5E94\u6539\u53D8\uFF1B\u7B2C\u4E09\u5E27Match.Success=False\u4E14ROI/Blob Skipped\u3002\u6240\u6709\u5750\u6807\u6765\u81EA\u539F\u56FE\uFF0C\u8BBE\u5907\u65E0\u771F\u5B9E\u66DD\u5149/\u589E\u76CA\u80FD\u529B\u3002",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "capture",
+      "Port": "FrameInfo",
+      "Expected": 1,
+      "Tolerance": 0,
+      "Property": "Sequence"
+    },
+    {
+      "NodeId": "match",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "blob",
+      "Port": "BlobCount",
+      "Expected": 2,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "decision",
+      "Port": "IsOk",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "8881FB8FC0E0C87990215D5026E32AE5FF12301E682EF6CD3782CAFFE12CA93E",
+    "project.json": "A98F9B21231A10E912EBA5076BD5633EEFE588EE24951D851201D8062F740E94",
+    "README.md": "40B8A021F0D545852B6B674326FF509EB8D57A927A87CBA1E9BC0B783AD5122F",
+    "images/absent.png": "A4FAA16DAB7C2339379580CE538766041221BFD062AFCF75B7265B66CFD08C0A",
+    "images/ng.png": "501BAFFCE9464C87484274A0D3B40D082D595B10FA3749A0189283E130FBE343",
+    "images/sample-color.png": "8EC38DEFFF6DA0EC0EA2C792329BF8865E5BCEC5D8AF946103CF2913C57F4C25",
+    "images/sample.png": "AC6936336438AD60171840D48408E26963CE79F666AF8AD373C76C918BFB8703",
+    "images/shifted.png": "B9B46910038225C525D0D914C9885B58CC60252E13EA18B26B5E98505B4C834E",
+    "images/template-blurred.json": "269FA7EB82C24E59353025F14C0841CA85F03B48AF70CBF6466AAF8CA47F2ABC",
+    "images/template.json": "F805040554AF92CFC830D5F165B1CD56BC6B98909CC47B1180F6E4057869C4F3",
+    "images/frames/01-target.png": "AC6936336438AD60171840D48408E26963CE79F666AF8AD373C76C918BFB8703",
+    "images/frames/02-shifted.png": "B9B46910038225C525D0D914C9885B58CC60252E13EA18B26B5E98505B4C834E",
+    "images/frames/03-absent.png": "A4FAA16DAB7C2339379580CE538766041221BFD062AFCF75B7265B66CFD08C0A",
+    "images/template-blurred.templates/013e2ee61bf1d256ddbcdd46f49d38e9ef11c3eac42da9b8af04f4f9902dfed0.png": "013E2EE61BF1D256DDBCDD46F49D38E9EF11C3EAC42DA9B8AF04F4F9902DFED0",
+    "images/template.templates/bd4bec3c338e8d360fe8a6fa550dd34e4c3d002042ea8b2341dc591644bf66cc.png": "BD4BEC3C338E8D360FE8A6FA550DD34E4C3D002042EA8B2341DC591644BF66CC"
+  }
+}

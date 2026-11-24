@@ -1,0 +1,225 @@
+namespace CvInspect.Vision.Overlay;
+
+/// <summary>
+/// 라이브러리 중립 결과 오버레이 — 검사 구현이 기하 프리미티브로 적재하고
+/// 렌더러(비트맵 합성 렌더 / 화면 벡터 렌더 등)가 각자 해석한다. 좌표는 전부 원본 이미지 픽셀 공간.
+/// Run 마다 새 인스턴스로 교체 — 소비 측(디스플레이 DP·이력 렌더)이 참조 변경으로 갱신을 감지하고,
+/// 다음 사이클과의 열거 경합 없이 안전하게 소비한다.
+/// </summary>
+public sealed class ViOverlay
+{
+    public List<ViOverlayItem> Items { get; } = [];
+
+    public void Add(ViOverlayItem item) => Items.Add(item);
+
+    /// <summary>
+    /// 잘라 낸 이미지 위에 얹을 사본 — (x, y, width, height) 는 원본 좌표의 자른 자리(<c>CvImageOps.Crop</c> 이 돌려준
+    /// used 를 그대로 넘긴다. 같은 사각으로 <c>CamFrame.Crop</c> 을 하면 프레임과 그림이 맞는다).
+    ///
+    /// 항목은 전부 (−x, −y) 만큼 옮긴다. 요약 HUD(<see cref="ViOverlayLabel.IsHud"/> 이고 모서리 정렬)만은 옮기지 않고
+    /// 잘린 이미지의 <b>같은 모서리</b>에 다시 붙인다 — 원본 모서리에 붙은 라벨을 그대로 옮기면 잘린 이미지 밖으로 나간다
+    /// (왼쪽·위 모서리는 음수 좌표로, 오른쪽·아래 모서리는 잘린 폭·높이 너머로).
+    /// 붙이는 규칙은 <see cref="ViHud"/> 가 처음 붙일 때와 같다(왼쪽·위는 가장자리까지의 거리 보존, 오른쪽·아래는 HUD 여백).
+    /// HUD 표식이 있어도 모서리 정렬이 아니면 붙일 모서리가 없으므로 다른 라벨처럼 옮긴다.
+    ///
+    /// 원본은 건드리지 않는다 — 이력 저장·다른 화면이 같은 참조를 쥐고 있다(항목도 init 전용이라 새로 만든다).
+    /// 영역 밖 항목도 거르지 않는다: 경계에 걸친 도형은 반만이라도 보여야 하고, 보이는 범위로 자르는 것은 렌더러 몫이다.
+    /// CvInspect.Wpf 의 <c>CvDispCtrl</c> 은 <c>ClipOverlayToImage</c> 를 켜야 이미지 사각으로 자른다 — 기본은 표시 영역
+    /// 경계까지 그려, 잘린 프레임을 맞춤 표시하면 영역 밖 항목이 맞춤 여백에 그려진다.
+    /// 이 파일이 모르는 항목 종류(호스트가 파생한 것)는 옮길 방법이 없어 그대로 싣는다 — 그런 항목은 호스트가 옮긴다.
+    /// </summary>
+    public ViOverlay CropTo(double x, double y, double width, double height)
+    {
+        var cut = new ViOverlay();
+        foreach (var item in Items)
+            cut.Add(item switch
+            {
+                ViOverlayLabel
+                {
+                    IsHud: true,
+                    Align: ViOverlayAlign.TopLeft or ViOverlayAlign.TopRight or ViOverlayAlign.BottomLeft or ViOverlayAlign.BottomRight,
+                } hud => ViHud.Reanchor(hud, width, height),
+                ViOverlayLabel l => l.MovedTo(l.X - x, l.Y - y),
+                ViOverlaySeg s => new ViOverlaySeg(s) { X1 = s.X1 - x, Y1 = s.Y1 - y, X2 = s.X2 - x, Y2 = s.Y2 - y },
+                ViOverlayRect r => new ViOverlayRect(r) { CenterX = r.CenterX - x, CenterY = r.CenterY - y },
+                ViOverlayPoly p => new ViOverlayPoly(p) { Points = p.Points.Select(q => (q.X - x, q.Y - y)).ToList() },
+                _ => item,
+            });
+        return cut;
+    }
+}
+
+public enum ViOverlayColor { Green, Red, Cyan, Orange, Yellow, White, Teal }
+
+public enum ViOverlayAlign
+{
+    /// <summary>텍스트 상단 중앙이 앵커 — 앵커 아래로 그려짐.</summary>
+    TopCenter,
+
+    /// <summary>텍스트 하단 중앙이 앵커 — 앵커 위로 그려짐.</summary>
+    BottomCenter,
+
+    /// <summary>텍스트 좌상단이 앵커 — 좌측 정렬 블록(요약 HUD 등).</summary>
+    TopLeft,
+
+    /// <summary>텍스트 좌하단이 앵커 — 검출 박스 좌상단 위에 라벨을 얹는 용도 (박스 왼쪽에서 시작).</summary>
+    BottomLeft,
+
+    /// <summary>텍스트 우상단이 앵커 — 앵커에서 왼쪽·아래로 펼쳐짐 (이미지 우상단에 붙이는 블록).
+    /// 여러 줄이면 블록의 오른쪽 변이 앵커에 닿고 줄 안 정렬은 왼쪽이다.</summary>
+    TopRight,
+
+    /// <summary>텍스트 우하단이 앵커 — 앵커에서 왼쪽·위로 펼쳐짐 (이미지 우하단에 붙이는 블록).</summary>
+    BottomRight,
+}
+
+/// <summary>오버레이 항목의 바탕. 항목은 init 전용이라 고친 사본은 새로 만든다 — 파생 형마다 <b>복사 생성자</b>가 있어
+/// 바꿀 것만 초기화자로 덮는다(<c>new ViOverlayLabel(l) { FontSize = l.FontSize * 1.5f }</c>). 속성을 손으로 옮겨 만든 사본은
+/// 이 형에 속성이 늘 때 그것을 조용히 빠뜨린다 — 복사 생성자는 이 파일과 같이 고쳐진다.</summary>
+public abstract class ViOverlayItem
+{
+    protected ViOverlayItem() { }
+
+    /// <summary>공통 속성(색·점선·선 굵기 배수)을 <paramref name="source"/> 에서 잇는다 — 파생 형의 복사 생성자가 부른다.</summary>
+    protected ViOverlayItem(ViOverlayItem source)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        Color = source.Color;
+        IsDashed = source.IsDashed;
+        StrokeScale = source.StrokeScale;
+    }
+
+    public ViOverlayColor Color { get; init; }
+
+    /// <summary>점선 렌더 — 보조 기하(검색 창 등)를 실선 결과 기하와 구분.</summary>
+    public bool IsDashed { get; init; }
+
+    /// <summary>선 굵기 배수 — 렌더러의 기본 굵기에 곱한다(기본 1.0 = 종전 그대로). 한 항목만 눈에 띄게 하는 용도다
+    /// (NG 위치 박스를 멀리서도 보이게 2.0 등).
+    ///
+    /// 기본 굵기는 렌더러가 정한다. CvInspect.Wpf 의 <c>CvDispCtrl</c> 은 <b>화면 고정</b> 굵기다 — 선분·사각 2, 폴리라인 1.2
+    /// (WPF 장치 독립 픽셀, 96 dpi 에서 화면 px). 이미지 줌과 무관하므로 배수도 줌과 무관하게 "한 단계 굵게" 가 된다.
+    /// 선분의 화살촉도 같은 배수로 커진다(굵은 선에 기본 화살촉이면 촉이 선에 묻힌다). 라벨(글자)은 이 값을 쓰지 않는다 —
+    /// 글자 크기는 <see cref="ViOverlayLabel.FontSize"/> 다.
+    ///
+    /// 0 이하·NaN·무한대는 1.0 으로 그린다(던지지 않는다 — 검사 실행 중 오버레이를 만드는 자리에서 던지면 판정 자체가 죽는다).
+    /// 그 밖의 값이 그릴 수 있는 범위를 넘으면 범위 끝으로 자른다 — <c>CvDispCtrl</c> 은 0.25~50 배(아주 작은 배수는 선을 지우고,
+    /// 아주 큰 배수는 굵기가 무한대로 넘친다). 사각은 닫힌 도형으로 그려 굵게 해도 모서리가 비지 않는다.</summary>
+    public double StrokeScale { get; init; } = 1.0;
+}
+
+/// <summary>선분 — HasEndArrow 면 끝점에 채운 화살촉(라인 방향/각도 부호 혼동 방지).</summary>
+public sealed class ViOverlaySeg : ViOverlayItem
+{
+    public ViOverlaySeg() { }
+
+    /// <summary>사본 — <paramref name="source"/> 의 속성을 빠짐없이 잇는다. 바꿀 것만 초기화자로 덮는다.</summary>
+    public ViOverlaySeg(ViOverlaySeg source) : base(source)
+    {
+        X1 = source.X1;
+        Y1 = source.Y1;
+        X2 = source.X2;
+        Y2 = source.Y2;
+        HasEndArrow = source.HasEndArrow;
+    }
+
+    public double X1 { get; init; }
+    public double Y1 { get; init; }
+    public double X2 { get; init; }
+    public double Y2 { get; init; }
+    public bool HasEndArrow { get; init; }
+}
+
+/// <summary>텍스트 라벨 — FontSize 는 포인트 단위. 픽셀이 아니라서 이미지 줌과 무관한 화면 크기다.</summary>
+public sealed class ViOverlayLabel : ViOverlayItem
+{
+    public ViOverlayLabel() { }
+
+    /// <summary>사본 — <paramref name="source"/> 의 속성을 빠짐없이 잇는다. 바꿀 것만 초기화자로 덮는다:
+    /// 한 화면에서만 글자를 키우려면 <c>new ViOverlayLabel(l) { FontSize = l.FontSize * k }</c>.
+    /// 줄별 색(<see cref="LineColors"/>)과 HUD 내용(<see cref="Hud"/>)은 참조를 그대로 잇는다 — 둘 다 만든 뒤 고치지 않는 값이다.</summary>
+    public ViOverlayLabel(ViOverlayLabel source) : base(source)
+    {
+        Text = source.Text;
+        X = source.X;
+        Y = source.Y;
+        FontSize = source.FontSize;
+        Align = source.Align;
+        HasBackground = source.HasBackground;
+        LineColors = source.LineColors;
+        IsHud = source.IsHud;
+        Hud = source.Hud;
+    }
+
+    public string Text { get; init; } = "";
+    public double X { get; init; }
+    public double Y { get; init; }
+    public float FontSize { get; init; } = 20f;
+    public ViOverlayAlign Align { get; init; } = ViOverlayAlign.TopCenter;
+
+    /// <summary>글자 크기에 타이트한 검은 배경 박스 — 이미지 위 가독성. 기본 켜짐(HUD 는 항상 켬).</summary>
+    public bool HasBackground { get; init; } = true;
+
+    /// <summary>줄별 색 — <see cref="Text"/> 의 줄 순서와 1:1 이고, 항목이 null 이면
+    /// <see cref="ViOverlayItem.Color"/> 를 쓴다. 이 속성 자체가 null 이면(기본) 블록 전체가 한 색이다.
+    /// 여러 라벨을 쌓지 않고 한 블록 안에서 색을 나누는 이유: 라벨 위치는 이미지 좌표인데 글자 크기는
+    /// 별도 스케일이라, 줄 높이만큼 좌표를 내려 쌓으면 배율에 따라 겹치거나 벌어진다.</summary>
+    public IReadOnlyList<ViOverlayColor?>? LineColors { get; init; }
+
+    /// <summary>요약 HUD 표식 — <see cref="ViHud"/> 가 켠다. 이 라벨은 이미지의 한 <b>모서리</b>에 붙어 있고
+    /// (<see cref="Align"/> 이 그 모서리) 검사 기하와 무관하다 — 그래서 잘라 보일 때(<see cref="ViOverlay.CropTo"/>)
+    /// 옮기지 않고 같은 모서리에 다시 붙이며, 화면이 HUD 를 따로 떼어 적을 때 이것으로 가린다.
+    /// Align 만으로는 못 가린다 — 모서리 Align 은 검출 박스 위 라벨(BottomLeft 등)에도 쓰인다. 그리는 모양은 바꾸지 않는다
+    /// (렌더러는 보통 라벨로 그린다). CvInspect.Wpf 의 <c>CvDispCtrl</c> 은 오버레이를 이미지 사각으로 자를 때 이 라벨만은
+    /// 자르지 않는다 — 글자가 화면 고정 크기라 작은 잘린 영역에서 판정 사유 줄이 잘려 나간다.</summary>
+    public bool IsHud { get; init; }
+
+    /// <summary>요약 HUD 의 내용 — <see cref="ViHud"/> 가 받은 판정·제목·줄(줄별 색)·모서리를 그대로 싣는다. HUD 가 아니거나
+    /// 내용 없이 만든 라벨이면 null. 화면이 HUD 를 떼어 따로 적을 때는 이것을 읽는다 — <see cref="Text"/> 는 그리기용으로
+    /// 조립한 문자열이라 형식(머리 글자 <c>[OK]</c>/<c>[NG]</c>, 줄 구분)과 색이 바뀔 수 있고(문구 번역 등), 그것을 되읽어
+    /// 판정을 정하면 OK 가 NG 색으로 뜨는 결함이 정상처럼 보인다.
+    /// <see cref="IsHud"/> 와는 따로 선다 — IsHud 는 "모서리에 붙은 요약 자리인가"(자르기·재부착의 근거), 이것은 그 내용이다.
+    /// ViHud 가 만든 라벨은 둘 다 있고, 손으로 IsHud 만 켠 라벨은 이것이 null 이다(그때는 Text 뿐이다).</summary>
+    public ViHudSummary? Hud { get; init; }
+
+    /// <summary>앵커만 옮긴 사본 — 나머지는 복사 생성자가 잇는다.</summary>
+    internal ViOverlayLabel MovedTo(double x, double y) => new(this) { X = x, Y = y };
+}
+
+/// <summary>회전 사각 외곽선 — 패턴 발견 위치 표시 등.</summary>
+public sealed class ViOverlayRect : ViOverlayItem
+{
+    public ViOverlayRect() { }
+
+    /// <summary>사본 — <paramref name="source"/> 의 속성을 빠짐없이 잇는다. 바꿀 것만 초기화자로 덮는다.</summary>
+    public ViOverlayRect(ViOverlayRect source) : base(source)
+    {
+        CenterX = source.CenterX;
+        CenterY = source.CenterY;
+        Width = source.Width;
+        Height = source.Height;
+        AngleDeg = source.AngleDeg;
+    }
+
+    public double CenterX { get; init; }
+    public double CenterY { get; init; }
+    public double Width { get; init; }
+    public double Height { get; init; }
+    public double AngleDeg { get; init; }
+}
+
+/// <summary>폴리라인 — 블랍 경계 등. IsClosed 면 시작점으로 닫아 그림.</summary>
+public sealed class ViOverlayPoly : ViOverlayItem
+{
+    public ViOverlayPoly() { }
+
+    /// <summary>사본 — <paramref name="source"/> 의 속성을 빠짐없이 잇는다(점 목록은 참조를 그대로). 바꿀 것만 초기화자로 덮는다.</summary>
+    public ViOverlayPoly(ViOverlayPoly source) : base(source)
+    {
+        Points = source.Points;
+        IsClosed = source.IsClosed;
+    }
+
+    public IReadOnlyList<(double X, double Y)> Points { get; init; } = [];
+    public bool IsClosed { get; init; } = true;
+}

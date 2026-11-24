@@ -1,0 +1,98 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "dcd7cd7b-ae4e-4f38-9151-55e13f16ca7a",
+  "ProjectName": "C3-\u6A21\u677F\u5B9A\u4F4D\u65CB\u8F6C\u88C1\u5207",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "sample.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "match",
+      "NodeTypeId": "TemplateMatching",
+      "Name": "TemplateMatching",
+      "Parameters": {
+        "AlgorithmId": "cvinspect.pattern",
+        "TemplatePath": "template.json",
+        "Options": {
+          "MinimumScore": 0.7,
+          "AngleMinDegrees": -20,
+          "AngleMaxDegrees": 20,
+          "AngleStepDegrees": 5,
+          "FineAngleStepDegrees": 0.25,
+          "ScaleMin": 0.8,
+          "ScaleMax": 1.2,
+          "ScaleStep": 0.05,
+          "CoarseScale": 0.5,
+          "SearchRoi": {
+            "X": 80,
+            "Y": 65,
+            "Width": 270,
+            "Height": 210
+          }
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "crop",
+      "NodeTypeId": "RotatedCrop",
+      "Name": "RotatedCrop",
+      "Parameters": {
+        "Width": 72,
+        "Height": 64
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "match",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "crop",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "Pose2D",
+      "TargetNodeId": "crop",
+      "TargetPort": "Pose2D"
+    },
+    {
+      "SourceNodeId": "crop",
+      "SourcePort": "CroppedImage",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [
+    {
+      "ResourceId": "locator",
+      "Path": "template.json",
+      "Sha256": null
+    }
+  ],
+  "AlgorithmVersion": {
+    "cvinspect.pattern": "0.34.0\u002B0eddfbaa"
+  }
+}

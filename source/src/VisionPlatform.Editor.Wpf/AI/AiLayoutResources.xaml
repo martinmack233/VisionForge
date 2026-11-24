@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Style x:Key="AiLabel" TargetType="TextBlock"><Setter Property="Margin" Value="0,8,0,4"/><Setter Property="Foreground" Value="{DynamicResource StudioMutedForeground}"/></Style>
+ <Style x:Key="AiField" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}"><Setter Property="Margin" Value="0,0,7,8"/><Setter Property="MinWidth" Value="60"/><Setter Property="MinHeight" Value="32"/></Style>
+ <Style x:Key="AiPanel" TargetType="Border"><Setter Property="Background" Value="{DynamicResource StudioPanel}"/><Setter Property="BorderBrush" Value="{DynamicResource StudioBorder}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="5"/><Setter Property="Padding" Value="14"/></Style>
+ <Style x:Key="AiSidebarScroll" TargetType="ScrollViewer"><Setter Property="Padding" Value="14"/><Setter Property="VerticalScrollBarVisibility" Value="Auto"/><Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/></Style>
+ <Style x:Key="AiGroupTitle" TargetType="TextBlock"><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="FontSize" Value="14"/><Setter Property="Margin" Value="0,0,0,8"/></Style>
+ <Style x:Key="AiSection" TargetType="StackPanel"><Setter Property="Margin" Value="0,0,0,16"/></Style>
+ <Style x:Key="AiCoordinateField" TargetType="TextBox" BasedOn="{StaticResource AiField}"><Setter Property="Margin" Value="0,0,0,8"/><Setter Property="MinWidth" Value="0"/></Style>
+ <Style x:Key="AiSidebarButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="MinHeight" Value="32"/><Setter Property="Margin" Value="0,4,0,4"/><Setter Property="HorizontalContentAlignment" Value="Center"/></Style>
+ <Style x:Key="AiHint" TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="{DynamicResource StudioMutedForeground}"/><Setter Property="Margin" Value="0,4,0,8"/></Style>
+ <Style x:Key="AiInlineError" TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="{DynamicResource StudioFailure}"/><Setter Property="Margin" Value="0,4,0,8"/><Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger><Trigger Property="Text" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers></Style>
+</ResourceDictionary>

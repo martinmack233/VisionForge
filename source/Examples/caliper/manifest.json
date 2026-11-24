@@ -1,0 +1,49 @@
+{
+  "SchemaVersion": 1,
+  "Id": "caliper",
+  "Name": "\u5361\u5C3A\u4E9A\u50CF\u7D20\u8FB9\u7F18\u6D4B\u91CF",
+  "Category": "\u51E0\u4F55\u6D4B\u91CF",
+  "Description": "\u6295\u5F71\u7070\u5EA6\u5256\u9762\u3001\u68AF\u5EA6\u5CF0\u503C\u629B\u7269\u7EBF\u62DF\u5408\u5B9A\u4F4D\u975E\u6574\u6570\u8FB9\u7F18\uFF0C\u518D\u6700\u5C0F\u4E8C\u4E58\u62DF\u5408\u76F4\u7EBF\uFF1B\u8F93\u51FA\u50CF\u7D20\u5750\u6807\u3002",
+  "Difficulty": "\u8FDB\u9636",
+  "Tags": [
+    "\u51E0\u4F55\u6D4B\u91CF",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "caliper",
+      "Port": "Valid",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "caliper",
+      "Port": "Result",
+      "Expected": 120.25,
+      "Tolerance": 0.3,
+      "Property": "Values.MeanX"
+    },
+    {
+      "NodeId": "fit",
+      "Port": "Valid",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "357B23ADD6FE3974D9884565EE5A4C58197FA27661902AADB85716DD272AF3AD",
+    "project.json": "D2A9D56EA1F64C1139AB7011588DD20130736E17E908B7EDCD1451077B417B78",
+    "README.md": "B0BB745F1458CD9CDE2EF52C240BA6E960C35356D17DBE8C3EC126AEE774D149",
+    "images/input.png": "00381471640111E2D56C131C0F2C0D0225FF7A0E3575CF1E306015B322D00737"
+  }
+}

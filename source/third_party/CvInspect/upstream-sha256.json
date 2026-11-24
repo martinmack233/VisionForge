@@ -1,0 +1,270 @@
+[
+  {
+    "path": "src/CvInspect/Assets/lang/cv.en.json",
+    "sha256": "2adb84a60069526b87284b6a6900d2d280daec8d16abab3773fec4d7b14608da"
+  },
+  {
+    "path": "src/CvInspect/Assets/lang/cv.ko.json",
+    "sha256": "e999e26fa19b5790f4e61a3e9b57cb725a9404b77cff22955eea7058e265c61b"
+  },
+  {
+    "path": "src/CvInspect/Controls/CvPropEvt.cs",
+    "sha256": "7f706f2619fa75ea6508593f8a9b1fe1d7e176c1bcb2b383f9df84731158577e"
+  },
+  {
+    "path": "src/CvInspect/Controls/CvPropRowBldr.cs",
+    "sha256": "9a02a0ff6fa35b4a97c7bb0a687e96e2052cc9a9bd3e158e141cf7dd2a545b31"
+  },
+  {
+    "path": "src/CvInspect/Controls/CvPropRowVm.cs",
+    "sha256": "a7106448351952df6350b01b1a747ee350a19de8300eda4ff9ae7b6b4b8b9c28"
+  },
+  {
+    "path": "src/CvInspect/Controls/CvPropWeakSub.cs",
+    "sha256": "ac4f0828ace8a6c6d7eac5030854b05e7f685cf5219db1f3486495da746819da"
+  },
+  {
+    "path": "src/CvInspect/CvCategoryAttribute.cs",
+    "sha256": "b8a807cd200a52c88807255c6781921d423b158f93cde7f9261da45678e2ae1c"
+  },
+  {
+    "path": "src/CvInspect/CvDescAttribute.cs",
+    "sha256": "63a44d3e1362275514e60c75ce7252781ed0c51e8e478370207fcf7135c9356d"
+  },
+  {
+    "path": "src/CvInspect/CvInspect.csproj",
+    "sha256": "dfb1c29895132ee3397a1965d394232db22d156c09efa01645b80f92d5fa5083"
+  },
+  {
+    "path": "src/CvInspect/CvLoc.cs",
+    "sha256": "b46989516f891e772478e788160964eed3ba4f64d72520bf27f74296bf517f3e"
+  },
+  {
+    "path": "src/CvInspect/CvLog.cs",
+    "sha256": "f26ce7d8635ba4ea75ce04b23bf7e6c57af9419becae581266dde29479fd0d7f"
+  },
+  {
+    "path": "src/CvInspect/CvNameAttribute.cs",
+    "sha256": "adf8f49d8016ebadc2385460197b60fb28f553b846ea059bf7ded7ba22881798"
+  },
+  {
+    "path": "src/CvInspect/Display/CvCamCmd.cs",
+    "sha256": "9530409e718d357680aac09c48145ecbdfb65e1bae66d3d569bb199e0d6eedb0"
+  },
+  {
+    "path": "src/CvInspect/Display/CvDispLog.cs",
+    "sha256": "bc458c9443a8fb6be3a11f3e62f5f358be6a460944a249b79f4c2d18cfbed4ec"
+  },
+  {
+    "path": "src/CvInspect/Display/CvDispMenu.cs",
+    "sha256": "fb58738e8472940c85aac3be84a4565ebcca71407d393e41fe9578444bdf68e1"
+  },
+  {
+    "path": "src/CvInspect/Display/CvDispStatus.cs",
+    "sha256": "dfe9c1de2c3c38070c00ed2eb915dadecf4706efbfe4091f7929384843e04fbf"
+  },
+  {
+    "path": "src/CvInspect/Display/CvDispTheme.cs",
+    "sha256": "eb055abc7742967ed1ffa56d926b43fd924c0f6f7a117d93cd99a2e2ef00dffb"
+  },
+  {
+    "path": "src/CvInspect/Display/CvEditDrag.cs",
+    "sha256": "f7a7f976c6e84ba52e89f6640916979c2a3b3d6b8cc0663ca530080bcb43253e"
+  },
+  {
+    "path": "src/CvInspect/Display/CvEditGeom.cs",
+    "sha256": "afa32b100af45ac05ce4bb65a1d17efdfc1500d2485af76ec71423d4fec260d6"
+  },
+  {
+    "path": "src/CvInspect/Display/CvFrameBuf.cs",
+    "sha256": "6715d29de628de67c39478f8efd4549d37ba25d860ab1764398ee190c5675794"
+  },
+  {
+    "path": "src/CvInspect/Display/CvImgFileIO.cs",
+    "sha256": "3d0b1198229e697634310fafedee498edd84163eedaf1a0b82131a2b4721ef71"
+  },
+  {
+    "path": "src/CvInspect/Display/CvPixConv.cs",
+    "sha256": "e43e6dbf273e50b038a3329a2aaf976a3fe47fe1792bd701af5860865e71968f"
+  },
+  {
+    "path": "src/CvInspect/Display/CvPropEditSvc.cs",
+    "sha256": "adeb3b6a6c8d05965aaa26468b9f81fd0bcd3c11bb1bac86fb816fdfee7b5a14"
+  },
+  {
+    "path": "src/CvInspect/Display/CvShapeSub.cs",
+    "sha256": "575a75e4c68117a4b679ec34aaecac31d47e22766fac95ff35afb3f6b0ac0bcf"
+  },
+  {
+    "path": "src/CvInspect/Display/CvViewXform.cs",
+    "sha256": "52de4ba0c0192d304c91b529c7fa706b780ea9f107bed8d7cedb6bece9086fc4"
+  },
+  {
+    "path": "src/CvInspect/Display/ViDrawBldr.cs",
+    "sha256": "c182f7a14dd56e1e2fec7b385685ca0e27cb7ea1602fcf993dba76cb69ff2059"
+  },
+  {
+    "path": "src/CvInspect/Display/ViDrawGeom.cs",
+    "sha256": "b3318a74457a9035e8cebf1d5a451b7c7c31244953de1201ce522be55171ae78"
+  },
+  {
+    "path": "src/CvInspect/Display/ViDrawPrim.cs",
+    "sha256": "c8feaa37ce8f6e68f5cfa876366b6bcab6abe899b30519a601aa42420a4aadee"
+  },
+  {
+    "path": "src/CvInspect/ICvOrderedCategory.cs",
+    "sha256": "7fca9bb4698266670e1129ea1366c5dbd5ea841487bca54ce50014ad214dfbd1"
+  },
+  {
+    "path": "src/CvInspect/ICvPixelSource.cs",
+    "sha256": "1d18925888a6770c85fab15c1b866a2afd26dd8285e76e099521523802b80647"
+  },
+  {
+    "path": "src/CvInspect/IsExternalInit.cs",
+    "sha256": "2b8a3c637fc110c996f41243f2f0507de41142bcda8a472e91966783e17f26c3"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvBlobFinder.cs",
+    "sha256": "c7c74fe81101f7c2c1641cc5da98dea09417a21c387daefa77bc6231a745432d"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvCaliper.cs",
+    "sha256": "3dc4d271b2c671bdb01a5a39bbe43f23b2922defa55dd31e5ec276220d7ef9c9"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvCircleFinder.cs",
+    "sha256": "a4b939249474e4d4e94e0e90c5e466a06f892e566408caa75f6a04dbf5d23ef3"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvColorSegment.cs",
+    "sha256": "e3d00705ce78c3537d46ab1544059ffaea705f56ea965d7a16227f71d92a94d7"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvFit.cs",
+    "sha256": "cdb8282dfa19ecfadfc2536720a80bd772ccb4825068a01ea81acc9712ab92bb"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvHoughCircleFinder.cs",
+    "sha256": "fdff5f3f8aa853d950682b5422ba449ac6697f9fb35e99f224c44d8dcbd49d3e"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvImageOps.cs",
+    "sha256": "813d5dedf81b8845fa80a48e6cdac8c90b228226dcd5d0378c46941b769a36d7"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvInspGeom.cs",
+    "sha256": "b360c05ebf377ccd7e17aefdd855d392aa3cf9f2bedf93a24362084a4e4b9b60"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvLineFinder.cs",
+    "sha256": "64fa62be03d42289daa5cc511a46b38d16278703bfe5e8a124745a5989f09220"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvLineGeom.cs",
+    "sha256": "274ecfaf9e6d58c49c50b33ae220c48a4c19a230fb0540a123ee9ac1ad10c1a6"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvPatternFinder.cs",
+    "sha256": "389e1934c2927a435e07138d6f9d5f3c700fc4cca61202e58814141d7af21c69"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvPatternTeach.cs",
+    "sha256": "2b4ba2462b3c0c10967b0f5e5f4d91b0e55ff308a8f585720c81b0ad29b99c78"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvPose.cs",
+    "sha256": "b7dd173a99dba5db0293acd2f9d911c07edb114f509f1ab3de14aa80ad569372"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvRegionMask.cs",
+    "sha256": "f25dfa544a7cbd11b70c449109a061326cfc974f5c59edb168f21ed2d52f4042"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvRingFill.cs",
+    "sha256": "e32a019138b4b7f28df634627995378bfa193d14621ad013a130c1ed71f0f260"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvSpaceMap.cs",
+    "sha256": "baca7a8fc1d50a7116b91774fe1336562afc7b137afd438dd80d1e62d0e24bd5"
+  },
+  {
+    "path": "src/CvInspect/Vision/CvUnwrapGeom.cs",
+    "sha256": "978dd3f43ae90c5c87f8704c622d53e7e60c21f6fe022cc13eba99193f90884d"
+  },
+  {
+    "path": "src/CvInspect/Vision/Edit/CvEditShape.cs",
+    "sha256": "276f2ddf133be9574e3661c72b549ac141600c4e819749d0e7216fcb2b0ee762"
+  },
+  {
+    "path": "src/CvInspect/Vision/Edit/CvShapeBinder.cs",
+    "sha256": "f9bd0156728583d810d3168c0ed6af27d7316980893d2db85a4a816fd8316cce"
+  },
+  {
+    "path": "src/CvInspect/Vision/Edit/ICvShapeSource.cs",
+    "sha256": "11f2d7c0cedc02be5a1b62bd96abc88ccbccde03b39f0d22067a4b324216014f"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvBlobOpt.cs",
+    "sha256": "a1a4b97a856284a1cafb15d61ba4d36fc42ff7a5367a8c71e109ddc066937b7f"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvColorSegmentOpt.cs",
+    "sha256": "6f557360bc9e0da3e6b1a540d1622a489a04f3c8c1d2a1ed94b6243d643f1757"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvCropOpt.cs",
+    "sha256": "74508d7734a9e45dccf3f3f17015cbe4a2d6f19de554efcd68bcacda6ae72fb1"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvEdgeExtractOpt.cs",
+    "sha256": "937da5e16c0068ceee4903a180b0639eccac49ec83be5809728e527dfc992aab"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvEdgeFilterOpt.cs",
+    "sha256": "3e9eb271886d66edb58b72dabeb56575cfd9adfb438a80d08284b65d5cf7a792"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvEdgeTypes.cs",
+    "sha256": "339c834bd4e7edd1682edd2b56a77fd453a1240e8fc49cb15d14fe21805b6449"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvFindLineOpt.cs",
+    "sha256": "e38993c9a569a226a36d9a8bc30d55d1912b7e0b1cfa9a51237a6bfa9bc5b26d"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvHoughCircleOpt.cs",
+    "sha256": "2602d9d85229224c1a1cfab4cdbde08f3bf0cc3c5d87b2e6d43cefb9c378ac92"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvImageProcessOpt.cs",
+    "sha256": "0ef9c107dc770be8615731962f7f0c75f7c8d417748e33df531e4d2e12926aa9"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvPatternOpt.cs",
+    "sha256": "6af3e29cd8ff6c84edef93fa86668dc1e5e59bd75357770476d6565cd355ce4b"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvRegionOpt.cs",
+    "sha256": "6d508e5c7b7e9e647bae644f5f9d17f862ee9246fc824922124045f4b8c4b102"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvRingFillOpt.cs",
+    "sha256": "b4af0958f8e63e7767e4b0a79e442ffccce11e104e753ecded9d63e621a4af29"
+  },
+  {
+    "path": "src/CvInspect/Vision/Opts/CvUnwrapOpt.cs",
+    "sha256": "30f90312543cc6c0001e7ae35be356099e4ac3bfcb17322c0d1f2bda81f001f6"
+  },
+  {
+    "path": "src/CvInspect/Vision/Overlay/ViDraw.cs",
+    "sha256": "66d4bed5e803ebff6c7a6d5825c61a615668e218f7230345d004bcbd8224259a"
+  },
+  {
+    "path": "src/CvInspect/Vision/Overlay/ViHud.cs",
+    "sha256": "64ea5d901c30638a9e19371ae9aeae96613564857a305720bd7bc7c331752940"
+  },
+  {
+    "path": "src/CvInspect/Vision/Overlay/ViOverlay.cs",
+    "sha256": "8e86370eba22e4d20a0c4154835fb61d1dac6e6ca4363a26a7ae0fe748b40152"
+  }
+]

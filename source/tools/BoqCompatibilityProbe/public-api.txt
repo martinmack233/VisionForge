@@ -1,0 +1,184 @@
+ASSEMBLY BoqApi_CSharp, Version=1.0.9754.39194, Culture=neutral, PublicKeyToken=null
+RUNTIME v4.0.30319
+REFERENCE mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+REFERENCE System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+REFERENCE System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+REFERENCE System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+ATTRIBUTE [System.Reflection.AssemblyCopyrightAttribute("版权所有(c)  2025")]
+ATTRIBUTE [System.Reflection.AssemblyCompanyAttribute("")]
+ATTRIBUTE [System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.8", FrameworkDisplayName = ".NET Framework 4.8")]
+ATTRIBUTE [System.Runtime.InteropServices.ComVisibleAttribute((Boolean)False)]
+ATTRIBUTE [System.Reflection.AssemblyTrademarkAttribute("")]
+ATTRIBUTE [System.Security.SecurityRulesAttribute((System.Security.SecurityRuleSet)1)]
+ATTRIBUTE [System.Reflection.AssemblyProductAttribute("BoqApiCSharp")]
+ATTRIBUTE [System.Reflection.AssemblyTitleAttribute("BoqApiCSharp")]
+ATTRIBUTE [System.Reflection.AssemblyConfigurationAttribute("")]
+ATTRIBUTE [System.Reflection.AssemblyDescriptionAttribute("")]
+TYPE BoqApi_CSharp.ManagedDiscoverCam base=System.ValueType interfaces=
+ FIELD System.String Ip 
+ FIELD System.String HostIp 
+ FIELD System.Byte[] Mac 
+ FIELD System.String FactoryName 
+ FIELD System.String DeviceVersion 
+ FIELD System.String ModelName 
+ FIELD System.String Serial 
+ FIELD System.String UserName 
+ FIELD System.Int32 CmdSocket 
+ FIELD System.Int32 Speed 
+TYPE BoqApi_CSharp.ImageCallback base=System.MulticastDelegate interfaces=System.ICloneable,System.Runtime.Serialization.ISerializable
+ CTOR Void .ctor(System.Object, IntPtr)
+ METHOD Void Invoke(BoqApi_CSharp.ManagedCamera, Byte[], Int32, Int32, Int32, Int32, Byte[], Int32) static=False
+  PARAM camera BoqApi_CSharp.ManagedCamera out=False optional=False
+  PARAM imageData System.Byte[] out=False optional=False
+  PARAM width System.Int32 out=False optional=False
+  PARAM height System.Int32 out=False optional=False
+  PARAM imageSize System.Int32 out=False optional=False
+  PARAM pixelFormat System.Int32 out=False optional=False
+  PARAM chunkData System.Byte[] out=False optional=False
+  PARAM chunkSize System.Int32 out=False optional=False
+ METHOD System.IAsyncResult BeginInvoke(BoqApi_CSharp.ManagedCamera, Byte[], Int32, Int32, Int32, Int32, Byte[], Int32, System.AsyncCallback, System.Object) static=False
+  PARAM camera BoqApi_CSharp.ManagedCamera out=False optional=False
+  PARAM imageData System.Byte[] out=False optional=False
+  PARAM width System.Int32 out=False optional=False
+  PARAM height System.Int32 out=False optional=False
+  PARAM imageSize System.Int32 out=False optional=False
+  PARAM pixelFormat System.Int32 out=False optional=False
+  PARAM chunkData System.Byte[] out=False optional=False
+  PARAM chunkSize System.Int32 out=False optional=False
+  PARAM callback System.AsyncCallback out=False optional=False
+  PARAM obj System.Object out=False optional=False
+ METHOD Void EndInvoke(System.IAsyncResult) static=False
+  PARAM result System.IAsyncResult out=False optional=False
+TYPE BoqApi_CSharp.DisconnectCallback base=System.MulticastDelegate interfaces=System.ICloneable,System.Runtime.Serialization.ISerializable
+ CTOR Void .ctor(System.Object, IntPtr)
+ METHOD Void Invoke(BoqApi_CSharp.ManagedCamera) static=False
+  PARAM camera BoqApi_CSharp.ManagedCamera out=False optional=False
+ METHOD System.IAsyncResult BeginInvoke(BoqApi_CSharp.ManagedCamera, System.AsyncCallback, System.Object) static=False
+  PARAM camera BoqApi_CSharp.ManagedCamera out=False optional=False
+  PARAM callback System.AsyncCallback out=False optional=False
+  PARAM obj System.Object out=False optional=False
+ METHOD Void EndInvoke(System.IAsyncResult) static=False
+  PARAM result System.IAsyncResult out=False optional=False
+TYPE BoqApi_CSharp.ManagedCamera base=System.Object interfaces=System.IDisposable
+ CTOR Void .ctor(camera*)
+ FIELD BoqApi_CSharp.ImageCallback userCallback 
+ FIELD BoqApi_CSharp.DisconnectCallback discCallback 
+ PROPERTY Int32 Height
+ PROPERTY Int32 Width
+ PROPERTY System.String Ip
+ PROPERTY System.String Serial
+ METHOD System.String get_Serial() static=False
+ METHOD System.String get_Ip() static=False
+ METHOD Int32 get_Width() static=False
+ METHOD Int32 get_Height() static=False
+ METHOD Void MultiShotStart(BoqApi_CSharp.ImageCallback) static=False
+  PARAM callback BoqApi_CSharp.ImageCallback out=False optional=False
+ METHOD Int32 MultiShotStop() static=False
+ METHOD Void GrabeOne(BoqApi_CSharp.ImageCallback, UInt32) static=False
+  PARAM callback BoqApi_CSharp.ImageCallback out=False optional=False
+  PARAM timeout_ms System.UInt32 out=False optional=False
+ METHOD Void GrabeOne(BoqApi_CSharp.ImageCallback) static=False
+  PARAM callback BoqApi_CSharp.ImageCallback out=False optional=False
+ METHOD Void SetDisconnectCallback(BoqApi_CSharp.DisconnectCallback) static=False
+  PARAM callback BoqApi_CSharp.DisconnectCallback out=False optional=False
+ METHOD Int32 WriteCamReg(System.String, Single) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM valF System.Single out=False optional=False
+ METHOD Int32 WriteCamReg(UInt32, UInt32) static=False
+  PARAM regAddr System.UInt32 out=False optional=False
+  PARAM val System.UInt32 out=False optional=False
+ METHOD Int32 WriteCamReg(System.String, System.String) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM indexName System.String out=False optional=False
+ METHOD Int32 WriteCamReg(System.String, UInt32) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.UInt32 out=False optional=False
+ METHOD Int32 WriteCamMem(System.String, Byte[], UInt32) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM buf System.Byte[] out=False optional=False
+  PARAM size System.UInt32 out=False optional=False
+ METHOD Int32 ReadCamReg(System.String, System.String ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.String& out=True optional=False
+ METHOD Int32 ReadCamReg(System.String, Single ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM valF System.Single& out=False optional=False
+ METHOD Int32 ReadCamReg(UInt32, UInt32 ByRef) static=False
+  PARAM regAddr System.UInt32 out=False optional=False
+  PARAM val System.UInt32& out=False optional=False
+ METHOD Int32 ReadCamReg(System.String, Int64 ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.Int64& out=False optional=False
+ METHOD Int32 ReadCamReg(System.String, UInt32 ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.UInt32& out=False optional=False
+ METHOD Int32 ReadCamRegMax(System.String, UInt32 ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.UInt32& out=False optional=False
+ METHOD Int32 ReadCamRegMin(System.String, UInt32 ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.UInt32& out=False optional=False
+ METHOD Int32 ReadCamRegInc(System.String, UInt32 ByRef) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM val System.UInt32& out=False optional=False
+ METHOD Int32 ReadCamMem(System.String, Byte[], UInt32) static=False
+  PARAM regName System.String out=False optional=False
+  PARAM buf System.Byte[] out=False optional=False
+  PARAM size System.UInt32 out=False optional=False
+ METHOD Int32 SetCamWidthHeightAndOffset(UInt32, UInt32, UInt32, UInt32) static=False
+  PARAM width System.UInt32 out=False optional=False
+  PARAM height System.UInt32 out=False optional=False
+  PARAM offset_x System.UInt32 out=False optional=False
+  PARAM offset_y System.UInt32 out=False optional=False
+ METHOD Int32 SetCamWidth(UInt32) static=False
+  PARAM width System.UInt32 out=False optional=False
+ METHOD Int32 SetCamHeight(UInt32) static=False
+  PARAM height System.UInt32 out=False optional=False
+ METHOD Int32 SetCamPixFormat(System.String) static=False
+  PARAM pixformat System.String out=False optional=False
+ METHOD Int32 SetCamPixFormat(UInt32) static=False
+  PARAM pixformat System.UInt32 out=False optional=False
+ METHOD Int32 SetCamExposureTime(UInt32) static=False
+  PARAM rawtime System.UInt32 out=False optional=False
+ METHOD Int32 SetCamExposureAuto(Int32) static=False
+  PARAM mode System.Int32 out=False optional=False
+ METHOD Int32 SetCamGainAuto(Int32) static=False
+  PARAM mode System.Int32 out=False optional=False
+ METHOD Int32 SetCamGainRaw(UInt32) static=False
+  PARAM rawgain System.UInt32 out=False optional=False
+ METHOD Int32 SetCamTriggerMode(Int32) static=False
+  PARAM onoff System.Int32 out=False optional=False
+ METHOD Int32 SetCamTriggerSource(Int32) static=False
+  PARAM source System.Int32 out=False optional=False
+ METHOD Int32 SoftwareTrigger() static=False
+ METHOD Int32 SetCamBlackLevelRaw(Int32) static=False
+  PARAM raw System.Int32 out=False optional=False
+ METHOD Void help() static=False
+ METHOD Int32 FwUpdate(System.String) static=False
+  PARAM filename System.String out=False optional=False
+ METHOD Int32 GetFwUpdateProgress() static=False
+ METHOD Int32 ImgFormatConvertToRGB(IntPtr, UInt32, UInt32, UInt32, UInt32, Byte[] ByRef) static=False
+  PARAM buf System.IntPtr out=False optional=False
+  PARAM w System.UInt32 out=False optional=False
+  PARAM h System.UInt32 out=False optional=False
+  PARAM size System.UInt32 out=False optional=False
+  PARAM pix_format System.UInt32 out=False optional=False
+  PARAM outbuf System.Byte[]& out=True optional=False
+ METHOD Int32 ImgFormatConvertToBGR(IntPtr, UInt32, UInt32, UInt32, UInt32, Byte[] ByRef) static=False
+  PARAM buf System.IntPtr out=False optional=False
+  PARAM w System.UInt32 out=False optional=False
+  PARAM h System.UInt32 out=False optional=False
+  PARAM size System.UInt32 out=False optional=False
+  PARAM pix_format System.UInt32 out=False optional=False
+  PARAM outbuf System.Byte[]& out=True optional=False
+ METHOD Void Dispose() static=False
+TYPE BoqApi_CSharp.BoqApi base=System.Object interfaces=
+ CTOR Void .ctor()
+ METHOD Int32 Init() static=True
+ METHOD Int32 Deinit() static=True
+ METHOD BoqApi_CSharp.ManagedDiscoverCam[] DiscoverCamera(Int32 ByRef) static=True
+  PARAM count System.Int32& out=True optional=False
+ METHOD BoqApi_CSharp.ManagedCamera ConnectCameraBySerial(System.String) static=True
+  PARAM serial System.String out=False optional=False
+ METHOD Int32 DisconnectCamera(BoqApi_CSharp.ManagedCamera) static=True
+  PARAM A_0 BoqApi_CSharp.ManagedCamera out=False optional=False

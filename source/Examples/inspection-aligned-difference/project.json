@@ -1,0 +1,244 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "f7093e2b-3039-4de2-81a6-c37801d9b449",
+  "ProjectName": "\u5DF2\u5BF9\u9F50\u56FE\u50CF \u00B7 \u5DEE\u5206\u7F3A\u9677\u68C0\u6D4B",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "reference",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "reference.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "difference",
+      "NodeTypeId": "ImageArithmetic",
+      "Name": "ImageArithmetic",
+      "Parameters": {
+        "Operation": "AbsoluteDifference",
+        "AllowDifferentFrames": true,
+        "Alpha": 1,
+        "Beta": 1,
+        "Gamma": 0
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 25,
+        "MaxValue": 255,
+        "ThresholdType": "Binary"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "contours",
+      "NodeTypeId": "FindContours",
+      "Name": "FindContours",
+      "Parameters": {
+        "Retrieval": "External",
+        "Chain": "Simple",
+        "MaximumContours": 1000,
+        "MaximumPoints": 200000,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "shape",
+      "NodeTypeId": "ContourAnalysis",
+      "Name": "ContourAnalysis",
+      "Parameters": {
+        "ApproximationEpsilon": 2,
+        "FitEllipse": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "CollectionFilter",
+      "Parameters": {
+        "Field": "Area",
+        "Comparison": "GreaterOrEqual",
+        "Number": 100,
+        "Text": "",
+        "Boolean": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "count",
+      "NodeTypeId": "CollectionCount",
+      "Name": "CollectionCount",
+      "Parameters": {},
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "judge",
+      "NodeTypeId": "Compare",
+      "Name": "Compare",
+      "Parameters": {
+        "ValueB": 0,
+        "Operator": "Equal"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "result",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "statistics",
+      "NodeTypeId": "RegionStatistics",
+      "Name": "RegionStatistics",
+      "Parameters": {},
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Area,Perimeter,Rectangularity",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 4,
+        "MaximumOverlays": 50
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "difference",
+      "TargetPort": "ImageA"
+    },
+    {
+      "SourceNodeId": "reference",
+      "SourcePort": "Image",
+      "TargetNodeId": "difference",
+      "TargetPort": "ImageB"
+    },
+    {
+      "SourceNodeId": "difference",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "difference",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "statistics",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "contours",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "shape",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "shape",
+      "SourcePort": "Collection",
+      "TargetNodeId": "filter",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "Collection",
+      "TargetNodeId": "count",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "count",
+      "SourcePort": "Count",
+      "TargetNodeId": "judge",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "judge",
+      "SourcePort": "Result",
+      "TargetNodeId": "result",
+      "TargetPort": "IsOk"
+    },
+    {
+      "SourceNodeId": "count",
+      "SourcePort": "Count",
+      "TargetNodeId": "result",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

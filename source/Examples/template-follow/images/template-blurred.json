@@ -1,0 +1,13 @@
+{
+  "SchemaVersion": 1,
+  "ModelId": "synthetic-locator-gaussian",
+  "AlgorithmId": "cvinspect.pattern",
+  "AlgorithmVersion": "0.34.0\u002B0eddfbaa",
+  "ImagePath": "template-blurred.templates/013e2ee61bf1d256ddbcdd46f49d38e9ef11c3eac42da9b8af04f4f9902dfed0.png",
+  "Sha256": "013e2ee61bf1d256ddbcdd46f49d38e9ef11c3eac42da9b8af04f4f9902dfed0",
+  "Width": 72,
+  "Height": 64,
+  "PixelFormat": 0,
+  "ReferenceX": 35.5,
+  "ReferenceY": 31.5
+}

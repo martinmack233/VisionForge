@@ -1,0 +1,50 @@
+{
+  "SchemaVersion": 1,
+  "Id": "operators-matrix-warp",
+  "Name": "\u77E9\u9635\u4E0E\u4EFF\u5C04/\u900F\u89C6\u6620\u5C04",
+  "Category": "\u672C\u8F6E\u7B97\u5B50\u6269\u5145",
+  "Description": "\u590D\u5236\u540E\u8FD0\u884C\u3002\u4EFF\u5C04\u548C\u900F\u89C6\u5404\u751F\u6210\u72EC\u7ACB\u56FE\u50CF\uFF1Bmapped_roi\u628A\u539FROI\u6620\u5C04\u4E3A\u771F\u5B9E\u56DB\u8FB9\u5F62\uFF0C\u6765\u6E90\u952E\u4FDD\u7559\uFF0C\u4E0D\u80FD\u5F53\u4F5C\u65CB\u8F6C\u77E9\u5F62\u3002mapped_point\u7ED9\u51FA(80,80)\u7684\u6B63\u5411\u6620\u5C04\uFF0CInverseTransform\u53EF\u8FD8\u539F\u3002estimate\u4F7F\u7528\u660E\u786E\u914D\u5BF9\u70B9\uFF0C\u4E0D\u81EA\u52A8\u6CE8\u518C\u6216\u6807\u5B9A\u3002matrix/inverse/element\u5C55\u793A\u771F\u5B9E\u6570\u5B66\u77E9\u9635\uFF1Bprecision_matrix\u7528\u4E8E\u9AD8\u7CBE\u5EA6\u8868\u683C\u7F16\u8F91\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u81EA\u5236\u8D44\u6E90",
+    "\u79BB\u7EBF",
+    "\u56FE\u50CF\u4E0E\u77E9\u9635"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u590D\u5236\u540E\u8FD0\u884C\u3002\u4EFF\u5C04\u548C\u900F\u89C6\u5404\u751F\u6210\u72EC\u7ACB\u56FE\u50CF\uFF1Bmapped_roi\u628A\u539FROI\u6620\u5C04\u4E3A\u771F\u5B9E\u56DB\u8FB9\u5F62\uFF0C\u6765\u6E90\u952E\u4FDD\u7559\uFF0C\u4E0D\u80FD\u5F53\u4F5C\u65CB\u8F6C\u77E9\u5F62\u3002mapped_point\u7ED9\u51FA(80,80)\u7684\u6B63\u5411\u6620\u5C04\uFF0CInverseTransform\u53EF\u8FD8\u539F\u3002estimate\u4F7F\u7528\u660E\u786E\u914D\u5BF9\u70B9\uFF0C\u4E0D\u81EA\u52A8\u6CE8\u518C\u6216\u6807\u5B9A\u3002matrix/inverse/element\u5C55\u793A\u771F\u5B9E\u6570\u5B66\u77E9\u9635\uFF1Bprecision_matrix\u7528\u4E8E\u9AD8\u7CBE\u5EA6\u8868\u683C\u7F16\u8F91\u3002",
+  "Verification": "element.Value=-0.7\uFF1Bestimate.Residual=0\uFF1Bmapped_point.MappedPoint=83.8235294117647",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "element",
+      "Port": "Value",
+      "Expected": -0.7,
+      "Tolerance": 1E-12,
+      "Property": ""
+    },
+    {
+      "NodeId": "estimate",
+      "Port": "Residual",
+      "Expected": 0,
+      "Tolerance": 1E-08,
+      "Property": ""
+    },
+    {
+      "NodeId": "mapped_point",
+      "Port": "MappedPoint",
+      "Expected": 83.8235294117647,
+      "Tolerance": 1E-09,
+      "Property": "X"
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "input.png": "195E2AFBB3FDCA59F0D73715A3A55BE8BD41CC5C7FB85DA28CEC6AB48FC75173",
+    "preview.png": "195E2AFBB3FDCA59F0D73715A3A55BE8BD41CC5C7FB85DA28CEC6AB48FC75173",
+    "project.json": "6D8B869AB2ADA85A08568446499ACD4DC19552AC5DE37DB4FD761E96C328F4A7",
+    "README.md": "79D93F945360C9314D9F43D38B959D276303C70207B697B77E70CEBD53BC119A"
+  }
+}

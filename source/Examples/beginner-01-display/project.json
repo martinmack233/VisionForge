@@ -1,0 +1,115 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "371b4a8e-d16b-48de-af02-0475b9cc38b4",
+  "ProjectName": "01 \u770B\u61C2\u56FE\u50CF\u3001\u6570\u5B57\u4E0E\u5E03\u5C14\u663E\u793A",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "\u2460 \u8BFB\u53D6\u81EA\u5236\u56FE\u7247",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "blobs",
+      "NodeTypeId": "BlobDetection",
+      "Name": "\u2461 \u6570\u4E00\u6570\u4EAE\u8272\u76EE\u6807",
+      "Parameters": {
+        "Threshold": 180,
+        "MinArea": 3,
+        "MaxArea": 2147483647,
+        "DarkForeground": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "image",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2462 \u770B\u56FE\u50CF\u548C\u76EE\u6807\u6846",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "count",
+      "NodeTypeId": "TextDisplay",
+      "Name": "\u2463 \u770B\u6570\u5B57\u8F6C\u6587\u5B57",
+      "Parameters": {
+        "Prefix": "\u76EE\u6807\u6570\u91CF\uFF1A"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "compare",
+      "NodeTypeId": "Compare",
+      "Name": "\u2464 \u6570\u91CF\u662F\u5426\u7B49\u4E8E3",
+      "Parameters": {
+        "Operator": "Equal",
+        "ValueB": 3,
+        "Tolerance": 1E-06
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "boolean",
+      "NodeTypeId": "TextDisplay",
+      "Name": "\u2465 \u770B\u5E03\u5C14\u7ED3\u679C",
+      "Parameters": {
+        "Prefix": "\u6570\u91CF\u7B49\u4E8E3\uFF1A"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blobs",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "image",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blobs",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "image",
+      "TargetPort": "Blobs"
+    },
+    {
+      "SourceNodeId": "blobs",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "count",
+      "TargetPort": "Integer"
+    },
+    {
+      "SourceNodeId": "blobs",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "compare",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "compare",
+      "SourcePort": "Result",
+      "TargetNodeId": "boolean",
+      "TargetPort": "Boolean"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

@@ -1,0 +1,22 @@
+Runtime=8.0.18; x64=True
+Loaded=BoqApi_CSharp, Version=1.0.9754.39194, Culture=neutral, PublicKeyToken=null
+PublicApi=BoqApi_CSharp.BoqApi
+Init=0
+DiscoverCount=4; ArrayLength=4
+FactoryName=Basler
+ModelName=BOQ-AG040S-GM
+Serial=AB60600021
+UserName=
+FactoryName=BOQVIEW
+ModelName=FakeGigeCamera
+Serial=fakeSide
+UserName=fakeSide
+FactoryName=BOQVIEW
+ModelName=FakeGigeCamera
+Serial=fakeDown
+UserName=fakeDown
+FactoryName=BOQVIEW
+ModelName=FakeGigeCamera
+Serial=fakeUp
+UserName=fakeUp
+Deinit=0

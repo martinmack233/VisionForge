@@ -1,0 +1,15 @@
+<Project>
+  <!-- Phase 1 uses image codecs only. Do not redistribute the optional LGPL video plugin. -->
+  <Target Name="ExcludeOptionalFfmpeg" AfterTargets="ResolvePackageAssets">
+    <ItemGroup>
+      <RuntimeCopyLocalItems Remove="@(RuntimeCopyLocalItems)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('opencv_videoio_ffmpeg'))" />
+      <RuntimeTargetsCopyLocalItems Remove="@(RuntimeTargetsCopyLocalItems)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('opencv_videoio_ffmpeg'))" />
+      <NativeCopyLocalItems Remove="@(NativeCopyLocalItems)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('opencv_videoio_ffmpeg'))" />
+    </ItemGroup>
+  </Target>
+  <Target Name="ExcludeOptionalFfmpegFromPublish" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('opencv_videoio_ffmpeg'))" />
+    </ItemGroup>
+  </Target>
+</Project>

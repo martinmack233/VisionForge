@@ -1,0 +1,52 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "4ff40ad5-424e-4864-975f-f741222a9412",
+  "ProjectName": "新建工程",
+  "Nodes": [
+    {
+      "NodeId": "image",
+      "NodeTypeId": "ImageInput",
+      "Name": "图像输入",
+      "Parameters": {
+        "Path": "../../samples/DemoInspection/sample.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "gaussianblur-32a2067b",
+      "NodeTypeId": "GaussianBlur",
+      "Name": "高斯滤波",
+      "Parameters": {
+        "Options": {
+          "KernelSize": 7,
+          "SigmaX": 1.2,
+          "SigmaY": 0,
+          "BorderType": "Reflect101"
+        },
+        "ROI": null
+      },
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "image",
+      "SourcePort": "Image",
+      "TargetNodeId": "gaussianblur-32a2067b",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [
+    {
+      "CenterX": 237.4579146563256,
+      "CenterY": 181.29718307423155,
+      "Width": 131.56793820854736,
+      "Height": 132.88989835343435,
+      "AngleDegrees": 44.161585025597866,
+      "CoordinateSpaceId": "image"
+    }
+  ],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

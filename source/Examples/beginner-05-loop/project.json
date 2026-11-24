@@ -1,0 +1,303 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "ea148e47-cd9f-40fd-9495-39a8471438c9",
+  "ProjectName": "05 \u9010\u9879\u5FAA\u73AF\uFF1A\u4E09\u4E2AROI\u5206\u522B\u68C0\u6D4B",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "\u2460 \u8BFB\u53D6\u81EA\u5236\u56FE\u7247",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "regions",
+      "NodeTypeId": "RoiCollection",
+      "Name": "\u2461 \u4E09\u4E2A\u5F85\u5904\u7406\u533A\u57DF",
+      "Parameters": {
+        "MaximumItems": 1000,
+        "Regions": [
+          {
+            "CenterX": 65,
+            "CenterY": 95,
+            "Width": 110,
+            "Height": 130,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          },
+          {
+            "CenterX": 195,
+            "CenterY": 95,
+            "Width": 110,
+            "Height": 130,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          },
+          {
+            "CenterX": 325,
+            "CenterY": 95,
+            "Width": 110,
+            "Height": 130,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          }
+        ]
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "each",
+      "NodeTypeId": "ForEach",
+      "Name": "\u2462 \u9010\u9879\u5FAA\u73AF\uFF1A\u6BCF\u4E2AROI\u68C0\u6D4B\u4E00\u6B21",
+      "Parameters": {
+        "Body": {
+          "Version": 1,
+          "InputNodeId": "current",
+          "OutputNodeId": "collect",
+          "Nodes": [
+            {
+              "NodeId": "current",
+              "NodeTypeId": "IterationInput",
+              "Name": "\u2460 \u5F53\u524DROI / \u7D22\u5F15 / \u5171\u4EAB\u539F\u56FE",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "roi",
+              "NodeTypeId": "ItemToRoi",
+              "Name": "\u2461 \u5F53\u524D\u9879\u8F6CROI",
+              "Parameters": {
+                "AxisAlignedEnvelope": false
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "blobs",
+              "NodeTypeId": "BlobDetection",
+              "Name": "\u2462 \u53EA\u68C0\u6D4B\u5F53\u524DROI",
+              "Parameters": {
+                "Threshold": 180,
+                "MinArea": 3,
+                "MaxArea": 2147483647,
+                "DarkForeground": false
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "judge",
+              "NodeTypeId": "Compare",
+              "Name": "\u2463 \u76EE\u6807\u6570\u22652\u4E3AOK",
+              "Parameters": {
+                "Operator": "GreaterOrEqual",
+                "ValueB": 2,
+                "Tolerance": 1E-06
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "index",
+              "NodeTypeId": "TextDisplay",
+              "Name": "\u2464 \u672C\u9879\u7D22\u5F15\u8F6C\u6587\u5B57",
+              "Parameters": {
+                "Prefix": "\u533A\u57DF\u7D22\u5F15="
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "collect",
+              "NodeTypeId": "IterationOutput",
+              "Name": "\u2465 \u6536\u96C6\u672C\u9879\u6587\u5B57/\u6570\u91CF/\u5224\u5B9A/ROI",
+              "Parameters": {
+                "EmptyTextIsUnrecognized": true
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            }
+          ],
+          "Connections": [
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Item",
+              "TargetNodeId": "roi",
+              "TargetPort": "Item"
+            },
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Image",
+              "TargetNodeId": "blobs",
+              "TargetPort": "Image"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "ROI",
+              "TargetNodeId": "blobs",
+              "TargetPort": "ROI"
+            },
+            {
+              "SourceNodeId": "blobs",
+              "SourcePort": "BlobCount",
+              "TargetNodeId": "judge",
+              "TargetPort": "ValueA"
+            },
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Index",
+              "TargetNodeId": "index",
+              "TargetPort": "Integer"
+            },
+            {
+              "SourceNodeId": "index",
+              "SourcePort": "Text",
+              "TargetNodeId": "collect",
+              "TargetPort": "Text"
+            },
+            {
+              "SourceNodeId": "blobs",
+              "SourcePort": "BlobCount",
+              "TargetNodeId": "collect",
+              "TargetPort": "Number"
+            },
+            {
+              "SourceNodeId": "judge",
+              "SourcePort": "Result",
+              "TargetNodeId": "collect",
+              "TargetPort": "IsOk"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "ROI",
+              "TargetNodeId": "collect",
+              "TargetPort": "ROI"
+            }
+          ],
+          "NodeLocations": {
+            "current": {
+              "X": 0,
+              "Y": 0
+            },
+            "roi": {
+              "X": 380,
+              "Y": 0
+            },
+            "blobs": {
+              "X": 760,
+              "Y": 0
+            },
+            "judge": {
+              "X": 0,
+              "Y": 230
+            },
+            "index": {
+              "X": 380,
+              "Y": 230
+            },
+            "collect": {
+              "X": 760,
+              "Y": 230
+            }
+          }
+        },
+        "FailurePolicy": "Stop",
+        "MaximumItems": 10,
+        "WorkingImageMegabytes": 16,
+        "DebugIterations": 3,
+        "DebugImageMegabytes": 4
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "\u2463 \u67E5\u770B3\u6B21\u5FAA\u73AF\u7684\u5B8C\u6574\u7ED3\u679C",
+      "Parameters": {
+        "Fields": "Index,Text,Number,State",
+        "DecimalPlaces": 0,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 100
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "complete",
+      "NodeTypeId": "TextDisplay",
+      "Name": "\u2464 \u662F\u5426\u5B8C\u6210\u6574\u4E2A\u96C6\u5408",
+      "Parameters": {
+        "Prefix": "\u5FAA\u73AF\u5168\u90E8\u5B8C\u6210\uFF1A"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "regions",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "regions",
+      "SourcePort": "Collection",
+      "TargetNodeId": "each",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "each",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "each",
+      "SourcePort": "Results",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "each",
+      "SourcePort": "Complete",
+      "TargetNodeId": "complete",
+      "TargetPort": "Boolean"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

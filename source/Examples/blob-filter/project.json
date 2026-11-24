@@ -1,0 +1,122 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "39ae0ef2-7731-4aa9-974e-c288d48713eb",
+  "ProjectName": "Blob \u7F3A\u9677\u7B5B\u9009",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 128
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "morph",
+      "NodeTypeId": "Morphology",
+      "Name": "Morphology",
+      "Parameters": {
+        "Operation": "Open",
+        "KernelWidth": 3,
+        "KernelHeight": 3
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "MinArea": 1
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "BlobFilter",
+      "Name": "BlobFilter",
+      "Parameters": {
+        "Area": {
+          "Enabled": true,
+          "Minimum": 80,
+          "Maximum": 1000
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "morph",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "morph",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "filter",
+      "TargetPort": "BlobResults"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

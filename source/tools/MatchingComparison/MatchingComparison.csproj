@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../third_party/CvInspect/CvInspect.csproj" />
+    <PackageReference Include="OpenCvSharp4.runtime.win.slim" Version="4.13.0.20260627" />
+  </ItemGroup>
+</Project>

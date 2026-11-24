@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/VisionPlatform.AI/VisionPlatform.AI.csproj" />
+    <ProjectReference Include="../../src/VisionPlatform.Hosting/VisionPlatform.Hosting.csproj" />
+    <ProjectReference Include="../../src/VisionPlatform.Console/VisionPlatform.Console.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

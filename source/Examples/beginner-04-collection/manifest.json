@@ -1,0 +1,68 @@
+{
+  "SchemaVersion": 1,
+  "Id": "beginner-04-collection",
+  "Name": "04 集合：筛选、排序和选择一项",
+  "Category": "新手入门",
+  "Description": "检测4项 → 筛选3项；索引1选中第二个矩形，裁切图30×20。",
+  "Difficulty": "入门 · 约5分钟",
+  "Tags": [
+    "新手",
+    "离线",
+    "显示 Display"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "1. 一键运行；原图有3个矩形和1个小点。\n2. 查看筛选参数Area≥100，再看排序参数X升序，小点被滤掉。\n3. 选“⑫ 看全部筛选结果”，打开“集合/逐项”面板，点击列表行以高亮并查看局部。\n4. 索引1是第二项，裁切预览应为30×20。选择单项不会改变原集合。\n5. 在集合显示参数中勾选字段、改变颜色/字号，再应用并重新运行。",
+  "Flow": "Blob → 集合 → 筛选 → 排序 → 选择第2项 → ROI → 裁切\n筛选集合 → 列表显示 / 数量显示",
+  "LearningGoals": "理解集合与单项的区别；筛选保留来源，索引从0开始。",
+  "TryIt": "把索引1改成0/2查看第1/3项；改成3会明确越界。把面积下限改为2000会得到空集合，选择节点报错而非沿用旧项。",
+  "ExpectedSummary": "检测4项 → 筛选3项；索引1选中第二个矩形，裁切图30×20。",
+  "Verification": "一键运行会核对本次真实输出。下面技术预期用于复核；修改参数后应以新参数结果为准，不要求原示例固定预期仍通过。",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "blobs",
+      "Port": "BlobCount",
+      "Expected": 4,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "count",
+      "Port": "Count",
+      "Expected": 3,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "text",
+      "Port": "Text",
+      "Expected": "筛选后目标数：3",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "crop",
+      "Port": "CroppedImage",
+      "Expected": 30,
+      "Tolerance": 0,
+      "Property": "Width"
+    },
+    {
+      "NodeId": "crop",
+      "Port": "CroppedImage",
+      "Expected": 20,
+      "Tolerance": 0,
+      "Property": "Height"
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "input.png": "CAB39A57A19BCFB1D7E6537799D8D4CCFEC9365C821D68C2078402504935E2B0",
+    "preview.png": "E188FB0C25822F1ACE1AC99834EA516670099FEFD127C006B0B39D002FF532A9",
+    "project.json": "D9F259223E490730346BADF7FC06E8D04FD1EF47915C65F01246F9D58171D55E",
+    "README.md": "541A0F21C6F29CB96EF11B0653D89D0D3908EA2A11D1DEA52147B6617905B6ED"
+  }
+}

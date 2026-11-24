@@ -1,0 +1,40 @@
+{
+  "component": "visionstudio.yolo-detection",
+  "component_version": "1.0.0",
+  "protocol_version": 1,
+  "python_minor": "3.11",
+  "dependencies": {
+    "numpy": "2.4.6",
+    "Pillow": "12.3.0",
+    "tifffile": "2026.3.3",
+    "onnxruntime": "1.31.1",
+    "torch": "2.7.1+cu128",
+    "torchvision": "0.22.1+cu128",
+    "ultralytics": "8.4.190"
+  },
+  "supported_backends": [
+    "onnx-cpu"
+  ],
+  "project_schema": [
+    1,
+    2,
+    3
+  ],
+  "model_deployment_schema": 1,
+  "redistribution": "unconfirmed-local-install-only",
+  "includes_environment": false,
+  "includes_models": false,
+  "includes_training": false,
+  "source_files": {
+    "core/inference/backend.py": "d34a8082de7dd97b4cdb188efb297b358220800ec91332ea204befb9f6aee411",
+    "core/inference/config.py": "a09e55962859948008f97c0b5caa947f2a4b9dc07cadc731ca071d9d66c4f815",
+    "core/inference/geometry.py": "e60ba678260058db045009526366154ae983fe886219f126c8a4fd0488103a35",
+    "core/inference/service.py": "b27217927afb685e5ae3a73cc91e4adb567e8834277848f67f350da9cac6ea13",
+    "core/preprocessing.py": "6db556dac8f74f64fb80d5aa1f1e11d5969bab3631029e092edb7068c56373c6",
+    "core/imaging.py": "c1a2b967e0f16a44cbff3c3297dedbec14c1a273baaf03c09e202dccb8921758",
+    "core/annotations.py": "f54abb6c75bbf33aa1807733bd97f552d34a048d2bbde2a3bf18e9a36e2c7a57",
+    "core/training/config.py": "5e91276df5cda1b0c806655e5b392ace4aacd8924e12267b5b11b7d3b62a7e56",
+    "core/training/dataset.py": "0b11616e113a3c9966b7caec30ca52cb88b38d9965f37dfccb63ab75e49d73fd",
+    "core/training/processes.py": "662eb6ef59a70e8f9bbe8d513a501e175232425f50bf009584313907b8257653"
+  }
+}

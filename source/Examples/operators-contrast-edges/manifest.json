@@ -1,0 +1,36 @@
+{
+  "SchemaVersion": 1,
+  "Id": "operators-contrast-edges",
+  "Name": "\u4F4E\u5BF9\u6BD4\u589E\u5F3A\u4E0E\u771F\u5B9E\u68AF\u5EA6",
+  "Category": "\u672C\u8F6E\u7B97\u5B50\u6269\u5145",
+  "Description": "\u5148\u590D\u5236\u5230\u53EF\u5199\u76EE\u5F55\u5E76\u8FD0\u884C\u3002\u539F\u56FE\u7070\u5EA6110/120/130\uFF0C\u7ECF\u7EBF\u6027\u03B1=2\u3001\u03B2=-220\u548C0..40\u62C9\u4F38\u5F97\u52300/128/255\uFF0C\u518DCanny\u53CA\u5168\u90E8\u8F6E\u5ED3\u3002\u9884\u671F2\u4E2A\u76EE\u6807\u3002\u70B9\u51FBraw_display.Image\u4E0Estretch.ProcessedImage\u4F5C\u540C\u56FE\u5BF9\u7167\uFF1Bgradient_x.Derivative\u662F\u771F\u5B9EFloat32\uFF0CPreview\u4EC58\u4F4D\u7EDD\u5BF9\u503C\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u81EA\u5236\u8D44\u6E90",
+    "\u79BB\u7EBF",
+    "\u56FE\u50CF\u4E0E\u77E9\u9635"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u5148\u590D\u5236\u5230\u53EF\u5199\u76EE\u5F55\u5E76\u8FD0\u884C\u3002\u539F\u56FE\u7070\u5EA6110/120/130\uFF0C\u7ECF\u7EBF\u6027\u03B1=2\u3001\u03B2=-220\u548C0..40\u62C9\u4F38\u5F97\u52300/128/255\uFF0C\u518DCanny\u53CA\u5168\u90E8\u8F6E\u5ED3\u3002\u9884\u671F2\u4E2A\u76EE\u6807\u3002\u70B9\u51FBraw_display.Image\u4E0Estretch.ProcessedImage\u4F5C\u540C\u56FE\u5BF9\u7167\uFF1Bgradient_x.Derivative\u662F\u771F\u5B9EFloat32\uFF0CPreview\u4EC58\u4F4D\u7EDD\u5BF9\u503C\u3002",
+  "Verification": "count.Count=2",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "count",
+      "Port": "Count",
+      "Expected": 2,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "input.png": "2FDFF2795C5610053687AB176332C7D066DD756BD4F3915CA049E8FADA74A775",
+    "preview.png": "2FDFF2795C5610053687AB176332C7D066DD756BD4F3915CA049E8FADA74A775",
+    "project.json": "1A47EF50FBCA2E93DE02BADD88DFE6C058D7242668B541F4B41506BA6D820A0A",
+    "README.md": "EB9A246DADEE93796577BD450E86465037CD8B7DDD6940F5D9EE1279A04A3251"
+  }
+}

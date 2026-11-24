@@ -1,0 +1,69 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "d407254a-f2bd-4ec2-85c0-b7716ebd96d9",
+  "ProjectName": "\u5361\u5C3A\u4E9A\u50CF\u7D20\u8FB9\u7F18\u6D4B\u91CF",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "caliper",
+      "NodeTypeId": "Caliper",
+      "Name": "Caliper",
+      "Parameters": {
+        "CenterX": 120.25,
+        "CenterY": 80,
+        "SearchDirectionDegrees": 0,
+        "SearchLength": 40,
+        "ProjectionWidth": 5,
+        "Span": 100,
+        "CaliperCount": 16,
+        "Polarity": "DarkToLight"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "fit",
+      "NodeTypeId": "LineFit",
+      "Name": "LineFit",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "caliper",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "caliper",
+      "SourcePort": "Points",
+      "TargetNodeId": "fit",
+      "TargetPort": "Points"
+    },
+    {
+      "SourceNodeId": "caliper",
+      "SourcePort": "Result",
+      "TargetNodeId": "report",
+      "TargetPort": "Measurement"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

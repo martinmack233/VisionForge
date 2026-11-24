@@ -1,0 +1,26 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "13622bbf-4b4c-4e2e-b0b9-d41c5241e7d7",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "X": 0,
+      "Y": 0
+    },
+    {
+      "NodeId": "median",
+      "X": 330,
+      "Y": 0
+    },
+    {
+      "NodeId": "threshold",
+      "X": 660,
+      "Y": 0
+    },
+    {
+      "NodeId": "text",
+      "X": 990,
+      "Y": 0
+    }
+  ]
+}

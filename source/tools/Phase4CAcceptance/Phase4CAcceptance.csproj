@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/VisionPlatform.Editor.Wpf/VisionPlatform.Editor.Wpf.csproj" />
+    <ProjectReference Include="../../src/VisionPlatform.Hosting/VisionPlatform.Hosting.csproj" />
+    <ProjectReference Include="../../src/VisionPlatform.Console/VisionPlatform.Console.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/VisionPlatform.RuntimeHost/VisionPlatform.RuntimeHost.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../HostingFixturePlugin/HostingFixturePlugin.csproj" ReferenceOutputAssembly="false" />
+    <Compile Include="../Phase4AAcceptance/ExampleRuns.cs" Link="ExampleRuns.cs" />
+  </ItemGroup>
+</Project>

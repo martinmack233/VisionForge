@@ -1,0 +1,109 @@
+{
+  "SchemaVersion": 1,
+  "Id": "logic",
+  "Name": "\u6761\u4EF6\u5206\u652F\u5224\u65AD",
+  "Category": "\u903B\u8F91\u63A7\u5236",
+  "Description": "\u6839\u636E\u771F\u5B9EBlob\u6570\u91CF\u9009\u62E9True/False\u5206\u652F\uFF1B\u672A\u9009\u62E9\u7684\u5206\u652F\u5728\u8C03\u7528\u524D\u5373Skipped\u3002",
+  "Difficulty": "\u8FDB\u9636",
+  "Tags": [
+    "\u903B\u8F91\u63A7\u5236",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "compare",
+      "Port": "Result",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "true",
+      "Port": "$status",
+      "Expected": "Success",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "false",
+      "Port": "$status",
+      "Expected": "Skipped",
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [
+    {
+      "Id": "true",
+      "Name": "True\uFF1A2\u4E2A\u76EE\u6807",
+      "ImagePath": "images/input.png",
+      "Checks": [
+        {
+          "NodeId": "compare",
+          "Port": "Result",
+          "Expected": true,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "true",
+          "Port": "$status",
+          "Expected": "Success",
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "false",
+          "Port": "$status",
+          "Expected": "Skipped",
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    },
+    {
+      "Id": "false",
+      "Name": "False\uFF1A3\u4E2A\u76EE\u6807",
+      "ImagePath": "images/abnormal.png",
+      "Checks": [
+        {
+          "NodeId": "compare",
+          "Port": "Result",
+          "Expected": false,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "true",
+          "Port": "$status",
+          "Expected": "Skipped",
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "false",
+          "Port": "$status",
+          "Expected": "Success",
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    }
+  ],
+  "Files": {
+    "preview.png": "43955B486FCB690D4AD813ACDD184E5BA9D0C38F330118B3FDD481E8FA8CAA66",
+    "project.json": "8F4DF3C2B5A1961C165D6A3FE780EB696A33CE7BC32B22DDA1C8E41A893447A9",
+    "README.md": "3FF998DEF6F315205DABB86650988CA2B4C3FD84E62100D3D2A2EFF37B593D72",
+    "images/abnormal.png": "90CB01044C63D93B104163E44774791F728BC462D90D9FC0430B66AAD3F2B666",
+    "images/input.png": "554629FD3B89B8A545C71A7F821E8635946AC04AD7CDE5DE7C457369773E7355"
+  }
+}

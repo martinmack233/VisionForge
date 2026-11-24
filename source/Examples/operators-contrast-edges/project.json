@@ -1,0 +1,260 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "65d06e83-45ab-45a4-9ee8-e1e740320aeb",
+  "ProjectName": "\u4F4E\u5BF9\u6BD4\u589E\u5F3A\u4E0E\u771F\u5B9E\u68AF\u5EA6",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "linear",
+      "NodeTypeId": "LinearContrast",
+      "Name": "LinearContrast",
+      "Parameters": {
+        "Alpha": 2,
+        "Beta": -220,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "stretch",
+      "NodeTypeId": "RangeStretch",
+      "Name": "RangeStretch",
+      "Parameters": {
+        "InputMinimum": 0,
+        "InputMaximum": 40,
+        "OutputMinimum": 0,
+        "OutputMaximum": 255,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "canny",
+      "NodeTypeId": "Canny",
+      "Name": "Canny",
+      "Parameters": {
+        "Low": 20,
+        "High": 40,
+        "Aperture": 3,
+        "L2Gradient": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "contours",
+      "NodeTypeId": "FindContours",
+      "Name": "FindContours",
+      "Parameters": {
+        "Retrieval": "External",
+        "Chain": "Simple",
+        "MaximumContours": 1000,
+        "MaximumPoints": 200000,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "shape",
+      "NodeTypeId": "ContourAnalysis",
+      "Name": "ContourAnalysis",
+      "Parameters": {
+        "ApproximationEpsilon": 2,
+        "FitEllipse": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "count",
+      "NodeTypeId": "CollectionCount",
+      "Name": "CollectionCount",
+      "Parameters": {
+        "FilterState": false,
+        "State": "Ok"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "gradient_x",
+      "NodeTypeId": "Sobel",
+      "Name": "Sobel",
+      "Parameters": {
+        "Dx": 1,
+        "Dy": 0,
+        "KernelSize": 3,
+        "Scale": 1,
+        "Delta": 0,
+        "Border": "Reflect101",
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "gradient_y",
+      "NodeTypeId": "Sobel",
+      "Name": "Sobel",
+      "Parameters": {
+        "Dx": 0,
+        "Dy": 1,
+        "KernelSize": 3,
+        "Scale": 1,
+        "Delta": 0,
+        "Border": "Reflect101",
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "gradient",
+      "NodeTypeId": "GradientMagnitudeDirection",
+      "Name": "GradientMagnitudeDirection",
+      "Parameters": {
+        "AngleUnit": "Degrees"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "raw_display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Area,Perimeter,Closed",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 20
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "linear",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "raw_display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "linear",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "stretch",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "stretch",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "canny",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "canny",
+      "SourcePort": "Edges",
+      "TargetNodeId": "contours",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "shape",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "shape",
+      "SourcePort": "Collection",
+      "TargetNodeId": "count",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "shape",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "stretch",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "stretch",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "gradient_x",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "stretch",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "gradient_y",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "gradient_x",
+      "SourcePort": "Derivative",
+      "TargetNodeId": "gradient",
+      "TargetPort": "GradientX"
+    },
+    {
+      "SourceNodeId": "gradient_y",
+      "SourcePort": "Derivative",
+      "TargetNodeId": "gradient",
+      "TargetPort": "GradientY"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

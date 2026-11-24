@@ -1,0 +1,182 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "71e7e562-a3f1-42f5-9bc9-3011ad11af7a",
+  "ProjectName": "B3-\u4EC5\u53D1\u9001OK\u5206\u652F",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "inspection.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "if",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "TcpConnect",
+      "Name": "TcpConnect",
+      "Parameters": {
+        "Options": {
+          "Port": 9000
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "ok",
+      "NodeTypeId": "TcpSend",
+      "Name": "TcpSend",
+      "Parameters": {
+        "SendEnabled": true,
+        "DeliveryKey": "conditional-inspection-1",
+        "LiteralMessage": "OK"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "ng",
+      "NodeTypeId": "TcpSend",
+      "Name": "TcpSend",
+      "Parameters": {
+        "SendEnabled": true,
+        "DeliveryKey": "conditional-inspection-1",
+        "LiteralMessage": "NG"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "merge",
+      "NodeTypeId": "Merge",
+      "Name": "Merge",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "IsOk",
+      "TargetNodeId": "if",
+      "TargetPort": "Condition"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "$done",
+      "TargetNodeId": "connect",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "ok",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "ng",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "True",
+      "TargetNodeId": "ok",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "False",
+      "TargetNodeId": "ng",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "ok",
+      "SourcePort": "$done",
+      "TargetNodeId": "merge",
+      "TargetPort": "TrueControl"
+    },
+    {
+      "SourceNodeId": "ok",
+      "SourcePort": "Status",
+      "TargetNodeId": "merge",
+      "TargetPort": "TrueValue"
+    },
+    {
+      "SourceNodeId": "ng",
+      "SourcePort": "$done",
+      "TargetNodeId": "merge",
+      "TargetPort": "FalseControl"
+    },
+    {
+      "SourceNodeId": "ng",
+      "SourcePort": "Status",
+      "TargetNodeId": "merge",
+      "TargetPort": "FalseValue"
+    },
+    {
+      "SourceNodeId": "merge",
+      "SourcePort": "Communication",
+      "TargetNodeId": "report",
+      "TargetPort": "Communication"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

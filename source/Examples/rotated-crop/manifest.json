@@ -1,0 +1,58 @@
+{
+  "SchemaVersion": 1,
+  "Id": "rotated-crop",
+  "Name": "\u65CB\u8F6C\u88C1\u5207",
+  "Category": "\u56FE\u50CF\u53D8\u6362",
+  "Description": "\u6A21\u677F\u5B9A\u4F4D\u503E\u659C\u76EE\u6807\uFF0C\u8F93\u51FA\u6807\u51C6\u65B9\u5411\u88C1\u5207\u56FE\u53CA\u4ECE\u88C1\u5207\u56FE\u5230\u539F\u56FE\u7684\u5750\u6807\u53D8\u6362\u3002",
+  "Difficulty": "\u8FDB\u9636",
+  "Tags": [
+    "\u56FE\u50CF\u53D8\u6362",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "match",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 72,
+      "Tolerance": 0,
+      "Property": "Width"
+    },
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 64,
+      "Tolerance": 0,
+      "Property": "Height"
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "ABE126513F924C7F78EE1D5EB259DD072F37A835A42A30721A0060EC640E8B07",
+    "project.json": "72CDEB644433383A7B66E62EFA81681FC40CC2FDF9E1EA582E8C81B505BA4883",
+    "README.md": "72A79359729B2B9F8867A7BA1120198B2C4C14C0A637C03B8056A4569E50C3D0",
+    "images/absent.png": "A4FAA16DAB7C2339379580CE538766041221BFD062AFCF75B7265B66CFD08C0A",
+    "images/ng.png": "501BAFFCE9464C87484274A0D3B40D082D595B10FA3749A0189283E130FBE343",
+    "images/sample-color.png": "8EC38DEFFF6DA0EC0EA2C792329BF8865E5BCEC5D8AF946103CF2913C57F4C25",
+    "images/sample.png": "AC6936336438AD60171840D48408E26963CE79F666AF8AD373C76C918BFB8703",
+    "images/shifted.png": "B9B46910038225C525D0D914C9885B58CC60252E13EA18B26B5E98505B4C834E",
+    "images/template-blurred.json": "269FA7EB82C24E59353025F14C0841CA85F03B48AF70CBF6466AAF8CA47F2ABC",
+    "images/template.json": "F805040554AF92CFC830D5F165B1CD56BC6B98909CC47B1180F6E4057869C4F3",
+    "images/unit-scale.png": "705990AF8AE8C598096D8615217774C97B83FA50DB5AE95466807BE631016F43",
+    "images/template-blurred.templates/013e2ee61bf1d256ddbcdd46f49d38e9ef11c3eac42da9b8af04f4f9902dfed0.png": "013E2EE61BF1D256DDBCDD46F49D38E9EF11C3EAC42DA9B8AF04F4F9902DFED0",
+    "images/template.templates/bd4bec3c338e8d360fe8a6fa550dd34e4c3d002042ea8b2341dc591644bf66cc.png": "BD4BEC3C338E8D360FE8A6FA550DD34E4C3D002042EA8B2341DC591644BF66CC"
+  }
+}

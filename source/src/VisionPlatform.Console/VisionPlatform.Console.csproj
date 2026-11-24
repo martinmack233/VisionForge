@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../VisionPlatform.Plugins/VisionPlatform.Plugins.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../VisionPlatform.Hosting/VisionPlatform.Hosting.csproj" /></ItemGroup>
+</Project>

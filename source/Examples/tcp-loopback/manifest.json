@@ -1,0 +1,65 @@
+{
+  "SchemaVersion": 1,
+  "Id": "tcp-loopback",
+  "Name": "TCP \u672C\u5730\u901A\u4FE1",
+  "Category": "\u901A\u4FE1",
+  "Description": "\u663E\u5F0F\u542F\u52A8\u4E00\u6B21\u672C\u673A\u56DE\u73AF\u6D4B\u8BD5\uFF0C\u68C0\u6D4B\u7ED3\u679C\u7ECF\u771F\u5B9ETCP\u5B57\u8282\u6D41\u53D1\u9001\u5E76\u4E0E\u63A5\u6536\u503C\u6838\u5BF9\uFF1B\u666E\u901A\u6253\u5F00\u4E0D\u76D1\u542C\u3001\u4E0D\u8FDE\u63A5\u3001\u4E0D\u53D1\u9001\u3002",
+  "Difficulty": "\u8FDB\u9636",
+  "Tags": [
+    "\u901A\u4FE1",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u70B9\u51FB\u201C\u542F\u52A8\u672C\u5730 TCP \u6D4B\u8BD5\u201D\uFF0C\u7531\u7A0B\u5E8F\u5EFA\u7ACB\u4E34\u65F6Loopback\u63A5\u6536\u670D\u52A1\uFF1B\u666E\u901A\u8FD0\u884C\u7684gate\u9ED8\u8BA4\u5173\u95ED\u3002\u52FF\u5C06\u6B64\u6559\u5B66\u53D1\u9001\u6807\u8BC6\u7528\u4E8E\u751F\u4EA7\u4E1A\u52A1\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": true,
+  "Expected": [
+    {
+      "NodeId": "report",
+      "Port": "IsOk",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "connect",
+      "Port": "$status",
+      "Expected": "Skipped",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "send",
+      "Port": "$status",
+      "Expected": "Skipped",
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [
+    {
+      "NodeId": "send",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "close",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "Cases": [],
+  "Files": {
+    "preview.png": "43955B486FCB690D4AD813ACDD184E5BA9D0C38F330118B3FDD481E8FA8CAA66",
+    "project.json": "5136739F0F0C5221A903A0C471D522E9E89140A933D82A199074C73D75FA4A62",
+    "README.md": "0492CF2C0B64FA9096CBBAD6051DF27F9FE6D872A19AFC9066560750BE38054A",
+    "images/abnormal.png": "90CB01044C63D93B104163E44774791F728BC462D90D9FC0430B66AAD3F2B666",
+    "images/input.png": "554629FD3B89B8A545C71A7F821E8635946AC04AD7CDE5DE7C457369773E7355"
+  }
+}

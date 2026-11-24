@@ -1,0 +1,287 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "53ad8152-a4e2-4441-afb3-f2a0fcbfa098",
+  "ProjectName": "\u53D7\u63A7\u6587\u4EF6\u8BFB\u53D6\u4E0E\u5B57\u6BB5\u9009\u62E9",
+  "Nodes": [
+    {
+      "NodeId": "text",
+      "NodeTypeId": "FileRead",
+      "Name": "FileRead",
+      "Parameters": {
+        "Path": "sample.txt",
+        "Format": "Text",
+        "Encoding": "Utf8",
+        "Bom": "Detect",
+        "MaximumBytes": 1048576,
+        "MaximumCharacters": 1048576,
+        "MaximumJsonDepth": 64,
+        "CsvDelimiter": "Comma",
+        "CsvHeader": true,
+        "RequireConsistentColumns": true,
+        "MaximumRows": 10000,
+        "MaximumColumns": 256,
+        "MaximumCells": 100000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "json",
+      "NodeTypeId": "FileRead",
+      "Name": "FileRead",
+      "Parameters": {
+        "Path": "sample.json",
+        "Format": "Json",
+        "Encoding": "Utf8",
+        "Bom": "Detect",
+        "MaximumBytes": 1048576,
+        "MaximumCharacters": 1048576,
+        "MaximumJsonDepth": 64,
+        "CsvDelimiter": "Comma",
+        "CsvHeader": true,
+        "RequireConsistentColumns": true,
+        "MaximumRows": 10000,
+        "MaximumColumns": 256,
+        "MaximumCells": 100000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "csv",
+      "NodeTypeId": "FileRead",
+      "Name": "FileRead",
+      "Parameters": {
+        "Path": "sample.csv",
+        "Format": "Csv",
+        "Encoding": "Utf8",
+        "Bom": "Detect",
+        "MaximumBytes": 1048576,
+        "MaximumCharacters": 1048576,
+        "MaximumJsonDepth": 64,
+        "CsvDelimiter": "Comma",
+        "CsvHeader": true,
+        "RequireConsistentColumns": true,
+        "MaximumRows": 10000,
+        "MaximumColumns": 256,
+        "MaximumCells": 100000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "binary",
+      "NodeTypeId": "FileRead",
+      "Name": "FileRead",
+      "Parameters": {
+        "Path": "sample.bin",
+        "Format": "Binary",
+        "Encoding": "Utf8",
+        "Bom": "Detect",
+        "MaximumBytes": 1048576,
+        "MaximumCharacters": 1048576,
+        "MaximumJsonDepth": 64,
+        "CsvDelimiter": "Comma",
+        "CsvHeader": true,
+        "RequireConsistentColumns": true,
+        "MaximumRows": 10000,
+        "MaximumColumns": 256,
+        "MaximumCells": 100000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "whole_text",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "WholeText",
+        "Target": "String",
+        "Pointer": "",
+        "Row": 0,
+        "Column": 0,
+        "Offset": 0,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "json_number",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "JsonPointer",
+        "Target": "Number",
+        "Pointer": "/part/size",
+        "Row": 0,
+        "Column": 0,
+        "Offset": 0,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "json_escaped",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "JsonPointer",
+        "Target": "String",
+        "Pointer": "/a~1b/~0key",
+        "Row": 0,
+        "Column": 0,
+        "Offset": 0,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "csv_name",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "CsvCell",
+        "Target": "String",
+        "Pointer": "",
+        "Row": 0,
+        "Column": 0,
+        "Offset": 0,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "csv_note",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "CsvCell",
+        "Target": "String",
+        "Pointer": "",
+        "Row": 0,
+        "Column": 2,
+        "Offset": 0,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "binary_byte",
+      "NodeTypeId": "FileValue",
+      "Name": "FileValue",
+      "Parameters": {
+        "Selection": "BinaryByte",
+        "Target": "Number",
+        "Pointer": "",
+        "Row": 0,
+        "Column": 0,
+        "Offset": 5,
+        "Length": 1,
+        "MaximumCharacters": 65536
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "text_display",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {
+        "Prefix": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "number_display",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {
+        "Prefix": "JSON\u5C3A\u5BF8: "
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "csv_display",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {
+        "Prefix": "CSV\u5907\u6CE8: "
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "text",
+      "SourcePort": "Result",
+      "TargetNodeId": "whole_text",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "json",
+      "SourcePort": "Result",
+      "TargetNodeId": "json_number",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "json",
+      "SourcePort": "Result",
+      "TargetNodeId": "json_escaped",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "csv",
+      "SourcePort": "Result",
+      "TargetNodeId": "csv_name",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "csv",
+      "SourcePort": "Result",
+      "TargetNodeId": "csv_note",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "binary",
+      "SourcePort": "Result",
+      "TargetNodeId": "binary_byte",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "whole_text",
+      "SourcePort": "Text",
+      "TargetNodeId": "text_display",
+      "TargetPort": "String"
+    },
+    {
+      "SourceNodeId": "json_number",
+      "SourcePort": "Number",
+      "TargetNodeId": "number_display",
+      "TargetPort": "Number"
+    },
+    {
+      "SourceNodeId": "csv_note",
+      "SourcePort": "Text",
+      "TargetNodeId": "csv_display",
+      "TargetPort": "String"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

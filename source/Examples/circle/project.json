@@ -1,0 +1,71 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "0c6d59c7-7de9-4b94-8aa1-bd85b3af53c6",
+  "ProjectName": "\u5706\u5F62\u5C3A\u5BF8\u6D4B\u91CF",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "edges",
+      "NodeTypeId": "CircleEdgePoints",
+      "Name": "CircleEdgePoints",
+      "Parameters": {
+        "CenterX": 128,
+        "CenterY": 128,
+        "Radius": 60,
+        "SearchLength": 24,
+        "ProjectionWidth": 3,
+        "SampleCount": 64,
+        "Polarity": "LightToDark"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "circle",
+      "NodeTypeId": "CircleFit",
+      "Name": "CircleFit",
+      "Parameters": {
+        "RejectOutliers": true,
+        "OutlierThreshold": 1.5
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "edges",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "edges",
+      "SourcePort": "Points",
+      "TargetNodeId": "circle",
+      "TargetPort": "Points"
+    },
+    {
+      "SourceNodeId": "circle",
+      "SourcePort": "Result",
+      "TargetNodeId": "report",
+      "TargetPort": "Measurement"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

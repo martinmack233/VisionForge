@@ -1,0 +1,34 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "e90be389-4f03-437e-b76d-65fee6bca2c0",
+  "ProjectName": "C5-82MP\u539F\u59CB\u50CF\u7D20\u67E5\u770B",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "large-8192x10000.bmp"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

@@ -1,0 +1,67 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "13622bbf-4b4c-4e2e-b0b9-d41c5241e7d7",
+  "ProjectName": "A3-\u4E2D\u503C\u5206\u5272\u6587\u672C\u7ED3\u679C",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "segmentation.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "median",
+      "NodeTypeId": "MedianBlur",
+      "Name": "MedianBlur",
+      "Parameters": {
+        "KernelSize": 3
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 128,
+        "MaxValue": 255,
+        "ThresholdType": "Binary"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "median",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "median",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ForegroundPixelCount",
+      "TargetNodeId": "text",
+      "TargetPort": "Integer"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

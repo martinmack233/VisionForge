@@ -1,0 +1,4 @@
+name,count,note
+"A,one",2,"quoted ""text""
+second line"
+B,3,normal

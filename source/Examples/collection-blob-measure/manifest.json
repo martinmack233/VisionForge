@@ -1,0 +1,44 @@
+{
+  "SchemaVersion": 1,
+  "Id": "collection-blob-measure",
+  "Name": "\u591ABlob \u00B7 \u7B5B\u9009\u6392\u5E8F\u4E0E\u9010\u9879\u6D4B\u91CF",
+  "Category": "\u96C6\u5408\u4E0E\u5B50\u6D41\u7A0B",
+  "Description": "\u771F\u5B9EBlob\u96C6\u5408\u7B5B\u9009\u6392\u5E8F\uFF0C\u9010\u9879\u6D4B\u91CF\u5E76\u6C47\u603BOK/NG\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u53EA\u8BFB\u96C6\u5408",
+    "\u9010\u9879",
+    "Blob",
+    "\u5408\u6210\u6837\u672C"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u590D\u5236\u5E76\u8FD0\u884C\u3002BlobDetection\u771F\u5B9E\u8F93\u51FA\u56DB\u4E2A\u8FDE\u901A\u57DF\uFF1B\u96C6\u5408\u6309Area\u003E=100\u7B5B\u9664\u5C0F\u70B9\uFF0C\u6309X\u7A33\u5B9A\u6392\u5E8F\uFF0C\u518D\u9010\u9879\u628A\u5F53\u524DBlob\u8F6CROI\uFF0C\u7528\u539FDistanceMeasure\u8BA1\u7B97ROI\u4E2D\u5FC3\u5230\u53F3\u8FB9\u4E2D\u70B9\u8DDD\u79BB\uFF0C\u5E76\u4EE5\u003E=12\u50CF\u7D20\u5224\u5B9A\u3002\u7ED3\u679C\u5E94\u4E3A10/15/25\u50CF\u7D20\uFF0C\u5BF9\u5E94NG/OK/OK\u3002\u53C2\u6570\u9762\u677F\u53EF\u6539\u53D8\u7B5B\u9009\u548C\u5224\u5B9A\uFF0C\u65E7\u7ED3\u679C\u4F1A\u5931\u6548\u3002",
+  "Verification": "\u7B5B\u9009\u4FDD\u75593\u9879\uFF0C\u6D4B\u91CFNumber=10\u300115\u300125\uFF0C\u4E1A\u52A1\u72B6\u6001NG\u3001OK\u3001OK\u3002",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "each",
+      "Port": "CompletedCount",
+      "Expected": 3,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "each",
+      "Port": "Complete",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "input.png": "A5611D0C251AB5D5DD8DD3D52ABD9AA42516906BC87EDA74F6CB8D3BD127061D",
+    "preview.png": "78275B7B033344F994AA1CCE929085F910F45599EE0C971FF28A863208AAAC61",
+    "project.json": "025D973BF751DECC128DD66A169C38F6DC3EE937AA521D3899DC2A4923AC0735",
+    "README.md": "6FE106940CB9C0919DDC3218CACC02BF3771AF2CB5ADAA32940C272CA8FCFA78"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "SchemaVersion": 1,
+  "Id": "host-tcp",
+  "Name": "\u4E0A\u4F4D\u673ATCP\u8C03\u7528\u68C0\u6D4B",
+  "Category": "\u72EC\u7ACB\u8FD0\u884C",
+  "Description": "\u663E\u5F0F\u542F\u52A8Loopback Host\uFF0C\u7531\u7248\u672C\u5316\u957F\u5EA6\u524D\u7F00TCP\u5BA2\u6237\u7AEF\u52A0\u8F7D\u3001\u8FD0\u884C\u3001\u8F6E\u8BE2\u5E76\u53D6\u56DE\u771F\u5B9E\u7ED3\u679C\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "RuntimeHost",
+    "TCP",
+    "\u7B2C\u56DB\u9636\u6BB5C"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u4E00\u952E\u8FD0\u884C\u4EC5\u6267\u884C\u79BB\u7EBF\u68C0\u6D4B\u56FE\uFF0C\u4E0D\u81EA\u52A8\u542F\u52A8\u76D1\u542C\u3002\u72EC\u7ACB\u6A21\u5F0F\uFF1AVisionPlatform.RuntimeHost.exe --project Examples/host-tcp/project.json --once\u3002TCP\u6A21\u5F0F\uFF1A\u542F\u52A8VisionPlatform.RuntimeHost.exe --port 0\uFF0C\u8BB0\u5F55\u8F93\u51FA\u5730\u5740\u4E0E\u7AEF\u53E3\uFF0C\u518D\u4F7F\u7528python tools/runtimehost_client.py --port \u5B9E\u9645\u7AEF\u53E3 --project \u672C\u5DE5\u7A0B\u7EDD\u5BF9\u8DEF\u5F84\u52A0\u8F7D\u5E76\u8FD0\u884C\u3002\u5B8C\u6574\u53C2\u6570\u548C\u6D88\u606F\u89C1Host\u534F\u8BAE\u6587\u6863\u3002",
+  "Verification": "\u771F\u5B9EBlobCount=2\u3001IsOk=True\uFF1BHost\u7ED3\u679C\u5FC5\u987B\u542B\u5F53\u524DRunId\u3001\u5F15\u64CERunId\u4E0E\u8282\u70B9\u72B6\u6001/\u8017\u65F6\uFF1B\u53D6\u6D88/\u65AD\u7EBF\u540E\u8D44\u6E90\u5E94\u91CA\u653E\u3002\u7ED3\u679C\u4EC5\u5305\u542B\u56FE\u50CF\u5143\u6570\u636E\uFF0C\u4E0D\u4F20\u9012\u539F\u751F\u6307\u9488\u3002",
+  "ExternalDependencies": [
+    "TCP\u6F14\u793A\u9700\u7528\u6237\u663E\u5F0F\u542F\u52A8\u672C\u5305RuntimeHost\u548C\u6D4B\u8BD5\u5BA2\u6237\u7AEF\uFF1B\u9ED8\u8BA4\u4EC5Loopback\uFF0C\u4E00\u952E\u8FD0\u884C\u4E0D\u521B\u5EFA\u670D\u52A1\u5668\u3002"
+  ],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "blob",
+      "Port": "BlobCount",
+      "Expected": 2,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "report",
+      "Port": "IsOk",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "5CD3C996D9AE9F29BA8975F8C995B237EB190E37DBDCDA3CADB4DC64E28365A3",
+    "project.json": "75FAD3C96C5B509B1283590C7094F8616033F7F051F7F278754E4F4F3D77067F",
+    "README.md": "FD179BD764F90D8E3629E669DA61AC8CBEF2A3434BB252C43133857D9CFA206D",
+    "images/input.png": "34B47E9F526F9829C97449F11E016B47CE1BDA37C5A9FC7F6F892EDB07C33DC1"
+  }
+}

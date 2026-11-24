@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "visionplatform.acquisition.boq": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Contracts": "[1.0.0, )"
+        }
+      },
+      "visionplatform.contracts": {
+        "type": "Project"
+      }
+    }
+  }
+}

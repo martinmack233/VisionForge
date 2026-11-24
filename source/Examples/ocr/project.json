@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "8524d3d7-b2b4-f217-f3de-cb974c5ee11c",
+  "ProjectName": "Phase4B-ocr",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "recognize",
+      "NodeTypeId": "OCR",
+      "Name": "OCR",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "branch",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "recognize",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "recognize",
+      "SourcePort": "Text",
+      "TargetNodeId": "text",
+      "TargetPort": "String"
+    },
+    {
+      "SourceNodeId": "recognize",
+      "SourcePort": "Success",
+      "TargetNodeId": "branch",
+      "TargetPort": "Condition"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

@@ -1,0 +1,36 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "84045f20-0cb5-413e-81a9-d7684c4f8a24",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "X": 0,
+      "Y": 0
+    },
+    {
+      "NodeId": "threshold",
+      "X": 330,
+      "Y": 0
+    },
+    {
+      "NodeId": "morph",
+      "X": 660,
+      "Y": 0
+    },
+    {
+      "NodeId": "blob",
+      "X": 990,
+      "Y": 0
+    },
+    {
+      "NodeId": "filter",
+      "X": 0,
+      "Y": 190
+    },
+    {
+      "NodeId": "display",
+      "X": 330,
+      "Y": 190
+    }
+  ]
+}

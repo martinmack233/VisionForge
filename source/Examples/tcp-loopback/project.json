@@ -1,0 +1,152 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "3a8924fa-2353-4dcd-bf26-0a1eef7fd023",
+  "ProjectName": "TCP \u672C\u5730\u901A\u4FE1",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "MinArea": 80
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "enable",
+      "NodeTypeId": "LogicNot",
+      "Name": "LogicNot",
+      "Parameters": {
+        "Value": true
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "gate",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "TcpConnect",
+      "Name": "TcpConnect",
+      "Parameters": {
+        "Options": {
+          "Host": "127.0.0.1",
+          "Port": 9000
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "send",
+      "NodeTypeId": "TcpSend",
+      "Name": "TcpSend",
+      "Parameters": {
+        "SendEnabled": false,
+        "DeliveryKey": "example-local-1"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "close",
+      "NodeTypeId": "TcpDisconnect",
+      "Name": "TcpDisconnect",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "enable",
+      "SourcePort": "Result",
+      "TargetNodeId": "gate",
+      "TargetPort": "Condition"
+    },
+    {
+      "SourceNodeId": "gate",
+      "SourcePort": "True",
+      "TargetNodeId": "connect",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "send",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "report",
+      "SourcePort": "Result",
+      "TargetNodeId": "send",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "close",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "send",
+      "SourcePort": "$done",
+      "TargetNodeId": "close",
+      "TargetPort": "$exec"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

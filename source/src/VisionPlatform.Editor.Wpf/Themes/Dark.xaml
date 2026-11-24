@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Alternate palette retained for future theme selection; the app currently loads LightBlue. -->
+  <ResourceDictionary.MergedDictionaries><ResourceDictionary Source="ControlStyles.xaml"/></ResourceDictionary.MergedDictionaries>
+  <SolidColorBrush x:Key="StudioBackground" Color="#101722"/>
+  <SolidColorBrush x:Key="StudioPanel" Color="#172231"/>
+  <SolidColorBrush x:Key="StudioToolbox" Color="#1F2D3E"/>
+  <SolidColorBrush x:Key="StudioCard" Color="#26374A"/>
+  <SolidColorBrush x:Key="StudioCardHover" Color="#314961"/>
+  <SolidColorBrush x:Key="StudioCardSelected" Color="#345F89"/>
+  <SolidColorBrush x:Key="StudioPrimary" Color="#65A9FF"/>
+  <SolidColorBrush x:Key="StudioOnPrimary" Color="#101722"/>
+  <SolidColorBrush x:Key="StudioForeground" Color="#E2EAF2"/>
+  <SolidColorBrush x:Key="StudioMutedForeground" Color="#A1B7CB"/>
+  <SolidColorBrush x:Key="StudioBorder" Color="#3B5067"/>
+  <SolidColorBrush x:Key="StudioSuccess" Color="#72D1B1"/>
+  <SolidColorBrush x:Key="StudioFailure" Color="#FF9E94"/>
+  <SolidColorBrush x:Key="StudioWarning" Color="#E9BE80"/>
+  <SolidColorBrush x:Key="StudioCanvas" Color="#172130"/>
+  <SolidColorBrush x:Key="StudioImageCanvas" Color="#0C121A"/>
+  <SolidColorBrush x:Key="StudioOverlayLabelBackground" Color="#D9101722"/>
+  <SolidColorBrush x:Key="StudioDisabled" Color="#293544"/>
+  <SolidColorBrush x:Key="StudioScrollThumb" Color="#536A84"/>
+</ResourceDictionary>
+

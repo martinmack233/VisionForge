@@ -1,0 +1,46 @@
+{
+  "SchemaVersion": 1,
+  "Id": "collection-multi-ocr",
+  "Name": "\u591A\u533A\u57DF\u82F1\u6587OCR \u00B7 \u96C6\u5408\u9010\u9879",
+  "Category": "\u96C6\u5408\u4E0E\u5B50\u6D41\u7A0B",
+  "Description": "\u4E09\u4E2A\u72EC\u7ACBROI\u987A\u5E8F\u8BC6\u522B\uFF0C\u4FDD\u7559\u6BCF\u9879\u6765\u6E90\u3001\u7D22\u5F15\u3001\u6587\u672C\u53CA\u7F6E\u4FE1\u5EA6\u3002\u65E0\u9700YOLO\u6743\u91CD\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u53EA\u8BFB\u96C6\u5408",
+    "\u9010\u9879",
+    "OCR",
+    "\u5408\u6210\u6837\u672C"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u6253\u5F00\u540E\u5148\u590D\u5236\u4E3A\u7528\u6237\u5DE5\u7A0B\uFF0C\u518D\u8FD0\u884C\u3002\u56FE\u4E2D\u4E09\u4E2A\u82F1\u6587/\u6570\u5B57\u533A\u57DF\u4F7F\u7528\u6B63\u5F0FRoiCollection\u53C2\u6570\uFF0CForEach\u63090\u30011\u30012\u987A\u5E8F\u8C03\u7528\u539FOCR\u8282\u70B9\u3002\u9009\u62E9\u96C6\u5408\u7ED3\u679C\u663E\u793A\u8282\u70B9\uFF0C\u5728\u96C6\u5408/\u9010\u9879\u9762\u677F\u9009\u62E9\u7ED3\u679C\u53EF\u9AD8\u4EAE\u53CA\u67E5\u770B\u5C40\u90E8\uFF1B\u9009\u62E9\u9010\u9879\u8282\u70B9\u53EF\u67E5\u770B\u4FDD\u7559\u8FED\u4EE3\u7AEF\u53E3\u3002\u53C2\u6570\u9762\u677F\u53EF\u7F16\u8F91ROI\u96C6\u5408\u548C\u5B50\u6D41\u7A0B\uFF0COCR\u6587\u672C\u5E03\u5C40\u53EF\u9009\u62E9\u5355\u884C\u3001\u591A\u884C\u5757\u6216\u81EA\u52A8\u3002",
+  "Verification": "\u4E09\u9879\u5206\u522B\u8FD4\u56DEVISION\u3001123456\u3001PART42\uFF1B\u539F\u56FEROI\u4E0E\u7ED3\u679C\u5173\u8054\u4E0D\u6DF7\u7528\u3002\u7F3A\u8BED\u8A00\u8D44\u6E90\u5E94\u660E\u786E\u62A5\u9519\u3002",
+  "ExternalDependencies": [
+    "\u968F\u5305\u5DF2\u5BA1\u6838Tesseract x64\u4E0Eeng\u8BED\u8A00\u6A21\u578B\uFF1B\u4EC5\u82F1\u6587/\u6570\u5B57\u80FD\u529B\u3002"
+  ],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "each",
+      "Port": "CompletedCount",
+      "Expected": 3,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "each",
+      "Port": "Complete",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "input.png": "9FA74924E9F78F7A0B79308E891EF3C0BB6F28710F5887EF3849445BD83EA4E2",
+    "preview.png": "FEADB7DE4EA34E51C4F0A5D2B78429F41572B9F70D9EFCD3DEF23E4B8873AA9D",
+    "project.json": "CAEF6F3F688B7C6FE1E62AADD2D34B4B259BFF38448489992370F7BD90B34419",
+    "README.md": "60C5E3D3F9A64439DD7751C45903EA6D47CEECEAC2FBE06FCB97282395B72DF3"
+  }
+}

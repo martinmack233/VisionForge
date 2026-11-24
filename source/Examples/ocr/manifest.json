@@ -1,0 +1,88 @@
+{
+  "SchemaVersion": 1,
+  "Id": "ocr",
+  "Name": "OCR \u82F1\u6587\u6570\u5B57\u8BC6\u522B",
+  "Category": "\u5B57\u7B26\u4E0E\u6761\u7801",
+  "Description": "\u672C\u5730\u5408\u6210\u56FE\u771F\u5B9E\u8BC6\u522B VISION 12345\uFF1BText \u8FDB\u5165\u6587\u672C\u663E\u793A\uFF0CSuccess \u8FDB\u5165\u6761\u4EF6\u5206\u652F\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "OCR",
+    "\u7B2C\u56DB\u9636\u6BB5B"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u4E00\u952E\u8FD0\u884C\uFF0C\u9009\u62E9\u8BC6\u522B\u8282\u70B9\u7684 Result \u67E5\u770B\u7ED3\u6784\u5316\u5B57\u6BB5\u53CA\u5B9A\u4F4D Overlay\u3002\u7ED8\u5236\u8F74\u5BF9\u9F50 ROI \u5E76\u7ED1\u5B9A\u53EF\u9650\u5236\u533A\u57DF\uFF1B\u5176\u4ED6\u683C\u5F0F\u5148\u663E\u5F0F\u8F6C\u6362\u6210 Mono8\u3002\u53EF\u9009\u7A7A\u767D\u56FE\u9A8C\u8BC1\u65E0\u65E7\u7ED3\u679C\u3002",
+  "Verification": "\u5B9E\u9645\u6587\u672C\u987B\u4E0E\u9884\u671F\u4E00\u81F4\uFF1B\u7A7A\u767D\u56FE Success=False\u3001Text\u4E3A\u7A7A\u3001\u8BCD/\u7801\u96C6\u5408\u4E3A\u7A7A\uFF0C\u4E0D\u6CBF\u7528\u4E0A\u4E00\u5E27\u3002",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "recognize",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "text",
+      "Port": "Text",
+      "Expected": "VISION 12345",
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [
+    {
+      "Id": "normal",
+      "Name": "\u672C\u5730\u6B63\u5E38\u56FE",
+      "ImagePath": "images/input.png",
+      "Checks": [
+        {
+          "NodeId": "recognize",
+          "Port": "Success",
+          "Expected": true,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "text",
+          "Port": "Text",
+          "Expected": "VISION 12345",
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    },
+    {
+      "Id": "blank",
+      "Name": "\u7A7A\u767D\uFF1A\u6E05\u9664\u65E7\u7ED3\u679C",
+      "ImagePath": "images/blank.png",
+      "Checks": [
+        {
+          "NodeId": "recognize",
+          "Port": "Success",
+          "Expected": false,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "text",
+          "Port": "Text",
+          "Expected": "",
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    }
+  ],
+  "Files": {
+    "preview.png": "56BFBE9D547E471005CB55274EA08FE96DD5820EA43C3D55EEE2C4FF9B817893",
+    "project.json": "2084E3BDF0E27D4309BB90C46626D2D2FFD245A81EB81D24C5AADB959303CE2A",
+    "README.md": "565F67E7CB8EFABEB3DA35959A5855F6DBE6C5F95B40F611499729B63900D968",
+    "images/blank.png": "FF98C60B5024FE5161B91C79600AC89B4385CAB0764D3E007047BD669B283D57",
+    "images/input.png": "A7B0CCA5D904D374C271629E6B89660FEF3311BE3B392C8E8A2BE1A074760AE2"
+  }
+}

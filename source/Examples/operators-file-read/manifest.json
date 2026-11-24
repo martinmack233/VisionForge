@@ -1,0 +1,67 @@
+{
+  "SchemaVersion": 1,
+  "Id": "operators-file-read",
+  "Name": "\u53D7\u63A7\u6587\u4EF6\u8BFB\u53D6\u4E0E\u5B57\u6BB5\u9009\u62E9",
+  "Category": "\u672C\u8F6E\u7B97\u5B50\u6269\u5145",
+  "Description": "\u8FD0\u884C\u540E\u68C0\u67E5text/json/csv/binary\u7684Result\uFF0CFileValue\u5206\u522B\u9009\u62E9\u5168\u6587\u3001JSON\u6307\u9488\u3001CSV\u884C\u5217\u548C\u4E8C\u8FDB\u5236\u5B57\u8282\u3002CSV\u542B\u9017\u53F7\u3001\u53CC\u5F15\u53F7\u8F6C\u4E49\u548C\u5F15\u53F7\u5185\u6362\u884C\uFF1BJSON\u6307\u9488/a~1b/~0key\u6F14\u793A\u6807\u51C6\u8F6C\u4E49\u3002\u8D44\u6E90\u5168\u90E8\u5DE5\u7A0B\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u4EC5\u53EA\u8BFB\uFF0C\u4E0D\u8BBF\u95EE\u7F51\u7EDC\u3001\u5BC6\u94A5\u6216\u7528\u6237\u4E1A\u52A1\u6587\u4EF6\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u81EA\u5236\u8D44\u6E90",
+    "\u79BB\u7EBF",
+    "\u6570\u636E\u4E0E\u903B\u8F91"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u8FD0\u884C\u540E\u68C0\u67E5text/json/csv/binary\u7684Result\uFF0CFileValue\u5206\u522B\u9009\u62E9\u5168\u6587\u3001JSON\u6307\u9488\u3001CSV\u884C\u5217\u548C\u4E8C\u8FDB\u5236\u5B57\u8282\u3002CSV\u542B\u9017\u53F7\u3001\u53CC\u5F15\u53F7\u8F6C\u4E49\u548C\u5F15\u53F7\u5185\u6362\u884C\uFF1BJSON\u6307\u9488/a~1b/~0key\u6F14\u793A\u6807\u51C6\u8F6C\u4E49\u3002\u8D44\u6E90\u5168\u90E8\u5DE5\u7A0B\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u4EC5\u53EA\u8BFB\uFF0C\u4E0D\u8BBF\u95EE\u7F51\u7EDC\u3001\u5BC6\u94A5\u6216\u7528\u6237\u4E1A\u52A1\u6587\u4EF6\u3002",
+  "Verification": "json_number.Number=12.3456789012345\uFF1Bjson_escaped.Text=kept\uFF1Bcsv_name.Text=A,one\uFF1Bcsv_note.Text=quoted \u0022text\u0022\r\nsecond line\uFF1Bbinary_byte.Number=255",
+  "ExternalDependencies": [],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "json_number",
+      "Port": "Number",
+      "Expected": 12.3456789012345,
+      "Tolerance": 1E-13,
+      "Property": ""
+    },
+    {
+      "NodeId": "json_escaped",
+      "Port": "Text",
+      "Expected": "kept",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "csv_name",
+      "Port": "Text",
+      "Expected": "A,one",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "csv_note",
+      "Port": "Text",
+      "Expected": "quoted \u0022text\u0022\r\nsecond line",
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "binary_byte",
+      "Port": "Number",
+      "Expected": 255,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "0C63E956847D1CAF55EE566927C9976331B1863078DD24AAEB2FF892DBCAAFEE",
+    "project.json": "058C335064ADD8749D183844D6D0D8229FF3A5598DCFC3E2C89A9C7588604597",
+    "README.md": "F6276B27C76377BB2229C808E6292ADC13C5562C729706E5B424EDF4C69AAB19",
+    "sample.bin": "DA2CB6AD175BC966DE5E79C6E16777F8A98B610C2424A894132DF2815BE50677",
+    "sample.csv": "40D0B49877B53C62EC8D5D87FB3B1CB728C80EB76F5260E7BE54014A47D49B12",
+    "sample.json": "42D5E23C7F39B1A4ACEC2B51A67A407C4418CAD4EACDCCE2A60264F6CD7367F9",
+    "sample.txt": "A8FCBCDB448133D38A14E9D2C238E73F7D4D0B1BF78F3412CA2710523F789816"
+  }
+}

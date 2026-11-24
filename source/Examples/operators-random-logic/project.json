@@ -1,0 +1,179 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "c87fbf55-3aec-4057-8fe4-dfa6f8dd1ea7",
+  "ProjectName": "\u968F\u673A\u6570\u4E0E\u7EDF\u4E00\u5E03\u5C14\u5224\u5B9A",
+  "Nodes": [
+    {
+      "NodeId": "random",
+      "NodeTypeId": "RandomNumber",
+      "Name": "RandomNumber",
+      "Parameters": {
+        "Kind": "Integer",
+        "Mode": "Collection",
+        "MinimumInteger": 0,
+        "MaximumInteger": 10,
+        "Minimum": 0,
+        "Maximum": 1,
+        "Count": 4,
+        "Seed": 260117
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "select",
+      "NodeTypeId": "CollectionSelect",
+      "Name": "CollectionSelect",
+      "Parameters": {
+        "Index": 2
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "value",
+      "NodeTypeId": "ItemValue",
+      "Name": "ItemValue",
+      "Parameters": {
+        "Field": "Number"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "lower",
+      "NodeTypeId": "Compare",
+      "Name": "Compare",
+      "Parameters": {
+        "Operator": "GreaterOrEqual",
+        "ValueB": 0,
+        "Tolerance": 1E-06
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "upper",
+      "NodeTypeId": "Compare",
+      "Name": "Compare",
+      "Parameters": {
+        "Operator": "LessThan",
+        "ValueB": 10,
+        "Tolerance": 1E-06
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "boolean",
+      "NodeTypeId": "BooleanOperation",
+      "Name": "BooleanOperation",
+      "Parameters": {
+        "Operation": "And"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "result",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {
+        "Options": {
+          "Format": "Json",
+          "DecimalPlaces": 3,
+          "IncludePoseInCsv": false,
+          "IncludeTimingInCsv": false,
+          "IncludeCommunicationInCsv": false
+        }
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Number",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 0
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "random",
+      "SourcePort": "Collection",
+      "TargetNodeId": "select",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "select",
+      "SourcePort": "Item",
+      "TargetNodeId": "value",
+      "TargetPort": "Item"
+    },
+    {
+      "SourceNodeId": "value",
+      "SourcePort": "Number",
+      "TargetNodeId": "lower",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "value",
+      "SourcePort": "Number",
+      "TargetNodeId": "upper",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "lower",
+      "SourcePort": "Result",
+      "TargetNodeId": "boolean",
+      "TargetPort": "A"
+    },
+    {
+      "SourceNodeId": "upper",
+      "SourcePort": "Result",
+      "TargetNodeId": "boolean",
+      "TargetPort": "B"
+    },
+    {
+      "SourceNodeId": "boolean",
+      "SourcePort": "Result",
+      "TargetNodeId": "result",
+      "TargetPort": "IsOk"
+    },
+    {
+      "SourceNodeId": "random",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

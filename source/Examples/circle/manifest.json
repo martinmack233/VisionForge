@@ -1,0 +1,56 @@
+{
+  "SchemaVersion": 1,
+  "Id": "circle",
+  "Name": "\u5706\u5F62\u5C3A\u5BF8\u6D4B\u91CF",
+  "Category": "\u51E0\u4F55\u6D4B\u91CF",
+  "Description": "\u6CBF\u9884\u8BBE\u5706\u5468\u4F7F\u7528\u5F84\u5411\u5361\u5C3A\u63D0\u53D6\u771F\u5B9E\u8FB9\u7F18\u70B9\uFF0C\u518D\u6297\u79BB\u7FA4\u5706\u62DF\u5408\uFF0C\u663E\u793A\u5706\u5FC3\u3001\u534A\u5F84\u3001\u76F4\u5F84\u548C\u8BEF\u5DEE\u3002",
+  "Difficulty": "\u8FDB\u9636",
+  "Tags": [
+    "\u51E0\u4F55\u6D4B\u91CF",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "circle",
+      "Port": "Valid",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "circle",
+      "Port": "Radius",
+      "Expected": 60,
+      "Tolerance": 0.35,
+      "Property": ""
+    },
+    {
+      "NodeId": "circle",
+      "Port": "Result",
+      "Expected": 128,
+      "Tolerance": 0.2,
+      "Property": "Values.CenterX"
+    },
+    {
+      "NodeId": "circle",
+      "Port": "Result",
+      "Expected": 128,
+      "Tolerance": 0.2,
+      "Property": "Values.CenterY"
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "B59F1B3ACA7D84A0999315995140430FEBCF14A18E6D6EBFF9450E9604C62D5F",
+    "project.json": "0627B2E832F24EF64D7DE896BB416B09DD5EF64C068400C4140C0473084BF942",
+    "README.md": "8E33247D97565210C9B48ECAB49EEEA313729666F6ED164027BC7592DC1642D4",
+    "images/input.png": "3BD7E9F36CE09A052E1F2EE1C4507720A4D6B53365DBC1AACDF4BBBDA75D0B70"
+  }
+}

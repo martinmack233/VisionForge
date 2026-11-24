@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "visionplatform.acquisition.boq": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Contracts": "[0.6.0-preview.1, )"
+        }
+      },
+      "visionplatform.contracts": {
+        "type": "Project"
+      }
+    },
+    "net10.0/win-x64": {}
+  }
+}

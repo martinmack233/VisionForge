@@ -1,0 +1,34 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "39c3fe06-7a9a-88f5-eb29-092a07c93b1e",
+  "ProjectName": "Phase4B-yolo-external",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "recognize",
+      "NodeTypeId": "YoloInference",
+      "Name": "YoloInference",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "recognize",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

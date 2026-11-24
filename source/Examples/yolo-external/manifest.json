@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Id": "yolo-external",
+  "Name": "YOLO \u5916\u90E8\u6A21\u578B\u63A8\u7406",
+  "Category": "AI \u63A8\u7406",
+  "Description": "\u8C03\u7528\u65E2\u6709 YOLOStudio \u63A8\u7406\u53CA Tile\u3002\u672A\u914D\u7F6E\u5916\u90E8\u4F9D\u8D56\u65F6\u660E\u786E\u5931\u8D25\uFF0C\u4E0D\u751F\u6210\u6F14\u793A\u6846\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "YoloInference",
+    "\u7B2C\u56DB\u9636\u6BB5B"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u521B\u5EFA\u526F\u672C\uFF0C\u914D\u7F6E PythonExecutable\u3001YoloStudioRoot\u3001ModelPath\uFF08\u5339\u914D\u7684 deployment.json \u5FC5\u987B\u5B58\u5728\uFF09\uFF0C\u66FF\u6362\u4E3A\u81EA\u6709\u6388\u6743\u56FE\u50CF\u540E\u8FD0\u884C\u3002\u53EF\u542F\u7528\u539F\u7CFB\u7EDF Tiled\u3002\u9ED8\u8BA4\u4E0D\u4E0B\u8F7D\u6216\u52A0\u8F7D\u6A21\u578B\u3002",
+  "Verification": "\u4F9D\u8D56\u9F50\u5907\u540E\u5FC5\u987B\u89C2\u5BDF\u771F\u5B9E\u8F93\u51FA\u53CA\u6A21\u578B SHA256\uFF1B\u53D1\u5E03\u5305\u4E0D\u542B\u7B2C\u4E09\u65B9\u6A21\u578B\u3002\u5F00\u53D1\u673A\u771F\u5B9E ONNX \u548C Tile \u8BB0\u5F55\u89C1\u9A8C\u6536\u62A5\u544A\uFF0C\u4E0D\u5C06\u8BE5\u5360\u4F4D\u56FE\u89C6\u4E3A\u7F3A\u9677\u7CBE\u5EA6\u6D4B\u8BD5\u3002",
+  "ExternalDependencies": [
+    "\u5FC5\u9700\u5916\u90E8\u4F9D\u8D56\uFF1AYOLOStudio \u539F\u5DE5\u7A0B\u3001\u5176 Python \u73AF\u5883\u3001\u6388\u6743 ONNX \u6A21\u578B\u53CA deployment.json\u3002\u8BF7\u5728\u53C2\u6570\u9762\u677F\u914D\u7F6E\uFF1B\u672C\u53D1\u884C\u5305\u4E0D\u9644\u5E26\u8FD9\u4E9B\u8D44\u6E90\u3002"
+  ],
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "recognize",
+      "Port": "Success",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "9C9DE0323767AC075AB204AEF23975C00CE8118D9940D87740E757DE25AA8FA8",
+    "project.json": "8C56323D147AC0F6D8B067D2671FCC847DFDD752A29B5FA96DF6BBD51A9FBEF7",
+    "README.md": "B8A2E11CAEB63094192CC7F0DC1A6746A284D55586313C423A1F8337EA136B0D",
+    "images/blank.png": "FF98C60B5024FE5161B91C79600AC89B4385CAB0764D3E007047BD669B283D57",
+    "images/input.png": "D276B2D62EF3ECE82C2E93C08269F9F714BD3FFFF0BF510CB8B310D90925031E"
+  }
+}

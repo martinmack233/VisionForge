@@ -1,0 +1,198 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "e5a2dd62-fd41-4df6-b485-f61d6673a341",
+  "ProjectName": "Modbus TCP\u672C\u673A\u53EA\u8BFB",
+  "Nodes": [
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "ModbusCommunication",
+      "Name": "ModbusCommunication",
+      "Parameters": {
+        "Transport": "Tcp",
+        "Operation": "Connect",
+        "ConnectionId": "owned-modbus-demo",
+        "Tcp": {
+          "Host": "127.0.0.1",
+          "Port": 1
+        },
+        "Serial": {
+          "PortName": "COM1",
+          "BaudRate": 9600,
+          "DataBits": 8,
+          "Parity": "None",
+          "StopBits": "One"
+        },
+        "TimeoutMilliseconds": 2000,
+        "UnitId": 1,
+        "Address": 0,
+        "Quantity": 1,
+        "WriteEnabled": false,
+        "DeliveryKey": "",
+        "CoilValue": false,
+        "RegisterValue": 0,
+        "CoilValues": "",
+        "RegisterValues": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "read",
+      "NodeTypeId": "ModbusCommunication",
+      "Name": "ModbusCommunication",
+      "Parameters": {
+        "Transport": "Tcp",
+        "Operation": "ReadHoldingRegisters",
+        "ConnectionId": "modbus",
+        "Tcp": {
+          "Host": "127.0.0.1",
+          "Port": 502
+        },
+        "Serial": {
+          "PortName": "COM1",
+          "BaudRate": 9600,
+          "DataBits": 8,
+          "Parity": "None",
+          "StopBits": "One"
+        },
+        "TimeoutMilliseconds": 2000,
+        "UnitId": 1,
+        "Address": 0,
+        "Quantity": 3,
+        "WriteEnabled": false,
+        "DeliveryKey": "",
+        "CoilValue": false,
+        "RegisterValue": 0,
+        "CoilValues": "",
+        "RegisterValues": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "decode",
+      "NodeTypeId": "ModbusDecode",
+      "Name": "ModbusDecode",
+      "Parameters": {
+        "DataType": "UInt16",
+        "ByteOrder": "BigEndian",
+        "WordOrder": "HighWordFirst",
+        "StartIndex": 0,
+        "Count": 3
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "select",
+      "NodeTypeId": "CollectionSelect",
+      "Name": "CollectionSelect",
+      "Parameters": {
+        "Index": 1
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "value",
+      "NodeTypeId": "ItemValue",
+      "Name": "ItemValue",
+      "Parameters": {
+        "Field": "Number"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {
+        "Prefix": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "close",
+      "NodeTypeId": "ModbusCommunication",
+      "Name": "ModbusCommunication",
+      "Parameters": {
+        "Transport": "Tcp",
+        "Operation": "Close",
+        "ConnectionId": "modbus",
+        "Tcp": {
+          "Host": "127.0.0.1",
+          "Port": 502
+        },
+        "Serial": {
+          "PortName": "COM1",
+          "BaudRate": 9600,
+          "DataBits": 8,
+          "Parity": "None",
+          "StopBits": "One"
+        },
+        "TimeoutMilliseconds": 2000,
+        "UnitId": 1,
+        "Address": 0,
+        "Quantity": 1,
+        "WriteEnabled": false,
+        "DeliveryKey": "",
+        "CoilValue": false,
+        "RegisterValue": 0,
+        "CoilValues": "",
+        "RegisterValues": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "read",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "read",
+      "SourcePort": "Registers",
+      "TargetNodeId": "decode",
+      "TargetPort": "Registers"
+    },
+    {
+      "SourceNodeId": "decode",
+      "SourcePort": "Collection",
+      "TargetNodeId": "select",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "select",
+      "SourcePort": "Item",
+      "TargetNodeId": "value",
+      "TargetPort": "Item"
+    },
+    {
+      "SourceNodeId": "value",
+      "SourcePort": "Number",
+      "TargetNodeId": "text",
+      "TargetPort": "Number"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "close",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "read",
+      "SourcePort": "$done",
+      "TargetNodeId": "close",
+      "TargetPort": "$exec"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

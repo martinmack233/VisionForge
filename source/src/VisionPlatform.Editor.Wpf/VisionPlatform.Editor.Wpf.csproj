@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><OutputType>WinExe</OutputType><AssemblyName>VisionStudio</AssemblyName></PropertyGroup>
+  <ItemGroup>
+    <Content Include="../../tools/ai_workspace_service/service.py;../../tools/ai_workspace_service/starter_example.py;../../tools/ai_workspace_service/__init__.py" Link="tools/ai_workspace_service/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../AIExamples/starter-v1/*" Link="AIExamples/starter-v1/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <ProjectReference Include="../VisionPlatform.Editor.Core/VisionPlatform.Editor.Core.csproj" />
+    <ProjectReference Include="../../third_party/Nodify/Nodify.csproj" />
+    <ProjectReference Include="..\VisionPlatform.AI\VisionPlatform.AI.csproj" />
+  </ItemGroup>
+</Project>

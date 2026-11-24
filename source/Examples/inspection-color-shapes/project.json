@@ -1,0 +1,181 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "7bef2f38-308a-4a92-933b-4b4ad0a0baff",
+  "ProjectName": "\u989C\u8272\u533A\u57DF \u00B7 HSV\u4E0E\u5168\u90E8\u8F6E\u5ED3",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "color",
+      "NodeTypeId": "ColorSpaceConvert",
+      "Name": "ColorSpaceConvert",
+      "Parameters": {
+        "ColorSpace": "Hsv8"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "range",
+      "NodeTypeId": "ColorInRange",
+      "Name": "ColorInRange",
+      "Parameters": {
+        "Lower0": 40,
+        "Lower1": 150,
+        "Lower2": 100,
+        "Upper0": 80,
+        "Upper1": 255,
+        "Upper2": 255
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "morphology",
+      "NodeTypeId": "Morphology",
+      "Name": "Morphology",
+      "Parameters": {
+        "Operation": "Open",
+        "KernelWidth": 3,
+        "KernelHeight": 3,
+        "KernelShape": "Rectangle",
+        "Iterations": 1
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "contours",
+      "NodeTypeId": "FindContours",
+      "Name": "FindContours",
+      "Parameters": {
+        "Retrieval": "Tree",
+        "Chain": "None",
+        "MaximumContours": 1000,
+        "MaximumPoints": 200000,
+        "MaximumPixels": 16000000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "shape",
+      "NodeTypeId": "ContourAnalysis",
+      "Name": "ContourAnalysis",
+      "Parameters": {
+        "ApproximationEpsilon": 2,
+        "FitEllipse": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "CollectionFilter",
+      "Parameters": {
+        "Field": "Area",
+        "Comparison": "GreaterOrEqual",
+        "Number": 100,
+        "Text": "",
+        "Boolean": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Area,Perimeter,Rectangularity",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 4,
+        "MaximumOverlays": 50
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "color",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "color",
+      "SourcePort": "ColorData",
+      "TargetNodeId": "range",
+      "TargetPort": "ColorData"
+    },
+    {
+      "SourceNodeId": "range",
+      "SourcePort": "BinaryImage",
+      "TargetNodeId": "morphology",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "morphology",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "contours",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "shape",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "shape",
+      "SourcePort": "Collection",
+      "TargetNodeId": "filter",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

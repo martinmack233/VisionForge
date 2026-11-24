@@ -1,0 +1,182 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "e5140e14-ebee-403e-9839-fc52c5cfc9a5",
+  "ProjectName": "\u7EDF\u4E00TCP\u672C\u673A\u8BF7\u6C42\u54CD\u5E94",
+  "Nodes": [
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "TcpCommunication",
+      "Name": "TcpCommunication",
+      "Parameters": {
+        "Role": "Client",
+        "Operation": "ConnectOrStart",
+        "ConnectionId": "owned-demo",
+        "ServerId": "unified-server",
+        "Client": {
+          "Host": "127.0.0.1",
+          "Port": 1,
+          "ConnectTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Listener": {
+          "LocalAddress": "127.0.0.1",
+          "Port": 0,
+          "AcceptTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Payload": "Text",
+        "SendEnabled": false,
+        "DeliveryKey": "",
+        "ForceResend": false,
+        "Message": "",
+        "TimeoutMilliseconds": 2000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "exchange",
+      "NodeTypeId": "TcpCommunication",
+      "Name": "TcpCommunication",
+      "Parameters": {
+        "Role": "Client",
+        "Operation": "RequestResponse",
+        "ConnectionId": "unified-client",
+        "ServerId": "unified-server",
+        "Client": {
+          "Host": "127.0.0.1",
+          "Port": 9000,
+          "ConnectTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Listener": {
+          "LocalAddress": "127.0.0.1",
+          "Port": 0,
+          "AcceptTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Payload": "Text",
+        "SendEnabled": true,
+        "DeliveryKey": "self-authored-tcp-demo",
+        "ForceResend": false,
+        "Message": "PING,2",
+        "TimeoutMilliseconds": 2000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {
+        "Prefix": ""
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "close",
+      "NodeTypeId": "TcpCommunication",
+      "Name": "TcpCommunication",
+      "Parameters": {
+        "Role": "Client",
+        "Operation": "Close",
+        "ConnectionId": "unified-client",
+        "ServerId": "unified-server",
+        "Client": {
+          "Host": "127.0.0.1",
+          "Port": 9000,
+          "ConnectTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Listener": {
+          "LocalAddress": "127.0.0.1",
+          "Port": 0,
+          "AcceptTimeoutMilliseconds": 2000,
+          "ReadTimeoutMilliseconds": 2000,
+          "WriteTimeoutMilliseconds": 2000,
+          "Protocol": {
+            "Mode": "Delimiter",
+            "Encoding": "Utf8",
+            "Delimiter": "\\n",
+            "MaximumMessageBytes": 65536
+          }
+        },
+        "Payload": "Text",
+        "SendEnabled": false,
+        "DeliveryKey": "",
+        "ForceResend": false,
+        "Message": "",
+        "TimeoutMilliseconds": 2000
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "exchange",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "exchange",
+      "SourcePort": "Message",
+      "TargetNodeId": "text",
+      "TargetPort": "String"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "close",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "exchange",
+      "SourcePort": "$done",
+      "TargetNodeId": "close",
+      "TargetPort": "$exec"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

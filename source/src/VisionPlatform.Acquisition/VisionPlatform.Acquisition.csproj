@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../VisionPlatform.Contracts/VisionPlatform.Contracts.csproj" />
+    <ProjectReference Include="../VisionPlatform.Imaging/VisionPlatform.Imaging.csproj" />
+  </ItemGroup>
+</Project>

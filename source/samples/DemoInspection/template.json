@@ -1,0 +1,13 @@
+{
+  "SchemaVersion": 1,
+  "ModelId": "synthetic-locator",
+  "AlgorithmId": "cvinspect.pattern",
+  "AlgorithmVersion": "0.34.0\u002B0eddfbaa",
+  "ImagePath": "template.templates/bd4bec3c338e8d360fe8a6fa550dd34e4c3d002042ea8b2341dc591644bf66cc.png",
+  "Sha256": "bd4bec3c338e8d360fe8a6fa550dd34e4c3d002042ea8b2341dc591644bf66cc",
+  "Width": 72,
+  "Height": 64,
+  "PixelFormat": 0,
+  "ReferenceX": 35.5,
+  "ReferenceY": 31.5
+}

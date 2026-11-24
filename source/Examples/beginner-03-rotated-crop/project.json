@@ -1,0 +1,79 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "c8d6ec87-e59b-4bd5-b401-ca15960bbeb4",
+  "ProjectName": "03 \u65CB\u8F6C\u88C1\u5207\uFF1A\u628A\u503E\u659C\u533A\u57DF\u6446\u6B63",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "\u2460 \u8BFB\u53D6\u81EA\u5236\u56FE\u7247",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "original",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2461 \u67E5\u770B\u539F\u56FE",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "crop",
+      "NodeTypeId": "RotatedCrop",
+      "Name": "\u2462 \u987A\u65F6\u948830\u00B0\u65CB\u8F6C\u88C1\u5207",
+      "Parameters": {
+        "CenterX": 160,
+        "CenterY": 120,
+        "Width": 120,
+        "Height": 60,
+        "Angle": 30,
+        "Interpolation": "Linear",
+        "BorderMode": "Constant",
+        "BorderValue": 0
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "cropped",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2463 \u67E5\u770B\u88C1\u5207\u540E\u7684\u65B0\u56FE",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "original",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "crop",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "crop",
+      "SourcePort": "CroppedImage",
+      "TargetNodeId": "cropped",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

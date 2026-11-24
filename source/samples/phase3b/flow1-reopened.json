@@ -1,0 +1,172 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "6e93a0eb-68d4-405f-bbe7-333969686506",
+  "ProjectName": "B1-Blob\u6570\u91CF\u771F\u5B9E\u6761\u4EF6\u5206\u652F",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "inspection.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 128
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "BlobFilter",
+      "Name": "BlobFilter",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "compare",
+      "NodeTypeId": "Compare",
+      "Name": "Compare",
+      "Parameters": {
+        "Operator": "GreaterThan",
+        "ValueB": 5
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "if",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "ng",
+      "NodeTypeId": "LogicNot",
+      "Name": "LogicNot",
+      "Parameters": {
+        "Value": true
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "ok",
+      "NodeTypeId": "LogicNot",
+      "Name": "LogicNot",
+      "Parameters": {
+        "Value": false
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "merge",
+      "NodeTypeId": "Merge",
+      "Name": "Merge",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "filter",
+      "TargetPort": "BlobResults"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "compare",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "compare",
+      "SourcePort": "Result",
+      "TargetNodeId": "if",
+      "TargetPort": "Condition"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "True",
+      "TargetNodeId": "ng",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "False",
+      "TargetNodeId": "ok",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "ng",
+      "SourcePort": "$done",
+      "TargetNodeId": "merge",
+      "TargetPort": "TrueControl"
+    },
+    {
+      "SourceNodeId": "ng",
+      "SourcePort": "Result",
+      "TargetNodeId": "merge",
+      "TargetPort": "TrueValue"
+    },
+    {
+      "SourceNodeId": "ok",
+      "SourcePort": "$done",
+      "TargetNodeId": "merge",
+      "TargetPort": "FalseControl"
+    },
+    {
+      "SourceNodeId": "ok",
+      "SourcePort": "Result",
+      "TargetNodeId": "merge",
+      "TargetPort": "FalseValue"
+    },
+    {
+      "SourceNodeId": "merge",
+      "SourcePort": "Boolean",
+      "TargetNodeId": "report",
+      "TargetPort": "IsOk"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

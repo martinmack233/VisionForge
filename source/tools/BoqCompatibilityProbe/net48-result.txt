@@ -1,0 +1,10 @@
+Runtime=4.0.30319.42000; x64=True
+Loaded=BoqApi_CSharp, Version=1.0.9754.39194, Culture=neutral, PublicKeyToken=null
+PublicApi=BoqApi_CSharp.BoqApi
+Init=0
+DiscoverCount=4; ArrayLength=4
+DeviceSerial=AB60600021
+DeviceSerial=fakeUp
+DeviceSerial=fakeDown
+DeviceSerial=fakeSide
+Deinit=0

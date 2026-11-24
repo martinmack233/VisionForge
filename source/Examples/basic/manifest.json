@@ -1,0 +1,64 @@
+{
+  "SchemaVersion": 1,
+  "Id": "basic",
+  "Name": "\u57FA\u7840\u56FE\u50CF\u5904\u7406",
+  "Category": "\u56FE\u50CF\u5904\u7406",
+  "Description": "\u9AD8\u65AF\u6EE4\u6CE2\u3001\u56FA\u5B9A\u9608\u503C\u548C\u56FE\u50CF\u9884\u89C8\u3002\u53EF\u8C03\u6574ThresholdValue\u89C2\u5BDF\u8FB9\u7F18\u53D8\u5316\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u56FE\u50CF\u5904\u7406",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 160,
+      "Tolerance": 0,
+      "Property": "Width"
+    },
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 120,
+      "Tolerance": 0,
+      "Property": "Height"
+    },
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 255,
+      "Tolerance": 0,
+      "Property": "Pixel[25,25]"
+    },
+    {
+      "NodeId": "display",
+      "Port": "Image",
+      "Expected": 0,
+      "Tolerance": 0,
+      "Property": "Pixel[0,0]"
+    },
+    {
+      "NodeId": "threshold",
+      "Port": "$status",
+      "Expected": "Success",
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [],
+  "Files": {
+    "preview.png": "43955B486FCB690D4AD813ACDD184E5BA9D0C38F330118B3FDD481E8FA8CAA66",
+    "project.json": "029A1D0B8AA20A5999AE442F1B4B1D0E8619D2BF1D198F25AF5CFD3EB2570D82",
+    "README.md": "051F71C2E46B8C212442C7E18FA2BECD07C728480E6A763A818D731E83B2B9D5",
+    "images/abnormal.png": "90CB01044C63D93B104163E44774791F728BC462D90D9FC0430B66AAD3F2B666",
+    "images/input.png": "554629FD3B89B8A545C71A7F821E8635946AC04AD7CDE5DE7C457369773E7355"
+  }
+}

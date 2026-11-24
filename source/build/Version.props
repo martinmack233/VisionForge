@@ -1,0 +1,12 @@
+﻿<Project>
+  <PropertyGroup>
+    <VisionProductName>视构 VisionForge</VisionProductName>
+    <VisionProductVersion>0.6.3</VisionProductVersion>
+    <!-- Preserve the existing public assembly identity for compiled plugin references. -->
+    <VisionAssemblyVersion>1.0.0.0</VisionAssemblyVersion>
+    <VisionFileVersion>0.6.3.4</VisionFileVersion>
+    <VisionSourceCommit Condition="'$(VisionSourceCommit)' == ''">unknown</VisionSourceCommit>
+    <VisionSourceState Condition="'$(VisionSourceState)' == ''">unidentified</VisionSourceState>
+    <VisionSourceHash Condition="'$(VisionSourceHash)' == ''">not-generated</VisionSourceHash>
+  </PropertyGroup>
+</Project>

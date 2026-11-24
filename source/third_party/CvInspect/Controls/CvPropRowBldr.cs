@@ -1,0 +1,241 @@
+using System.Collections;
+using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
+namespace CvInspect.Controls;
+
+/// <summary>
+/// POCO 인스턴스 → 카테고리 그룹/행 VM 빌더. 화면 구성 입력은 런타임 타입의 public 프로퍼티와
+/// System.ComponentModel 표준 attribute 5종뿐이다:
+/// [Browsable(false)]=숨김, [ReadOnly(true)]=편집 불가, [DisplayName]=라벨, [Description]=설명,
+/// [Category]=그룹. 그룹 순번은 카테고리 attribute 가 <see cref="ICvOrderedCategory"/> 면 그 Order 로,
+/// 아니면 표시 문자열의 "N. " 접두를 파싱해(번호는 정렬에만 쓰고 헤더에는 남기지 않는다) 정한다.
+/// 코어의 CvCategory/CvName/CvDesc 는 이 표준 attribute 의 파생이라 별도 취급이 없다 — 어떤 POCO 든 같은 규칙으로 펼친다.
+/// 행 분기는 CLR 타입 기준: bool / int·long·double·float / enum / string / Action(실행 버튼) /
+/// 읽기 전용 나열(IEnumerable) / 중첩 객체([TypeConverter(ExpandableObjectConverter)] 를 단 것만 —
+/// 값의 런타임 타입으로 다시 펼친다).
+/// getter-only 프로퍼티도 지원 타입이면 편집 불가 행으로 표시한다([ReadOnly(true)] 와 동일 렌더).
+/// 그 밖의 타입(훅·바이너리 등)은 편집 표면 계약 밖이라 노출하지 않는다.
+/// 값을 읽다 소스가 던지면 그 행만 빠지고 나머지는 그대로 선다 — 이유는 로그에 남는다.
+/// UI 프레임워크와 무관해 코어에 있다(편집기 컨트롤은 각 UI 패키지 몫). 0.33 까지는 CvInspect.Wpf 에 있었다 — Wpf 어셈블리가 전달한다.
+/// </summary>
+public static class CvPropRowBldr
+{
+    /// <summary>빌드한 행을 떼어 낸다 — 소스 통지 구독과 호스트 훅을 끊는다. 편집기가 Source 를 바꾸거나 화면에서 내릴 때 옛 행에 부른다.
+    /// 떼어진 행은 화면에 남은 시각 트리에서 늦게 커밋이 와도 아무것도 쓰지 않는다(폐기된 POCO 를 오염시키지 않게).
+    /// 중첩 행은 자식까지 떼어 낸다. 같은 행을 두 번 떼어도 된다.
+    /// ⚠ <b>되돌릴 수 없다</b> — 떼어진 행은 다시 붙지 않고, 이후 편집은 오류도 로그도 없이 버려진다.
+    /// 그래서 <b>그 행을 만든 쪽(편집기)만</b> 부른다. 편집기가 아직 보여 주는 그룹(예: 편집기의 공개 Groups)에 부르면
+    /// 화면은 멀쩡한데 편집이 소스에 닿지 않는다.</summary>
+    /// <exception cref="ArgumentNullException"><paramref name="groups"/> 가 null.</exception>
+    public static void Detach(IEnumerable<CvPropGroupVm> groups)
+    {
+        if (groups is null) throw new ArgumentNullException(nameof(groups));
+        foreach (var g in groups)
+            foreach (var r in g.Rows)
+                r.Detach();
+    }
+
+    /// <summary>프로퍼티별 attribute 인스턴스 캐시 — GetCustomAttribute 는 호출마다 새 인스턴스를 만들므로 프로퍼티당 1회로 고정한다.
+    /// ⚠ 카테고리 머리글 문자열은 여기서 읽지 않는다 — 이 캐시가 쥔 인스턴스는 첫 조회 언어로 굳는다(<see cref="CategoryText"/>).
+    /// 라벨·설명(DisplayName·Description)은 조회마다 다시 번역되므로 캐시한 인스턴스로 읽어도 된다.</summary>
+    private static readonly ConcurrentDictionary<PropertyInfo, PropMeta> MetaCache = new();
+
+    private sealed record PropMeta(
+        CategoryAttribute? Cat, DisplayNameAttribute? Name, DescriptionAttribute? Desc,
+        bool Hidden, bool ReadOnly, int? CatOrder, bool Expandable);
+
+    /// <summary>중첩 펼침 한도. 자기 자신을 값으로 들고 있는 객체를 만나면 여기서 멈춘다 —
+    /// 순환을 못 끕으면 편집기를 여는 것만으로 스택이 넘친다.</summary>
+    private const int MaxNestDepth = 3;
+
+    /// <summary>행 하나를 세우는 데 필요한 호스트 훅 묶음 — 중첩 자식까지 그대로 물려준다.</summary>
+    private sealed record Ctx(
+        Action<string>? OnCommitted,
+        Action<string>? OnActionExecuting,
+        Action<string>? OnActionExecuted,
+        Action<string, Exception>? OnActionFailed,
+        string? ExecuteText,
+        bool ShowDesc);
+
+    /// <summary>카테고리 정렬 순번 — attribute 가 <see cref="ICvOrderedCategory"/> 를 구현하면 그 값. 아니면 null 로,
+    /// 표시 문자열의 "N. " 접두 파싱으로 폴백한다.</summary>
+    private static int? ReadCatOrder(CategoryAttribute? cat)
+        => cat is ICvOrderedCategory ordered ? ordered.Order : null;
+
+    public static IReadOnlyList<CvPropGroupVm> Build(
+        object src, Action<string>? onCommitted,
+        Action<string>? onActionExecuting, Action<string>? onActionExecuted, Action<string, Exception>? onActionFailed,
+        string? executeText = null, bool showDesc = true)
+    {
+        var ctx = new Ctx(onCommitted, onActionExecuting, onActionExecuted, onActionFailed, executeText, showDesc);
+
+        var rows = new List<(int Order, string Header, CvPropRowVm Row)>();
+        foreach (var prop in WalkProps(src.GetType()))
+        {
+            var meta = ReadMeta(prop);
+            if (meta.Hidden) continue;
+
+            var row = Configure(prop, meta, src, ctx, 0);
+            if (row is null) continue;
+
+            // 순번은 ① attribute 의 Order(접두 없는 표시명 그대로 헤더) → ② "N. " 접두 파싱 폴백.
+            var catText = CategoryText(prop, meta.Cat);
+            var (order, header) = meta.CatOrder is { } catOrder
+                ? (catOrder, catText ?? string.Empty)
+                : ParseCategory(catText);
+            rows.Add((order, header, row));
+        }
+
+        // 그룹은 순번 오름차순(무번호는 뒤), 그룹 안 행은 선언 순서 그대로.
+        return rows.GroupBy(r => (r.Order, r.Header))
+            .OrderBy(g => g.Key.Order).ThenBy(g => g.Key.Header, StringComparer.Ordinal)
+            .Select(g => new CvPropGroupVm(g.Key.Header, g.Select(r => r.Row).ToList()))
+            .ToList();
+    }
+
+    /// <summary>중첩 객체의 자식 행 — 카테고리로 묶지 않고 선언 순서 그대로 낸다.
+    /// 부모 행이 이미 한 그룹 안의 한 줄이라, 그 안에서 다시 그룹을 나누면 머리글이 두 겹이 된다.</summary>
+    private static IReadOnlyList<CvPropRowVm> BuildChildren(object src, Ctx ctx, int depth)
+    {
+        var rows = new List<CvPropRowVm>();
+        foreach (var prop in WalkProps(src.GetType()))
+        {
+            var meta = ReadMeta(prop);
+            if (meta.Hidden) continue;
+
+            var row = Configure(prop, meta, src, ctx, depth);
+            if (row is not null) rows.Add(row);
+        }
+        return rows;
+    }
+
+    /// <summary>카테고리 머리글 문자열 — <b>빌드할 때마다 지금 언어로</b> 읽는다.
+    /// 표준 <see cref="CategoryAttribute.Category"/> 는 인스턴스마다 첫 조회 때 한 번 번역해 담아 두고(베이스 동작, virtual 이 아니다),
+    /// 위 캐시는 그 인스턴스를 프로세스 수명 동안 쥔다. 그래서 머리글은 그 타입을 처음 그린 언어로 굳었고, 행 라벨(CvName·CvDesc 는 조회마다
+    /// 다시 번역한다)은 새 언어가 되어 한 편집기 안에 두 언어가 섞였다(소비자가 원문 독해로 짚음 — 툴마다 처음 그린 시점이 달라 툴별로
+    /// 머리글 언어가 다를 수도 있었다). <see cref="CvCategoryAttribute"/> 는 키로 바로 번역하고(그 타입 문서가 권하는 길), 다른 카테고리
+    /// attribute 는 새 인스턴스로 읽는다 — 그 파생이 GetLocalizedString 에서 번역하면 새 인스턴스는 지금 언어로 다시 번역한다.
+    /// 빌드는 드물어(툴을 고르거나 설정을 바꿀 때) 속성마다 한 번 더 읽는 비용은 문제가 안 된다.</summary>
+    private static string? CategoryText(PropertyInfo prop, CategoryAttribute? cached) => cached switch
+    {
+        null => null,
+        CvCategoryAttribute cv => CvLoc.T(cv.ScopedKey),
+        _ => prop.GetCustomAttribute<CategoryAttribute>()?.Category,
+    };
+
+    private static PropMeta ReadMeta(PropertyInfo prop) => MetaCache.GetOrAdd(prop, p =>
+    {
+        var cat = p.GetCustomAttribute<CategoryAttribute>();
+        return new PropMeta(
+            cat,
+            p.GetCustomAttribute<DisplayNameAttribute>(),
+            p.GetCustomAttribute<DescriptionAttribute>(),
+            p.GetCustomAttribute<BrowsableAttribute>() is { Browsable: false },
+            p.GetCustomAttribute<ReadOnlyAttribute>() is { IsReadOnly: true },
+            ReadCatOrder(cat),
+            IsExpandable(p.GetCustomAttribute<TypeConverterAttribute>()));
+    });
+
+    /// <summary>행 하나를 만들고 배선한다 — 만들 수 없는 타입이면 null(그 프로퍼티는 화면에 나오지 않는다).</summary>
+    private static CvPropRowVm? Configure(PropertyInfo prop, PropMeta meta, object src, Ctx ctx, int depth)
+    {
+        var row = MakeRow(prop, meta, ctx.ExecuteText, depth);
+        if (row is null) return null;
+
+        var desc = meta.Desc?.Description ?? string.Empty;
+        row.Prop = prop;
+        row.Source = src;
+        row.OnCommitted = ctx.OnCommitted;
+        row.Label = meta.Name?.DisplayName ?? prop.Name;
+        row.Desc = desc;
+        row.InlineDesc = ctx.ShowDesc ? desc : string.Empty;
+        // Action 은 getter-only 가 정상 관용구(실행 버튼) — CanWrite 기준 잠금에서 제외한다.
+        // 나열과 중첩도 마찬가지다: 값 자체를 대입하는 행이 아니라 보여 주거나 펼치는 행이라
+        // setter 유무로 잠그면 멀쩡한 자식 편집까지 같이 잠긴다.
+        row.IsReadOnly = meta.ReadOnly
+            || (!prop.CanWrite && row is not (CvPropActionRowVm or CvPropListRowVm or CvPropNestedRowVm));
+        if (row is CvPropActionRowVm act)
+        {
+            act.OnExecuting = ctx.OnActionExecuting;
+            act.OnExecuted = ctx.OnActionExecuted;
+            act.OnActionFailed = ctx.OnActionFailed;
+        }
+        if (row is CvPropNestedRowVm nested)
+            nested.ChildFactory = value => BuildChildren(value, ctx, depth + 1);
+
+        row.Attach();
+        // 첫 읽기에서 던지는 프로퍼티는 그 행만 뺀다 — 빈 칸으로 그리면 "값이 그렇다" 로 읽히고, 사용자가 그 위에
+        // 편집하면 읽지도 못한 값을 덮어쓴다. 실패 이유는 행 VM 이 경고로 남긴다.
+        if (!row.TryRefreshFromSource())
+        {
+            row.Detach();
+            return null;
+        }
+        return row;
+    }
+
+    /// <summary>base → 파생 순, 타입 안은 선언 순(MetadataToken) — 리플렉션 GetProperties 는 순서 무보장이라 명시한다.
+    /// override/new 로 다시 선언된 프로퍼티는 파생 선언이 이기되 자리(선언 순서)는 처음 나온 곳을 지킨다.</summary>
+    private static IEnumerable<PropertyInfo> WalkProps(Type type)
+    {
+        var chain = new List<Type>();
+        for (var t = type; t is not null && t != typeof(object); t = t.BaseType) chain.Add(t);
+        chain.Reverse();
+
+        var order = new List<string>();
+        var byName = new Dictionary<string, PropertyInfo>();
+        foreach (var t in chain)
+            foreach (var p in t.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                         .Where(p => p.CanRead && p.GetIndexParameters().Length == 0)
+                         .OrderBy(p => p.MetadataToken))
+            {
+                if (!byName.ContainsKey(p.Name)) order.Add(p.Name);
+                byName[p.Name] = p;
+            }
+        return order.Select(n => byName[n]);
+    }
+
+    private static CvPropRowVm? MakeRow(PropertyInfo prop, PropMeta meta, string? executeText, int depth)
+    {
+        var t = prop.PropertyType;
+        // 실행 버튼 문구 — 지정이 없으면 라이브러리 번역 키. 호스트가 키를 모르면 원문("Execute")으로 폴백된다.
+        if (t == typeof(Action)) return new CvPropActionRowVm { ButtonText = executeText ?? CvLoc.T("cv:Execute") };
+
+        if (t == typeof(bool)) return new CvPropBoolRowVm();
+        if (t.IsEnum) return new CvPropEnumRowVm { Values = Enum.GetValues(t).Cast<object>().ToList() };
+        if (t == typeof(int) || t == typeof(long) || t == typeof(double) || t == typeof(float))
+            return new CvPropNumRowVm { NumType = t };
+        if (t == typeof(string)) return new CvPropStrRowVm();
+
+        // 중첩은 펼쳐 달라고 명시한 것만 펼친다 — 아무 참조 타입이나 펼치면 도구 객체 그래프를
+        // 통째로 걸어 들어간다. 한도를 넘으면 그 자리는 아예 안 그린다(잘린 절반을 남기지 않는다).
+        if (meta.Expandable) return depth < MaxNestDepth ? new CvPropNestedRowVm() : null;
+
+        if (typeof(IEnumerable).IsAssignableFrom(t)) return new CvPropListRowVm();
+
+        return null;
+    }
+
+    /// <summary>[TypeConverter] 가 <see cref="ExpandableObjectConverter"/> 인가.
+    /// attribute 는 타입이 아니라 <b>이름 문자열</b>을 들고 있고, 그 문자열이 어셈블리 한정명일 수도
+    /// 짧은 이름일 수도 있다 — 어셈블리 이름은 런타임 판에 따라 달라지므로 앞의 타입 이름만 본다.</summary>
+    private static bool IsExpandable(TypeConverterAttribute? tc)
+    {
+        var name = tc?.ConverterTypeName;
+        if (string.IsNullOrEmpty(name)) return false;
+        var comma = name!.IndexOf(',');
+        var typeName = (comma > 0 ? name.Substring(0, comma) : name).Trim();
+        return typeName == typeof(ExpandableObjectConverter).FullName;
+    }
+
+    /// <summary>"3. Search" → (3, "Search"). 접두 없으면 무번호(뒤로 정렬), 카테고리 자체가 없으면 헤더 없는 그룹.</summary>
+    private static (int Order, string Header) ParseCategory(string? category)
+    {
+        if (string.IsNullOrWhiteSpace(category)) return (int.MaxValue, string.Empty);
+        var m = Regex.Match(category, @"^(\d+)\.\s*(.*)$");
+        return m.Success ? (int.Parse(m.Groups[1].Value), m.Groups[2].Value) : (int.MaxValue, category);
+    }
+}

@@ -1,0 +1,285 @@
+﻿{
+  "manifest_version": 1,
+  "product_version": "0.6.3-preview.1",
+  "source_identity": "8401d0b914ba70b75d39d6dd9ceec3cd6565a62d48a000cff9e942370c64ac4f",
+  "source_state": "dirty",
+  "components": [
+    {
+      "id": "visionstudio.core",
+      "version": "0.6.3-preview.1",
+      "protocols": {
+        "runtime_host": 1,
+        "project_schema": [
+          1,
+          2,
+          3
+        ],
+        "package": 1,
+        "subflow": 1
+      },
+      "runtime": "10.0.15",
+      "python_required": false,
+      "backends": [
+        "traditional-opencv",
+        "ocr-tesseract",
+        "virtual-camera"
+      ],
+      "included": true
+    },
+    {
+      "id": "visionstudio.ai-detection",
+      "version": "1.0.0",
+      "protocol": 1,
+      "python_minor": "3.11",
+      "dependencies": {
+        "numpy": "2.4.6",
+        "Pillow": "12.3.0",
+        "tifffile": "2026.3.3",
+        "onnxruntime": "1.31.1",
+        "torch": "2.7.1+cu128",
+        "torchvision": "0.22.1+cu128",
+        "ultralytics": "8.4.190"
+      },
+      "backends": [
+        "onnx-cpu"
+      ],
+      "included": "recipe/probe/explicit local installer; engine and Python NOT included",
+      "source_files": {
+        "core/inference/backend.py": "d34a8082de7dd97b4cdb188efb297b358220800ec91332ea204befb9f6aee411",
+        "core/inference/config.py": "a09e55962859948008f97c0b5caa947f2a4b9dc07cadc731ca071d9d66c4f815",
+        "core/inference/geometry.py": "e60ba678260058db045009526366154ae983fe886219f126c8a4fd0488103a35",
+        "core/inference/service.py": "b27217927afb685e5ae3a73cc91e4adb567e8834277848f67f350da9cac6ea13",
+        "core/preprocessing.py": "6db556dac8f74f64fb80d5aa1f1e11d5969bab3631029e092edb7068c56373c6",
+        "core/imaging.py": "c1a2b967e0f16a44cbff3c3297dedbec14c1a273baaf03c09e202dccb8921758",
+        "core/annotations.py": "f54abb6c75bbf33aa1807733bd97f552d34a048d2bbde2a3bf18e9a36e2c7a57",
+        "core/training/config.py": "5e91276df5cda1b0c806655e5b392ace4aacd8924e12267b5b11b7d3b62a7e56",
+        "core/training/dataset.py": "0b11616e113a3c9966b7caec30ca52cb88b38d9965f37dfccb63ab75e49d73fd",
+        "core/training/processes.py": "662eb6ef59a70e8f9bbe8d513a501e175232425f50bf009584313907b8257653"
+      },
+      "redistribution": "unconfirmed; no third-party engine or models in default release"
+    },
+    {
+      "id": "visionstudio.ai-training-workspace",
+      "version": "connector-1.0.0",
+      "protocol": 1,
+      "python_minor": "3.11",
+      "enabled_by_default": false,
+      "included": "WPF pages and own service connector only",
+      "business": "explicitly configured existing YOLOStudio TrainingService/runner/train_worker; original .venv and data remain external",
+      "redistribution": "source/engine/PySide6/model rights must be independently confirmed"
+    },
+    {
+      "id": "visionstudio.boq-adapter",
+      "version": "0.6.3-preview.1",
+      "worker_runtime": "10.0.15",
+      "included": "adapter and isolation worker; NO vendor SDK/driver",
+      "hardware_verified": false,
+      "redistribution": "vendor SDK/driver unconfirmed and excluded"
+    },
+    {
+      "id": "visionstudio.resident-yolo-bridge",
+      "version": "2.0.0",
+      "protocol": 2,
+      "transport": "private stdio; owned PNG/uncompressed TIFF leases; no listener",
+      "cache_models": 1,
+      "admitted_frames": 2,
+      "backend": "existing ONNX CPU only",
+      "redistribution": "own connector included; engine/Python/weights external and NOT collectively authorized"
+    }
+  ],
+  "third_party": [
+    {
+      "name": "OpenCvSharp4",
+      "version": "4.13.0.20260627",
+      "source": "https://github.com/shimat/opencvsharp",
+      "license": "Apache-2.0",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "OpenCvSharp4.runtime.win.slim",
+      "version": "4.13.0.20260627",
+      "source": "https://github.com/shimat/opencvsharp",
+      "license": "Apache-2.0",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "version": "8.0.2",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "Microsoft.Extensions.Logging.Abstractions",
+      "version": "8.0.3",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.linux-arm.runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.linux-arm64.runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.linux-x64.runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.osx-arm64.runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "runtime.osx-x64.runtime.native.System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "System.IO.Ports",
+      "version": "8.0.0",
+      "source": "https://dot.net/",
+      "license": "MIT",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "Tesseract",
+      "version": "5.2.0",
+      "source": "https://github.com/charlesw/tesseract/",
+      "license": "Apache-2.0",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": "ZXing.Net",
+      "version": "0.16.11",
+      "source": "https://github.com/micjahn/ZXing.Net/",
+      "license": "Apache-2.0",
+      "redistribution": "license metadata recorded; retain notices and review native/transitive terms, not a commercial authorization"
+    },
+    {
+      "name": ".NET runtime",
+      "version": "10.0.15",
+      "source": "https://github.com/dotnet/runtime",
+      "license": "MIT and bundled third-party notices",
+      "redistribution": "notices included"
+    },
+    {
+      "name": "Nodify",
+      "version": "7.3",
+      "source": "https://github.com/miroiu/nodify",
+      "license": "MIT",
+      "redistribution": "source/notice retained"
+    },
+    {
+      "name": "CvInspect",
+      "version": "0.34.0+0eddfbaa5195753c2a589fef82555bdf6455da80",
+      "source": "https://github.com/cmir79/CvInspect",
+      "license": "MIT",
+      "redistribution": "reviewed source/notice retained"
+    },
+    {
+      "name": "Tesseract native / Leptonica / codecs / eng.traineddata",
+      "version": "existing pinned x64 pair / eng",
+      "source": "licenses/phase4b",
+      "license": "Apache-2.0 / BSD / bundled codec terms",
+      "redistribution": "individual notices retained; no other language data bundled"
+    },
+    {
+      "name": "BoqApi_CSharp.dll / vendor driver",
+      "version": "owner supplied SDK archive",
+      "source": "local owner archive (not included)",
+      "license": "unconfirmed proprietary",
+      "redistribution": "EXCLUDED"
+    },
+    {
+      "name": "YOLOStudio business source",
+      "version": "hash-pinned recipe",
+      "source": "owner existing repository; relative paths/hashes in recipe",
+      "license": "unconfirmed ownership/re-distribution",
+      "redistribution": "EXCLUDED; explicit local extraction only"
+    },
+    {
+      "name": "Ultralytics",
+      "version": "8.4.190",
+      "source": "https://www.ultralytics.com/license",
+      "license": "upstream AGPL-3.0 / Enterprise options; actual owner authorization unconfirmed",
+      "redistribution": "EXCLUDED; engine usage still needs applicable terms review, out-of-process is not a license exemption"
+    },
+    {
+      "name": "PySide6 / Qt",
+      "version": "existing training environment",
+      "source": "owner existing environment",
+      "license": "LGPL/GPL/commercial terms require independent review",
+      "redistribution": "EXCLUDED"
+    },
+    {
+      "name": "YOLO/PT/ONNX model weights",
+      "version": "per-artifact hash/deployment schema1",
+      "source": "per-model owner/source",
+      "license": "unconfirmed per model",
+      "redistribution": "EXCLUDED by default; export requires explicit carry-rights acknowledgement"
+    },
+    {
+      "name": "torch / torchvision / numpy / Pillow / tifffile / ONNX Runtime",
+      "version": {
+        "numpy": "2.4.6",
+        "Pillow": "12.3.0",
+        "tifffile": "2026.3.3",
+        "onnxruntime": "1.31.1",
+        "torch": "2.7.1+cu128",
+        "torchvision": "0.22.1+cu128",
+        "ultralytics": "8.4.190"
+      },
+      "source": "existing external Python environment",
+      "license": "per-package and native/transitive licenses not collectively cleared",
+      "redistribution": "EXCLUDED; no environment copy or pip installation"
+    }
+  ],
+  "commercial_authorization_claimed": false,
+  "clean_windows_verified": false,
+  "reference_review": {
+    "repository": "https://github.com/Augenstern-create/VisionStudio",
+    "commit": "f7bd87b37c3075c60508cb97a0feaa16576db89d",
+    "copied_code": false,
+    "new_third_party_dependencies": [],
+    "emgu_included": false,
+    "vision_ai_dll_included": false
+  },
+  "operator_expansion": {
+    "new_nodes": 24,
+    "new_third_party_dependencies": [],
+    "modbus": "own C# over existing TCP/System.IO.Ports",
+    "modbus_hardware_verified": false,
+    "project_schema": 3,
+    "package_schema": 1,
+    "new_resource_kind": "DataFile: bounded local FileRead.Path",
+    "float_contract": "FloatPlaneFrame signed Float32; not Mono8",
+    "matrix_contract": "NumericMatrix Float64 / ProjectiveTransform2D forward 3x3",
+    "old_nodes_retained": true,
+    "reverse_compatibility_claimed": false
+  },
+  "baseline_note": "Recorded from 0.6.3-preview.1; product/source identity is replaced at staging. Existing third-party terms remain independently applicable."
+}

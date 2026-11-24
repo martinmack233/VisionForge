@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0-windows7.0": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "Transitive",
+        "resolved": "8.0.2",
+        "contentHash": "3iE7UF7MQkCv1cxzCahz+Y/guQbTqieyxyaWKhrRO91itI9cOKO76OHeQDahqG4MmW5umr3CcCvGmK92lWNlbg=="
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "Transitive",
+        "resolved": "8.0.3",
+        "contentHash": "dL0QGToTxggRLMYY4ZYX5AMwBb+byQBd/5dMiZE07Nv73o6I5Are3C7eQTh7K2+A4ct0PVISSr7TZANbiNb2yQ==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
+        }
+      },
+      "OpenCvSharp4": {
+        "type": "Transitive",
+        "resolved": "4.13.0.20260627",
+        "contentHash": "nYk95jkyYY9f0sF5KqZ3OB1SWkmqsfV7eN0ROiQds/rxpSn0v1G0QIedMbwuqbdPhvQnOIG2DDmpkLnHEJMh8Q=="
+      },
+      "OpenCvSharp4.runtime.win.slim": {
+        "type": "Transitive",
+        "resolved": "4.13.0.20260627",
+        "contentHash": "8A4slgE6f5uzX/HWn+AXRMisUOIAaLVfinj1yUTzq+c6b1qaPxPJ9jzW/fjLbZWe0dLjvfiyXcIdc4VK+2g4Dw=="
+      },
+      "runtime.linux-arm.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "gK720fg6HemDg8sXcfy+xCMZ9+hF78Gc7BmREbmkS4noqlu1BAr9qZtuWGhLzFjBfgecmdtl4+SYVwJ1VneZBQ=="
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "KYG6/3ojhEWbb3FwQAKgGWPHrY+HKUXXdVjJlrtyCLn3EMcNTaNcPadb2c0ndQzixZSmAxZKopXJr0nLwhOrpQ=="
+      },
+      "runtime.linux-x64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "Wnw5vhA4mgGbIFoo6l9Fk3iEcwRSq49a1aKwJgXUCUtEQLCSUDjTGSxqy/oMUuOyyn7uLHsH8KgZzQ1y3lReiQ=="
+      },
+      "runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "Ee7Sz5llLpTgyKIWzKI/GeuRSbFkOABgJRY00SqTY0OkTYtkB+9l5rFZfE7fxPA3c22RfytCBYkUdAkcmwMjQg==",
+        "dependencies": {
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "8.0.0",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "8.0.0",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "8.0.0",
+          "runtime.osx-arm64.runtime.native.System.IO.Ports": "8.0.0",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "8.0.0"
+        }
+      },
+      "runtime.osx-arm64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "rbUBLAaFW9oVkbsb0+XSrAo2QdhBeAyzLl5KQ6Oci9L/u626uXGKInsVJG6B9Z5EO8bmplC8tsMiaHK8wOBZ+w=="
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "IcfB4jKtM9pkzP9OpYelEcUX1MiDt0IJPBh3XYYdEISFF+6Mc+T8WWi0dr9wVh1gtcdVjubVEIBgB8BHESlGfQ=="
+      },
+      "System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "MaiPbx2/QXZc62gm/DrajRrGPG1lU4m08GWMoWiymPYM+ba4kfACp2PbiYpqJ4QiFGhHD00zX3RoVDTucjWe9g==",
+        "dependencies": {
+          "runtime.native.System.IO.Ports": "8.0.0"
+        }
+      },
+      "Tesseract": {
+        "type": "Transitive",
+        "resolved": "5.2.0",
+        "contentHash": "YB7feJlrTWSXtK8+WaCcseGSPK/1r2d2FWeKGyndlrPwYClrzTlCoHD4/oQEUjKafmpkWlhTZZ7pxiRJYZgj6w=="
+      },
+      "ZXing.Net": {
+        "type": "Transitive",
+        "resolved": "0.16.11",
+        "contentHash": "OZfAVu88hl87BffQ+rlWCj/vLvAhhCK4QnFaoveeF/MY8SjHNSYBQ3qyUEWlPKNgBQGh1syXhCDg10vUnCsqkg=="
+      },
+      "cvinspect": {
+        "type": "Project",
+        "dependencies": {
+          "OpenCvSharp4": "[4.13.0.20260627, )"
+        }
+      },
+      "nodify": {
+        "type": "Project"
+      },
+      "visionplatform.acquisition": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )",
+          "VisionPlatform.Imaging": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.acquisition.boq": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.ai": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )",
+          "VisionPlatform.Editor.Core": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.algorithms": {
+        "type": "Project",
+        "dependencies": {
+          "CvInspect": "[0.34.0, )",
+          "Tesseract": "[5.2.0, )",
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )",
+          "VisionPlatform.Imaging": "[0.6.1-preview.1, )",
+          "ZXing.Net": "[0.16.11, )"
+        }
+      },
+      "visionplatform.communication": {
+        "type": "Project",
+        "dependencies": {
+          "System.IO.Ports": "[8.0.0, )",
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.contracts": {
+        "type": "Project"
+      },
+      "visionplatform.editor.core": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Acquisition": "[0.6.1-preview.1, )",
+          "VisionPlatform.Plugins": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.imaging": {
+        "type": "Project",
+        "dependencies": {
+          "OpenCvSharp4": "[4.13.0.20260627, )",
+          "OpenCvSharp4.runtime.win.slim": "[4.13.0.20260627, )",
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.plugins": {
+        "type": "Project",
+        "dependencies": {
+          "VisionPlatform.Acquisition": "[0.6.1-preview.1, )",
+          "VisionPlatform.Acquisition.Boq": "[0.6.1-preview.1, )",
+          "VisionPlatform.Algorithms": "[0.6.1-preview.1, )",
+          "VisionPlatform.Communication": "[0.6.1-preview.1, )",
+          "VisionPlatform.Runtime": "[0.6.1-preview.1, )"
+        }
+      },
+      "visionplatform.runtime": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "[8.0.3, )",
+          "VisionPlatform.Contracts": "[0.6.1-preview.1, )"
+        }
+      },
+      "VisionStudio": {
+        "type": "Project",
+        "dependencies": {
+          "Nodify": "[7.3.0, )",
+          "VisionPlatform.AI": "[0.6.1-preview.1, )",
+          "VisionPlatform.Editor.Core": "[0.6.1-preview.1, )"
+        }
+      }
+    },
+    "net10.0-windows7.0/win-x64": {
+      "OpenCvSharp4.runtime.win.slim": {
+        "type": "Transitive",
+        "resolved": "4.13.0.20260627",
+        "contentHash": "8A4slgE6f5uzX/HWn+AXRMisUOIAaLVfinj1yUTzq+c6b1qaPxPJ9jzW/fjLbZWe0dLjvfiyXcIdc4VK+2g4Dw=="
+      },
+      "runtime.linux-arm.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "gK720fg6HemDg8sXcfy+xCMZ9+hF78Gc7BmREbmkS4noqlu1BAr9qZtuWGhLzFjBfgecmdtl4+SYVwJ1VneZBQ=="
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "KYG6/3ojhEWbb3FwQAKgGWPHrY+HKUXXdVjJlrtyCLn3EMcNTaNcPadb2c0ndQzixZSmAxZKopXJr0nLwhOrpQ=="
+      },
+      "runtime.linux-x64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "Wnw5vhA4mgGbIFoo6l9Fk3iEcwRSq49a1aKwJgXUCUtEQLCSUDjTGSxqy/oMUuOyyn7uLHsH8KgZzQ1y3lReiQ=="
+      },
+      "runtime.osx-arm64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "rbUBLAaFW9oVkbsb0+XSrAo2QdhBeAyzLl5KQ6Oci9L/u626uXGKInsVJG6B9Z5EO8bmplC8tsMiaHK8wOBZ+w=="
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "IcfB4jKtM9pkzP9OpYelEcUX1MiDt0IJPBh3XYYdEISFF+6Mc+T8WWi0dr9wVh1gtcdVjubVEIBgB8BHESlGfQ=="
+      },
+      "System.IO.Ports": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "MaiPbx2/QXZc62gm/DrajRrGPG1lU4m08GWMoWiymPYM+ba4kfACp2PbiYpqJ4QiFGhHD00zX3RoVDTucjWe9g==",
+        "dependencies": {
+          "runtime.native.System.IO.Ports": "8.0.0"
+        }
+      }
+    }
+  }
+}

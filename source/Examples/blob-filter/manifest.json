@@ -1,0 +1,88 @@
+{
+  "SchemaVersion": 1,
+  "Id": "blob-filter",
+  "Name": "Blob \u7F3A\u9677\u7B5B\u9009",
+  "Category": "\u76EE\u6807\u68C0\u6D4B",
+  "Description": "\u6B63\u5E38\u56FE\u67092\u4E2A\u5927\u76EE\u6807\uFF0C\u5F02\u5E38\u56FE\u67093\u4E2A\uFF1B\u5F62\u6001\u5B66\u53BB\u9664\u5FAE\u5C0F\u566A\u70B9\uFF0C\u9762\u79EF\u7B5B\u9009\u540E\u5F97\u5230\u771F\u5B9EOK/NG\u3002",
+  "Difficulty": "\u57FA\u7840",
+  "Tags": [
+    "\u76EE\u6807\u68C0\u6D4B",
+    "\u79BB\u7EBF",
+    "\u5408\u6210\u56FE"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "\u9009\u62E9\u6253\u5F00\u67E5\u770B\u5B8C\u6574\u6D41\u7A0B\uFF0C\u6216\u4E00\u952E\u8FD0\u884C\uFF1B\u4FEE\u6539\u53C2\u6570\u540E\u5E94\u7528\u5E76\u91CD\u65B0\u8FD0\u884C\u3002",
+  "Verification": "\u8FD0\u884C\u5F53\u524D\u5DE5\u7A0B\uFF0C\u9010\u8282\u70B9\u6838\u5BF9manifest.json\u4E2D\u56FA\u5B9A\u9884\u671F\u503C\u53CA\u5BB9\u5DEE\uFF1B\u9A8C\u8BC1\u72B6\u6001\u6765\u81EA\u672C\u6B21Runtime\u8F93\u51FA\u3002",
+  "RequiresExplicitCommunication": false,
+  "Expected": [
+    {
+      "NodeId": "filter",
+      "Port": "BlobCount",
+      "Expected": 2,
+      "Tolerance": 0,
+      "Property": ""
+    },
+    {
+      "NodeId": "report",
+      "Port": "IsOk",
+      "Expected": true,
+      "Tolerance": 0,
+      "Property": ""
+    }
+  ],
+  "CommunicationExpected": [],
+  "Cases": [
+    {
+      "Id": "normal",
+      "Name": "\u6B63\u5E38\uFF1A2\u4E2A\u76EE\u6807",
+      "ImagePath": "images/input.png",
+      "Checks": [
+        {
+          "NodeId": "filter",
+          "Port": "BlobCount",
+          "Expected": 2,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "report",
+          "Port": "IsOk",
+          "Expected": true,
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    },
+    {
+      "Id": "abnormal",
+      "Name": "\u5F02\u5E38\uFF1A3\u4E2A\u76EE\u6807",
+      "ImagePath": "images/abnormal.png",
+      "Checks": [
+        {
+          "NodeId": "filter",
+          "Port": "BlobCount",
+          "Expected": 3,
+          "Tolerance": 0,
+          "Property": ""
+        },
+        {
+          "NodeId": "report",
+          "Port": "IsOk",
+          "Expected": false,
+          "Tolerance": 0,
+          "Property": ""
+        }
+      ],
+      "ExpectedRunSuccess": true
+    }
+  ],
+  "Files": {
+    "preview.png": "43955B486FCB690D4AD813ACDD184E5BA9D0C38F330118B3FDD481E8FA8CAA66",
+    "project.json": "CB50B692A357D8571C313CE3719EE1DAAF50E5566A14D2426870DC4DF5CC825E",
+    "README.md": "5ACE649CA17B55F6A5989486DA66A7C8D826C65AB65C971E61067BBFC4B79375",
+    "images/abnormal.png": "90CB01044C63D93B104163E44774791F728BC462D90D9FC0430B66AAD3F2B666",
+    "images/input.png": "554629FD3B89B8A545C71A7F821E8635946AC04AD7CDE5DE7C457369773E7355"
+  }
+}

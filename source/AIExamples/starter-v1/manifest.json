@@ -1,0 +1,429 @@
+{
+  "version": 1,
+  "id": "visionstudio-ai-starter-v1",
+  "name": "AI入门：合成斑块操作练习",
+  "provenance": "VisionPlatform generated geometric images; original work; no user data or weights.",
+  "license": "CC0-1.0 for these synthetic image resources",
+  "classes": [
+    {
+      "id": 0,
+      "name": "矩形斑块",
+      "color": "#D94A53"
+    },
+    {
+      "id": 1,
+      "name": "圆形斑块",
+      "color": "#2C7BE5"
+    },
+    {
+      "id": 2,
+      "name": "短划痕",
+      "color": "#D99A21"
+    },
+    {
+      "id": 3,
+      "name": "边缘缺口",
+      "color": "#238B68"
+    }
+  ],
+  "images": [
+    {
+      "file": "source-01.png",
+      "batch": "independent-batch-01",
+      "width": 320,
+      "height": 240,
+      "sha256": "09096b939ba97937338fa93c19256a3410f09b6edf7835f3c0a2f43621c64e1f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 30,
+          "y": 32,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 155,
+          "y": 40,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 70,
+          "y": 142,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 150,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-02.png",
+      "batch": "independent-batch-01",
+      "width": 320,
+      "height": 240,
+      "sha256": "ba4cb1c530ebaa4560148e430b70979c8f67f0a5d3bf1b63622bd166b1a75528",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 32,
+          "y": 33,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 154,
+          "y": 42,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 71,
+          "y": 141,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 151,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-03.png",
+      "batch": "independent-batch-02",
+      "width": 320,
+      "height": 240,
+      "sha256": "42fc91c36d2d626fd527dece6df96e999b12088c7a799d933a764937a109c3e2",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 34,
+          "y": 34,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 153,
+          "y": 44,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 72,
+          "y": 140,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 152,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-04.png",
+      "batch": "independent-batch-02",
+      "width": 320,
+      "height": 240,
+      "sha256": "6019adc396488dcadb316b0eb9a973bdb6558ebb327393005790dc96924066cd",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 36,
+          "y": 35,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 152,
+          "y": 46,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 73,
+          "y": 139,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 153,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-05.png",
+      "batch": "independent-batch-03",
+      "width": 320,
+      "height": 240,
+      "sha256": "58a7680d7451c627cc88e0dae263e56f4b3e7a12d49ac4ed7c402101e876eaff",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 38,
+          "y": 36,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 151,
+          "y": 48,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 74,
+          "y": 138,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 154,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-06.png",
+      "batch": "independent-batch-03",
+      "width": 320,
+      "height": 240,
+      "sha256": "2638338d519e7f9a3397d8eeebaccf4b314364f4f463ad77f2afafed14b9a48f",
+      "boxes": []
+    },
+    {
+      "file": "source-07.png",
+      "batch": "independent-batch-04",
+      "width": 320,
+      "height": 240,
+      "sha256": "134c4f50de209ca1d079290884342adc9b9e4bf779b5dd70d32dfd95a831dbf5",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 42,
+          "y": 38,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 149,
+          "y": 52,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 76,
+          "y": 136,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 156,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-08.png",
+      "batch": "independent-batch-04",
+      "width": 320,
+      "height": 240,
+      "sha256": "e2023cbe81a40afab4b9790d7a9b8abd11700f612158ae4b985a52a22223b21f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 44,
+          "y": 39,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 148,
+          "y": 54,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 77,
+          "y": 135,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 157,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-09.png",
+      "batch": "independent-batch-05",
+      "width": 320,
+      "height": 240,
+      "sha256": "9988d2bafd4604870da39c500cc74fe6051ea7ee672153f58fb2fd3203a52342",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 46,
+          "y": 40,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 147,
+          "y": 56,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 78,
+          "y": 134,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 158,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-10.png",
+      "batch": "independent-batch-05",
+      "width": 320,
+      "height": 240,
+      "sha256": "eecd5baca396efb2c822e17f057dac20b315fb116f1684ccadca1ca86edd387b",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 48,
+          "y": 41,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 146,
+          "y": 58,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 79,
+          "y": 133,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 159,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-11.png",
+      "batch": "independent-batch-06",
+      "width": 320,
+      "height": 240,
+      "sha256": "ad99adf0bebc96bf327cda899f86b7ac02e561a63a1e3923edd05dfc9939fe7e",
+      "boxes": [
+        {
+          "class_id": 0,
+          "x": 50,
+          "y": 42,
+          "w": 38,
+          "h": 28
+        },
+        {
+          "class_id": 1,
+          "x": 145,
+          "y": 60,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "class_id": 2,
+          "x": 80,
+          "y": 132,
+          "w": 65,
+          "h": 6
+        },
+        {
+          "class_id": 3,
+          "x": 282,
+          "y": 160,
+          "w": 29,
+          "h": 21
+        }
+      ]
+    },
+    {
+      "file": "source-12.png",
+      "batch": "independent-batch-06",
+      "width": 320,
+      "height": 240,
+      "sha256": "5864b74646cd237572bccfe165bb026493b7971624e8bd7e6e299546511d6519",
+      "boxes": []
+    }
+  ],
+  "recommended": {
+    "tile_width": 128,
+    "tile_height": 128,
+    "overlap": 0.25,
+    "grouping": "batch",
+    "ratios": [
+      0.6666666666666666,
+      0.16666666666666666,
+      0.16666666666666666
+    ],
+    "seed": 42
+  }
+}

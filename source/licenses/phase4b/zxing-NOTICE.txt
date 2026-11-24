@@ -1,0 +1,12 @@
+ZXing.Net 0.16.11
+Copyright 2012 ZXing.Net authors (BarcodeReaderGeneric source header).
+Licensed under Apache License 2.0; see zxing-LICENSE.txt.
+
+Official package: https://www.nuget.org/packages/ZXing.Net/0.16.11
+Official source: https://github.com/micjahn/ZXing.Net/tree/v0.16.11.0
+Tag commit: fd58f3c4a5d80ccf45ef1237899a65b0ba5b83a0
+NuGet package SHA256: 7d39234d668e558b3d374d18116ed57021d7c0df482801f1e1db4f1db9314ec3
+
+This integration uses the unmodified managed NuGet library, not copied protected binaries.
+The net8.0 package asset has no additional NuGet dependencies.
+This file records the integration provenance; it is not a claim that upstream ships a root NOTICE file.

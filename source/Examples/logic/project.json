@@ -1,0 +1,130 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "0405b998-c6af-4ca2-90d1-fb62f39d9b1f",
+  "ProjectName": "\u6761\u4EF6\u5206\u652F\u5224\u65AD",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 128
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "MinArea": 80
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "compare",
+      "NodeTypeId": "Compare",
+      "Name": "Compare",
+      "Parameters": {
+        "ValueB": 2,
+        "Operator": "Equal"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "if",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "true",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "false",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "compare",
+      "TargetPort": "ValueA"
+    },
+    {
+      "SourceNodeId": "compare",
+      "SourcePort": "Result",
+      "TargetNodeId": "if",
+      "TargetPort": "Condition"
+    },
+    {
+      "SourceNodeId": "compare",
+      "SourcePort": "Result",
+      "TargetNodeId": "true",
+      "TargetPort": "IsOk"
+    },
+    {
+      "SourceNodeId": "compare",
+      "SourcePort": "Result",
+      "TargetNodeId": "false",
+      "TargetPort": "IsOk"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "True",
+      "TargetNodeId": "true",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "if",
+      "SourcePort": "False",
+      "TargetNodeId": "false",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "true",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "false",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

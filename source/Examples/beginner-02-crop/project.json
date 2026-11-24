@@ -1,0 +1,75 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "3daa964d-a150-4b0e-a6d9-3b0d23847dbd",
+  "ProjectName": "02 \u77E9\u5F62\u88C1\u5207\uFF1A\u53EA\u53D6\u9700\u8981\u7684\u533A\u57DF",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "\u2460 \u8BFB\u53D6\u81EA\u5236\u56FE\u7247",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "original",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2461 \u67E5\u770B\u539F\u56FE",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "crop",
+      "NodeTypeId": "CropImage",
+      "Name": "\u2462 \u4ECE(30,30)\u88C1\u51FA80\u00D760",
+      "Parameters": {
+        "X": 30,
+        "Y": 30,
+        "Width": 80,
+        "Height": 60
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "cropped",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "\u2463 \u67E5\u770B\u88C1\u5207\u540E\u7684\u65B0\u56FE",
+      "Parameters": {
+        "ShowOverlays": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "original",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "crop",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "crop",
+      "SourcePort": "CroppedImage",
+      "TargetNodeId": "cropped",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

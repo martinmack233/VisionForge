@@ -1,0 +1,23 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "0ca45730-3539-4549-b390-a5656e1ec858",
+  "ProjectName": "B4-\u53D7\u63A7\u8FDE\u63A5\u5931\u8D25",
+  "Nodes": [
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "TcpConnect",
+      "Name": "TcpConnect",
+      "Parameters": {
+        "Options": {
+          "Port": 56037,
+          "ConnectTimeoutMilliseconds": 150
+        }
+      },
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

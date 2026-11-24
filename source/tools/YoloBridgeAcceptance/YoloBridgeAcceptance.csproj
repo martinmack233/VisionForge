@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/VisionPlatform.Algorithms/VisionPlatform.Algorithms.csproj" /></ItemGroup>
+</Project>

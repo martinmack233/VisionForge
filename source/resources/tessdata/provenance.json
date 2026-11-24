@@ -1,0 +1,54 @@
+{
+  "auditDate": "2026-11-11",
+  "wrapper": {
+    "package": "Tesseract",
+    "version": "5.2.0",
+    "source": "https://github.com/charlesw/tesseract/tree/2c993543f7fa66576a8890a6c4ab053c4598aaed",
+    "nuget": "https://www.nuget.org/packages/Tesseract/5.2.0",
+    "nupkgSha256": "202d82fc7c7d8384df7da57206d5e1f456ccdabd648c46e67cdfaa3a911d4795",
+    "license": "Apache-2.0"
+  },
+  "native": {
+    "tesseractReportedVersion": "5.0.0",
+    "leptonicaReportedVersion": "1.82.0",
+    "files": {
+      "tesseract50.dll": "de4d04ec75095374d98f5dd7a60d14d7e2e0f76589db693eccf7ae658be8cb2b",
+      "leptonica-1.82.0.dll": "dfcb3e6ed0b16bc55bfdbcf53543cfe42a354b87c3e35bd3a95eebf005d73e76"
+    },
+    "imageLibraries": "libgif 5.2.1 : libjpeg 6b (libjpeg-turbo 2.1.4) : libpng 1.6.37 : libtiff 4.4.0 : zlib 1.2.13"
+  },
+  "model": {
+    "file": "eng.traineddata",
+    "bytes": 4113088,
+    "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "source": "https://github.com/tesseract-ocr/tessdata_fast/blob/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata",
+    "license": "Apache-2.0",
+    "engineMode": "LstmOnly"
+  },
+  "licenseSources": {
+    "tesseract-wrapper-APACHE-2.0.txt": "https://github.com/charlesw/tesseract/blob/2c993543f7fa66576a8890a6c4ab053c4598aaed/LICENSE.txt",
+    "tesseract-engine-APACHE-2.0.txt": "https://github.com/tesseract-ocr/tesseract/blob/5.0.0/LICENSE",
+    "tesseract-model-APACHE-2.0.txt": "https://github.com/tesseract-ocr/tessdata_fast/blob/87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE",
+    "tesseract-leptonica-BSD-2-Clause.txt": "https://github.com/DanBloomberg/leptonica/blob/1.82.0/leptonica-license.txt",
+    "tesseract-InteropDotNet-MIT.txt": "https://github.com/AndreyAkinshin/InteropDotNet/blob/0b15eee809716c50562458d6fe95d52bea46b9c6/LICENSE.md",
+    "tesseract-libjpeg-turbo-2.1.4-LICENSE.md": "https://github.com/libjpeg-turbo/libjpeg-turbo/blob/2.1.4/LICENSE.md",
+    "tesseract-libjpeg-IJG-README.txt": "https://github.com/libjpeg-turbo/libjpeg-turbo/blob/2.1.4/README.ijg",
+    "tesseract-libpng-1.6.37-LICENSE.txt": "https://github.com/pnggroup/libpng/blob/v1.6.37/LICENSE",
+    "tesseract-libtiff-4.4.0-COPYRIGHT.txt": "https://gitlab.com/libtiff/libtiff/-/blob/v4.4.0/COPYRIGHT",
+    "tesseract-zlib-1.2.13-LICENSE.txt": "https://github.com/madler/zlib/blob/v1.2.13/LICENSE",
+    "tesseract-giflib-5.2.1-COPYING.txt": "https://downloads.sourceforge.net/project/giflib/giflib-5.x/giflib-5.2.1.tar.gz (COPYING; archive SHA256 31da5562f44c5f15d63340a09a4fd62b48c45620cd302f77a6d9acf0077879bd)"
+  },
+  "licenseSha256": {
+    "tesseract-wrapper-APACHE-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "tesseract-engine-APACHE-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "tesseract-model-APACHE-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "tesseract-leptonica-BSD-2-Clause.txt": "87829abb5bbb00b55a107365da89e9a33f86c4250169e5a1e5588505be7d5806",
+    "tesseract-InteropDotNet-MIT.txt": "8fb016cd2a9efaa281ecce3075f69d20ffa8314ba8ecf8586d6744dd346cea25",
+    "tesseract-libjpeg-turbo-2.1.4-LICENSE.md": "ee1eaf194d5924b6360af8a6ba6a4e1554037091f7505943300cdeec65f1aebb",
+    "tesseract-libjpeg-IJG-README.txt": "4b7b9f8c03bb8d60270dfd12684e70ab21e4abfd27e73905cd1a7c4cae6f5cdb",
+    "tesseract-libpng-1.6.37-LICENSE.txt": "bf5e22b9dce8464064ae17a48ea1133c3369ac9e1d80ef9e320e5219aa14ea9b",
+    "tesseract-libtiff-4.4.0-COPYRIGHT.txt": "fbd6fed7938541d2c809c0826225fc85e551fdbfa8732b10f0c87e0847acafd7",
+    "tesseract-zlib-1.2.13-LICENSE.txt": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243",
+    "tesseract-giflib-5.2.1-COPYING.txt": "0c9b7990ecdca88b676db232c226548ac408b279f550d424d996f0d83591dd8e"
+  }
+}

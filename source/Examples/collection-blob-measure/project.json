@@ -1,0 +1,287 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "e05c2dd3-792f-45b5-b893-e91aa1ebda50",
+  "ProjectName": "\u591ABlob \u00B7 \u7B5B\u9009\u6392\u5E8F\u4E0E\u9010\u9879\u6D4B\u91CF",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "MinArea": 3
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "adapt",
+      "NodeTypeId": "CollectionAdapter",
+      "Name": "CollectionAdapter",
+      "Parameters": {},
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "CollectionFilter",
+      "Parameters": {
+        "Field": "Area",
+        "Comparison": "GreaterOrEqual",
+        "Number": 100,
+        "Text": "",
+        "Boolean": false
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "sort",
+      "NodeTypeId": "CollectionSort",
+      "Name": "CollectionSort",
+      "Parameters": {
+        "Field": "X"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "each",
+      "NodeTypeId": "ForEach",
+      "Name": "ForEach",
+      "Parameters": {
+        "Body": {
+          "Version": 1,
+          "InputNodeId": "current",
+          "OutputNodeId": "collect",
+          "Nodes": [
+            {
+              "NodeId": "current",
+              "NodeTypeId": "IterationInput",
+              "Name": "IterationInput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "roi",
+              "NodeTypeId": "ItemToRoi",
+              "Name": "ItemToRoi",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "measure",
+              "NodeTypeId": "DistanceMeasure",
+              "Name": "DistanceMeasure",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "judge",
+              "NodeTypeId": "Compare",
+              "Name": "Compare",
+              "Parameters": {
+                "ValueB": 12,
+                "Operator": "GreaterOrEqual"
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "collect",
+              "NodeTypeId": "IterationOutput",
+              "Name": "IterationOutput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            }
+          ],
+          "Connections": [
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Item",
+              "TargetNodeId": "roi",
+              "TargetPort": "Item"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "Center",
+              "TargetNodeId": "measure",
+              "TargetPort": "PointA"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "Right",
+              "TargetNodeId": "measure",
+              "TargetPort": "PointB"
+            },
+            {
+              "SourceNodeId": "measure",
+              "SourcePort": "Distance",
+              "TargetNodeId": "judge",
+              "TargetPort": "ValueA"
+            },
+            {
+              "SourceNodeId": "measure",
+              "SourcePort": "Result",
+              "TargetNodeId": "collect",
+              "TargetPort": "Measurement"
+            },
+            {
+              "SourceNodeId": "judge",
+              "SourcePort": "Result",
+              "TargetNodeId": "collect",
+              "TargetPort": "IsOk"
+            },
+            {
+              "SourceNodeId": "measure",
+              "SourcePort": "Distance",
+              "TargetNodeId": "collect",
+              "TargetPort": "Number"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "ROI",
+              "TargetNodeId": "collect",
+              "TargetPort": "ROI"
+            }
+          ],
+          "NodeLocations": {
+            "current": {
+              "X": 0,
+              "Y": 60
+            },
+            "roi": {
+              "X": 380,
+              "Y": 60
+            },
+            "measure": {
+              "X": 760,
+              "Y": 60
+            },
+            "judge": {
+              "X": 1140,
+              "Y": 60
+            },
+            "collect": {
+              "X": 1520,
+              "Y": 60
+            }
+          }
+        },
+        "FailurePolicy": "Stop",
+        "MaximumItems": 100,
+        "WorkingImageMegabytes": 256,
+        "DebugIterations": 3,
+        "DebugImageMegabytes": 32
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Number,State",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 100
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "adapt",
+      "TargetPort": "Blobs"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "adapt",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "adapt",
+      "SourcePort": "Collection",
+      "TargetNodeId": "filter",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "Collection",
+      "TargetNodeId": "sort",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "each",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "each",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "each",
+      "SourcePort": "Results",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

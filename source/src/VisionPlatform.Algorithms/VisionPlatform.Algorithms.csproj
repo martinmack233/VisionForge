@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Content Include="../../tools/yolo_bridge/resident_worker.py" Link="tools/yolo_bridge/resident_worker.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../tools/ai_runtime_component/component.py" Link="tools/ai_runtime_component/component.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../components/ai-runtime/recipe.json" Link="components/ai-runtime/recipe.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <PackageReference Include="Tesseract" Version="5.2.0" GeneratePathProperty="true" ExcludeAssets="build" />
+    <PackageReference Include="ZXing.Net" Version="0.16.11" />
+    <ProjectReference Include="../VisionPlatform.Contracts/VisionPlatform.Contracts.csproj" />
+    <ProjectReference Include="../VisionPlatform.Imaging/VisionPlatform.Imaging.csproj" />
+    <ProjectReference Include="../../third_party/CvInspect/CvInspect.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Keep the matching win-x64 OCR pair; vendor targets also copy x86 and omit publish metadata. -->
+    <Content Include="$(PkgTesseract)/x64/tesseract50.dll;$(PkgTesseract)/x64/leptonica-1.82.0.dll"
+             Link="x64/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../resources/tessdata/eng.traineddata" Link="tessdata/eng.traineddata"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="Exists('../../resources/tessdata/eng.traineddata')" />
+    <Content Include="../../tools/yolo_bridge/yolo_bridge.py" Link="tools/yolo_bridge/yolo_bridge.py"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="Exists('../../tools/yolo_bridge/yolo_bridge.py')" />
+  </ItemGroup>
+</Project>

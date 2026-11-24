@@ -1,0 +1,57 @@
+﻿**/bin/
+**/obj/
+TestResults/
+artifacts/
+.vs/
+*.png
+
+# Local Python environments, generated AI resources and workspace state
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/python-service-tmp*/
+**/service-data/
+**/transfer/
+**/wpf-render-transfer/
+*.pyc
+*.pt
+*.onnx
+*.sqlite
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+.env
+.env.*
+!.env.example
+tools/BoqCompatibilityProbe/BoqNet48Probe.exe
+/test-results/cleanup-*/
+/test-results/phase5-ai/desktop-state/
+/test-results/**/workspace/
+# Keep the reviewed Phase5 documentation screenshots
+!docs/images/Phase5/*.png
+/build/BuildIdentity.props
+/build/source-manifest.json
+!docs/images/ReleasePrep/*.png
+!Examples/collection-multi-ocr/*.png
+!Examples/collection-blob-measure/*.png
+!AIExamples/starter-v1/*.png
+
+# Local verification outputs and suspended development backups are not source delivery.
+/test-results/
+# Self-authored, small, reproducible third-stage example assets and documentation evidence.
+!Examples/inspection-aligned-difference/*.png
+!Examples/inspection-color-shapes/*.png
+!Examples/inspection-hough-measure/*.png
+!docs/images/Collections/*.png
+!docs/images/ReleasePrep2/*.png
+
+# Self-authored operator expansion sample rasters.
+!Examples/operators-*/*.png
+!Examples/beginner-*/*.png
+
+# Small, self-authored documentation evidence and current release screenshots.
+!docs/使用与接入/核对记录/离线示例输出/*.png
+!docs/images/VisionForge/*.png
+!docs/images/VisionForge/*.jpg

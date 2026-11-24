@@ -1,0 +1,71 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "ea55a2e5-5bb5-f49a-5fc0-259c118ba422",
+  "ProjectName": "\u4E0A\u4F4D\u673ATCP\u8C03\u7528\u68C0\u6D4B",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "MinArea": 80
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

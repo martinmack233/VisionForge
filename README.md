@@ -1,6 +1,6 @@
 # 视构 VisionForge
 
-[Read in English](#english) · [快速开始](docs/quick-start.md) · [开发者接入](docs/integration.md) · [AI 辅助写算法](docs/ai-assisted-development.md) · [0.6.3 发行资料](release-info/v0.6.3/) · [发行下载](https://github.com/martinmack233/VisionForge/releases)
+[Read in English](#english) · [源码快照](source/) · [许可证](source/licenses/) · [快速开始](docs/quick-start.md) · [开发者接入](docs/integration.md) · [AI 辅助写算法](docs/ai-assisted-development.md) · [0.6.3 发行资料](release-info/v0.6.3/) · [发行下载](https://github.com/martinmack233/VisionForge/releases)
 
 视构是一款面向 **Windows 11 x64** 的工业视觉工作台。用可视化节点编排图像采集、预处理、定位、测量、检测和结果输出。算法流程可以在桌面调试，也可以交给 Console、RuntimeHost 或 .NET 程序执行。
 
@@ -59,13 +59,13 @@
 2. 从 **方案示例 → 从第1课开始 → 一键运行** 打开可编辑副本。
 3. 看图像与文字输出，再练习矩形裁切、旋转裁切、集合筛选选择和多 ROI 循环。[快速开始与截图](docs/quick-start.md)
 
-0.6.3 正式构建通过 850 项自动化测试，公开包解压后通过 25 个 Console 和 RuntimeHost 离线示例。桌面端验证了五个新手案例及保存重开。公开仓库提供当前发行资料、使用文档和独立接入示例。下载包内的 `component-manifest.json` 和 `licenses` 提供第三方组件和许可信息。
+0.6.3 正式构建通过 850 项自动化测试，公开包解压后通过 25 个 Console 和 RuntimeHost 离线示例。桌面端验证了五个新手案例及保存重开。公开仓库提供 0.6.3 源码快照、使用文档、接入示例及发行资料。下载包内的 `component-manifest.json` 和 `licenses` 提供第三方组件和许可信息。
 
 ---
 
 ## English
 
-[Quick start](docs/quick-start.md) · [Developer integration](docs/integration.md) · [AI-assisted development](docs/ai-assisted-development.md) · [0.6.3 release information](release-info/v0.6.3/) · [Release downloads](https://github.com/martinmack233/VisionForge/releases)
+[Source snapshot](source/) · [License notices](source/licenses/) · [Quick start](docs/quick-start.md) · [Developer integration](docs/integration.md) · [AI-assisted development](docs/ai-assisted-development.md) · [0.6.3 release information](release-info/v0.6.3/) · [Release downloads](https://github.com/martinmack233/VisionForge/releases)
 
 VisionForge is an industrial machine vision workbench for **Windows 11 x64**. Its visual editor lets you connect acquisition, preprocessing, alignment, measurement, inspection, and result output. You can debug a workflow in the desktop app and run it through Console, RuntimeHost, or a .NET application.
 

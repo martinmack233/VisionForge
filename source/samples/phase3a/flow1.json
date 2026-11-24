@@ -1,0 +1,113 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "84045f20-0cb5-413e-81a9-d7684c4f8a24",
+  "ProjectName": "A1-\u771F\u5B9EBlob\u7B5B\u9009",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "segmentation.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "threshold",
+      "NodeTypeId": "Threshold",
+      "Name": "Threshold",
+      "Parameters": {
+        "ThresholdValue": 128,
+        "MaxValue": 255,
+        "ThresholdType": "Binary"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "morph",
+      "NodeTypeId": "Morphology",
+      "Name": "Morphology",
+      "Parameters": {
+        "Operation": "Open",
+        "KernelWidth": 3,
+        "KernelHeight": 3,
+        "KernelShape": "Rectangle",
+        "Iterations": 1
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "Threshold": 180,
+        "MinArea": 1,
+        "MaxArea": 10000
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "filter",
+      "NodeTypeId": "BlobFilter",
+      "Name": "BlobFilter",
+      "Parameters": {
+        "Area": {
+          "Enabled": true,
+          "Minimum": 100,
+          "Maximum": 1000
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "threshold",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "threshold",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "morph",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "morph",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobResults",
+      "TargetNodeId": "filter",
+      "TargetPort": "BlobResults"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "FilteredMask",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "filter",
+      "SourcePort": "FilteredBlobs",
+      "TargetNodeId": "display",
+      "TargetPort": "Blobs"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

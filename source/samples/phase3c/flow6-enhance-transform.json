@@ -1,0 +1,144 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "25c3bcde-6364-463e-afa3-6442c0ddd1c2",
+  "ProjectName": "C6-\u589E\u5F3A\u53CA\u56FE\u50CF\u53D8\u6362",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "inspection.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "normalize",
+      "NodeTypeId": "Normalize",
+      "Name": "Normalize",
+      "Parameters": {
+        "Minimum": 10,
+        "Maximum": 240
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "equalize",
+      "NodeTypeId": "EqualizeHist",
+      "Name": "EqualizeHist",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "clahe",
+      "NodeTypeId": "CLAHE",
+      "Name": "CLAHE",
+      "Parameters": {
+        "ClipLimit": 2,
+        "TileGridSize": 8
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "adaptive",
+      "NodeTypeId": "AdaptiveThreshold",
+      "Name": "AdaptiveThreshold",
+      "Parameters": {
+        "Method": "Gaussian",
+        "BlockSize": 11,
+        "C": 2
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "rotate",
+      "NodeTypeId": "RotateImage",
+      "Name": "RotateImage",
+      "Parameters": {
+        "Angle": 15,
+        "OutputSize": "ExpandToFit"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "resize",
+      "NodeTypeId": "ResizeImage",
+      "Name": "ResizeImage",
+      "Parameters": {
+        "Mode": "Scale",
+        "ScaleX": 0.75,
+        "ScaleY": 0.75
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "flip",
+      "NodeTypeId": "FlipImage",
+      "Name": "FlipImage",
+      "Parameters": {
+        "Direction": "Horizontal"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "normalize",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "normalize",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "equalize",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "equalize",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "clahe",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "clahe",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "adaptive",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "adaptive",
+      "SourcePort": "BinaryImage",
+      "TargetNodeId": "rotate",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "rotate",
+      "SourcePort": "RotatedImage",
+      "TargetNodeId": "resize",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "resize",
+      "SourcePort": "ResizedImage",
+      "TargetNodeId": "flip",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "flip",
+      "SourcePort": "FlippedImage",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

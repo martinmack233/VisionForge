@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../VisionPlatform.Acquisition.Boq/VisionPlatform.Acquisition.Boq.csproj" />
+    <ProjectReference Include="../VisionPlatform.Acquisition/VisionPlatform.Acquisition.csproj" />
+    <ProjectReference Include="../VisionPlatform.Algorithms/VisionPlatform.Algorithms.csproj" />
+    <ProjectReference Include="../VisionPlatform.Runtime/VisionPlatform.Runtime.csproj" />
+    <ProjectReference Include="..\VisionPlatform.Communication\VisionPlatform.Communication.csproj" />
+  </ItemGroup>
+</Project>

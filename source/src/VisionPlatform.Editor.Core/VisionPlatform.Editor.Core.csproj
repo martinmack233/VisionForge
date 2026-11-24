@@ -1,0 +1,3 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup><ProjectReference Include="../VisionPlatform.Acquisition/VisionPlatform.Acquisition.csproj" /><ProjectReference Include="../VisionPlatform.Plugins/VisionPlatform.Plugins.csproj" /></ItemGroup>
+</Project>

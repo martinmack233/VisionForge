@@ -1,0 +1,189 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "0e223047-7f5d-44d2-8391-0f6eb8dd277f",
+  "ProjectName": "DemoInspection-B",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "sample-color.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "convert",
+      "NodeTypeId": "PixelFormatConvert",
+      "Name": "PixelFormatConvert",
+      "Parameters": {
+        "TargetFormat": "Mono8"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blur",
+      "NodeTypeId": "GaussianBlur",
+      "Name": "GaussianBlur",
+      "Parameters": {
+        "Options": {
+          "KernelSize": 5,
+          "SigmaX": 1.2,
+          "SigmaY": 0,
+          "BorderType": "Reflect101"
+        },
+        "ROI": null
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "match",
+      "NodeTypeId": "TemplateMatching",
+      "Name": "TemplateMatching",
+      "Parameters": {
+        "AlgorithmId": "cvinspect.pattern",
+        "TemplatePath": "template-blurred.json",
+        "Options": {
+          "MinimumScore": 0.7,
+          "AngleMinDegrees": -20,
+          "AngleMaxDegrees": 20,
+          "AngleStepDegrees": 5,
+          "FineAngleStepDegrees": 0.25,
+          "ScaleMin": 0.8,
+          "ScaleMax": 1.2,
+          "ScaleStep": 0.05,
+          "CoarseScale": 0.5,
+          "SearchRoi": {
+            "X": 80,
+            "Y": 65,
+            "Width": 270,
+            "Height": 210
+          }
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "roi",
+      "NodeTypeId": "ROITransform",
+      "Name": "ROITransform",
+      "Parameters": {
+        "ReferencePose": {
+          "CenterX": 100,
+          "CenterY": 100,
+          "AngleDegrees": 0,
+          "Scale": 1,
+          "CoordinateSpaceId": "image"
+        },
+        "ReferenceROI": {
+          "CenterX": 165,
+          "CenterY": 100,
+          "Width": 50,
+          "Height": 34,
+          "AngleDegrees": 0,
+          "CoordinateSpaceId": "image"
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {
+        "Threshold": 180,
+        "MinArea": 10,
+        "MaxArea": 200,
+        "DarkForeground": false
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {
+        "MinimumBlobCount": 2,
+        "MaximumBlobCount": 2
+      },
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "convert",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "convert",
+      "SourcePort": "ConvertedImage",
+      "TargetNodeId": "blur",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blur",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "match",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blur",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "roi",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "Pose2D",
+      "TargetNodeId": "roi",
+      "TargetPort": "Pose2D"
+    },
+    {
+      "SourceNodeId": "blur",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "roi",
+      "SourcePort": "ROI",
+      "TargetNodeId": "blob",
+      "TargetPort": "ROI"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "match",
+      "SourcePort": "Success",
+      "TargetNodeId": "decision",
+      "TargetPort": "MatchSuccess"
+    }
+  ],
+  "ROI": [
+    {
+      "CenterX": 165,
+      "CenterY": 100,
+      "Width": 50,
+      "Height": 34,
+      "AngleDegrees": 0,
+      "CoordinateSpaceId": "image"
+    }
+  ],
+  "TemplateResources": [
+    {
+      "ResourceId": "locator",
+      "Path": "template-blurred.json",
+      "Sha256": null
+    }
+  ],
+  "AlgorithmVersion": {
+    "cvinspect.pattern": "0.34.0\u002B0eddfbaa"
+  }
+}

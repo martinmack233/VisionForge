@@ -1,0 +1,130 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "7fc90d7e-0808-442f-8cd0-9d8663bd5849",
+  "ProjectName": "B2-\u771F\u5B9E\u89C6\u89C9\u7ED3\u679CTCP\u53D1\u9001",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "inspection.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "blob",
+      "NodeTypeId": "BlobDetection",
+      "Name": "BlobDetection",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "decision",
+      "NodeTypeId": "ResultDecision",
+      "Name": "ResultDecision",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "report",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "connect",
+      "NodeTypeId": "TcpConnect",
+      "Name": "TcpConnect",
+      "Parameters": {
+        "Options": {
+          "Port": 9000
+        }
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "send",
+      "NodeTypeId": "TcpSend",
+      "Name": "TcpSend",
+      "Parameters": {
+        "SendEnabled": true,
+        "DeliveryKey": "sample-inspection-1"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "sent",
+      "NodeTypeId": "ResultDisplay",
+      "Name": "ResultDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "blob",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "decision",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "report",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "report",
+      "TargetPort": "BlobCount"
+    },
+    {
+      "SourceNodeId": "report",
+      "SourcePort": "$done",
+      "TargetNodeId": "connect",
+      "TargetPort": "$exec"
+    },
+    {
+      "SourceNodeId": "connect",
+      "SourcePort": "Connection",
+      "TargetNodeId": "send",
+      "TargetPort": "Connection"
+    },
+    {
+      "SourceNodeId": "report",
+      "SourcePort": "Result",
+      "TargetNodeId": "send",
+      "TargetPort": "Result"
+    },
+    {
+      "SourceNodeId": "send",
+      "SourcePort": "Status",
+      "TargetNodeId": "sent",
+      "TargetPort": "Communication"
+    },
+    {
+      "SourceNodeId": "decision",
+      "SourcePort": "Decision",
+      "TargetNodeId": "sent",
+      "TargetPort": "Decision"
+    },
+    {
+      "SourceNodeId": "blob",
+      "SourcePort": "BlobCount",
+      "TargetNodeId": "sent",
+      "TargetPort": "BlobCount"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

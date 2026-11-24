@@ -1,0 +1,238 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "1c55d5c7-fc6e-42b8-95e6-81c29dd0ceb1",
+  "ProjectName": "\u591A\u533A\u57DF\u82F1\u6587OCR \u00B7 \u96C6\u5408\u9010\u9879",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": null
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "regions",
+      "NodeTypeId": "RoiCollection",
+      "Name": "RoiCollection",
+      "Parameters": {
+        "Regions": [
+          {
+            "CenterX": 320,
+            "CenterY": 72.5,
+            "Width": 620,
+            "Height": 135,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          },
+          {
+            "CenterX": 320,
+            "CenterY": 222.5,
+            "Width": 620,
+            "Height": 135,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          },
+          {
+            "CenterX": 320,
+            "CenterY": 372.5,
+            "Width": 620,
+            "Height": 135,
+            "AngleDegrees": 0,
+            "CoordinateSpaceId": "image"
+          }
+        ]
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "each",
+      "NodeTypeId": "ForEach",
+      "Name": "ForEach",
+      "Parameters": {
+        "Body": {
+          "Version": 1,
+          "InputNodeId": "current",
+          "OutputNodeId": "collect",
+          "Nodes": [
+            {
+              "NodeId": "current",
+              "NodeTypeId": "IterationInput",
+              "Name": "IterationInput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "roi",
+              "NodeTypeId": "ItemToRoi",
+              "Name": "ItemToRoi",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "ocr",
+              "NodeTypeId": "OCR",
+              "Name": "OCR",
+              "Parameters": {
+                "Language": "eng",
+                "DataPath": "",
+                "Segmentation": "SingleLine",
+                "CharacterWhitelist": "",
+                "NormalizeContrast": true,
+                "MinimumConfidence": 0,
+                "MaximumPixels": 16000000,
+                "MaximumCharacters": 4096,
+                "MaximumWords": 2048,
+                "UseRoi": false,
+                "RoiX": 0,
+                "RoiY": 0,
+                "RoiWidth": 200,
+                "RoiHeight": 100
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "collect",
+              "NodeTypeId": "IterationOutput",
+              "Name": "IterationOutput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            }
+          ],
+          "Connections": [
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Item",
+              "TargetNodeId": "roi",
+              "TargetPort": "Item"
+            },
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Image",
+              "TargetNodeId": "ocr",
+              "TargetPort": "Image"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "ROI",
+              "TargetNodeId": "ocr",
+              "TargetPort": "ROI"
+            },
+            {
+              "SourceNodeId": "ocr",
+              "SourcePort": "Result",
+              "TargetNodeId": "collect",
+              "TargetPort": "OCR"
+            },
+            {
+              "SourceNodeId": "roi",
+              "SourcePort": "ROI",
+              "TargetNodeId": "collect",
+              "TargetPort": "ROI"
+            }
+          ],
+          "NodeLocations": {
+            "current": {
+              "X": 0,
+              "Y": 60
+            },
+            "roi": {
+              "X": 380,
+              "Y": 60
+            },
+            "ocr": {
+              "X": 760,
+              "Y": 60
+            },
+            "collect": {
+              "X": 1140,
+              "Y": 60
+            }
+          }
+        },
+        "FailurePolicy": "Stop",
+        "MaximumItems": 100,
+        "WorkingImageMegabytes": 256,
+        "DebugIterations": 3,
+        "DebugImageMegabytes": 32
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Text,Confidence,State",
+        "DecimalPlaces": 3,
+        "FilterState": false,
+        "State": "Ok",
+        "FontSize": 14,
+        "TextColor": "#243B53",
+        "BackgroundColor": "#FFFFFF",
+        "BackgroundOpacity": 0.85,
+        "LineWidth": 2,
+        "LineColor": "#2C7BE5",
+        "FillColor": "#B9D8FF",
+        "FillOpacity": 0.12,
+        "UseStateColors": true,
+        "OkColor": "#238B68",
+        "NgColor": "#D94A53",
+        "UnrecognizedColor": "#D99A21",
+        "ErrorColor": "#A62CA6",
+        "Position": "Above",
+        "OffsetX": 0,
+        "OffsetY": 0,
+        "SummaryLines": 3,
+        "MaximumOverlays": 100
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "regions",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "regions",
+      "SourcePort": "Collection",
+      "TargetNodeId": "each",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "each",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "each",
+      "SourcePort": "Results",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

@@ -1,0 +1,56 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "6e93a0eb-68d4-405f-bbe7-333969686506",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "X": 0,
+      "Y": 0
+    },
+    {
+      "NodeId": "threshold",
+      "X": 330,
+      "Y": 0
+    },
+    {
+      "NodeId": "blob",
+      "X": 660,
+      "Y": 0
+    },
+    {
+      "NodeId": "filter",
+      "X": 990,
+      "Y": 0
+    },
+    {
+      "NodeId": "compare",
+      "X": 0,
+      "Y": 190
+    },
+    {
+      "NodeId": "if",
+      "X": 330,
+      "Y": 190
+    },
+    {
+      "NodeId": "ng",
+      "X": 660,
+      "Y": 190
+    },
+    {
+      "NodeId": "ok",
+      "X": 990,
+      "Y": 190
+    },
+    {
+      "NodeId": "merge",
+      "X": 0,
+      "Y": 380
+    },
+    {
+      "NodeId": "report",
+      "X": 330,
+      "Y": 380
+    }
+  ]
+}

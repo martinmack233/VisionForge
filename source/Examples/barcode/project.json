@@ -1,0 +1,60 @@
+{
+  "SchemaVersion": 1,
+  "ProjectId": "25a463f9-bcea-336b-851f-f75205e3ce01",
+  "ProjectName": "Phase4B-barcode",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "images/input.png"
+      },
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "recognize",
+      "NodeTypeId": "BarcodeReader",
+      "Name": "BarcodeReader",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "text",
+      "NodeTypeId": "TextDisplay",
+      "Name": "TextDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    },
+    {
+      "NodeId": "branch",
+      "NodeTypeId": "IfElse",
+      "Name": "IfElse",
+      "Parameters": {},
+      "PluginVersion": "1.0.0"
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "recognize",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "recognize",
+      "SourcePort": "Text",
+      "TargetNodeId": "text",
+      "TargetPort": "String"
+    },
+    {
+      "SourceNodeId": "recognize",
+      "SourcePort": "Success",
+      "TargetNodeId": "branch",
+      "TargetPort": "Condition"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {}
+}

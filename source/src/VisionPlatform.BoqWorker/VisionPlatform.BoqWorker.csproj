@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>VisionPlatform.BoqWorker</AssemblyName></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../VisionPlatform.Acquisition.Boq/VisionPlatform.Acquisition.Boq.csproj" /></ItemGroup>
+</Project>
