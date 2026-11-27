@@ -24,6 +24,8 @@ public sealed class FrameHandle
     private int _references = 1;
     private static long _activeBytes;
     private static long _activeAllocations;
+    /// <summary>Identity of this pixel allocation, shared by views without extending their lifetime.</summary>
+    public Guid BufferId { get; } = Guid.NewGuid();
     public long Length { get; }
     public static long ActiveBytes => Interlocked.Read(ref _activeBytes);
     public static long ActiveAllocations => Interlocked.Read(ref _activeAllocations);

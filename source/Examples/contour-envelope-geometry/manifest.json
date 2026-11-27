@@ -1,0 +1,77 @@
+{
+  "SchemaVersion": 1,
+  "Id": "contour-envelope-geometry",
+  "Name": "轮廓包围几何 · 矩形与圆",
+  "Category": "传统视觉检测",
+  "Description": "运行后选择集合显示，在“集合 / 迭代”表点击一行高亮对应圆。查看各包围几何节点的 Collection 比较矩形、旋转矩形、外接圆和内接圆。内接圆的 Collection 含拒绝原因。",
+  "Difficulty": "基础",
+  "Tags": [
+    "自制合成",
+    "轮廓几何"
+  ],
+  "Project": "project.json",
+  "Preview": "preview.png",
+  "Instructions": "运行后选择集合显示，在“集合 / 迭代”表点击一行高亮对应圆。查看各包围几何节点的 Collection 比较矩形、旋转矩形、外接圆和内接圆。内接圆的 Collection 含拒绝原因。",
+  "Flow": "二值图 → 树形轮廓 → 四种包围几何；内接圆 → 筛选与排序 → 集合显示",
+  "LearningGoals": "运行后选择集合显示，在“集合 / 迭代”表点击一行高亮对应圆。查看各包围几何节点的 Collection 比较矩形、旋转矩形、外接圆和内接圆。内接圆的 Collection 含拒绝原因。",
+  "TryIt": "查看右侧触边目标与环的孔洞项。用 Rectangles 接入已有 ROI 操作，用 Circles 或稳定排序接入取单项及逐项子流程。半径筛选低于 12 像素的目标不会进入显示表。",
+  "ExpectedSummary": "输入有 6 个前景目标及 1 条孔洞边界。内接圆产出 5 项有效结果，孔洞边界和触边目标明确标为无效。",
+  "Verification": "输入有 6 个前景目标及 1 条孔洞边界。内接圆产出 5 项有效结果，孔洞边界和触边目标明确标为无效。",
+  "Expected": [
+    {
+      "NodeId": "contours",
+      "Port": "Count",
+      "Expected": 7,
+      "Property": "",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "axis",
+      "Port": "ValidCount",
+      "Expected": 7,
+      "Property": "",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "rotated",
+      "Port": "ValidCount",
+      "Expected": 7,
+      "Property": "",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "outer",
+      "Port": "ValidCount",
+      "Expected": 7,
+      "Property": "",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "inner",
+      "Port": "ValidCount",
+      "Expected": 5,
+      "Property": "",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "display",
+      "Port": "Collection",
+      "Expected": 5,
+      "Property": "Count",
+      "Tolerance": 0
+    },
+    {
+      "NodeId": "each",
+      "Port": "CompletedCount",
+      "Expected": 5,
+      "Property": "",
+      "Tolerance": 0
+    }
+  ],
+  "Files": {
+    "input.png": "e02b3a02c7d0535cd7c75b447993d917cfc01f6e8f054078ead877ebd6a5ef4a",
+    "preview.png": "977b45485a312e2eb1c0528e5109f3f6ccf815f2a63687725b8f10cfa7091143",
+    "project.json": "ef49039a673f00b6a9982656b6a04f4fd295cf49499110f1a7a16ab6b46a5a11",
+    "README.md": "8385481aed26a0a743bc4abd5a9699ae4b708b0a11880487039ee8f118437918"
+  }
+}

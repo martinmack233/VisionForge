@@ -36,7 +36,9 @@ public enum ItemValueField
     [Display(Name="位置X")] X,[Display(Name="位置Y")] Y,[Display(Name="宽度")] Width,[Display(Name="高度")] Height,
     [Display(Name="置信度")] Confidence,[Display(Name="类别编号")] ClassId,[Display(Name="类别名称")] Class,
     [Display(Name="原始序号（0基）")] Index,[Display(Name="半径")] Radius,[Display(Name="线段长度")] Length,
-    [Display(Name="周长")] Perimeter,[Display(Name="闭合")] Closed,[Display(Name="判定有效")] Valid
+    [Display(Name="周长")] Perimeter,[Display(Name="闭合")] Closed,[Display(Name="判定有效")] Valid,
+    [Display(Name="直径")] Diameter,[Display(Name="左上角 X")] Left,[Display(Name="左上角 Y")] Top,
+    [Display(Name="包围方式")] Method,[Display(Name="几何状态")] Status,[Display(Name="原因")] Reason
 }
 public sealed record ItemValueOptions
 {[DisplayName("读取项目字段"),Description("仅读取当前项目真实提供的字段，不把缺失值当0/false。先用集合按索引选择，或在子流程连接当前Item。数值、布尔、文本输出按真实类型分别有效。") ]public ItemValueField Field{get;init;}}

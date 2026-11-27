@@ -16,7 +16,8 @@ public sealed class FloatPlaneFrame:IDisposable
     public FloatPlaneFrame Share(){lock(_gate){var h=_handle??throw new ObjectDisposedException(nameof(FloatPlaneFrame));h.AddReference();return new(h,Width,Height,FrameId,Timestamp,CoordinateSpace,Quantity,Unit);}}
     public void Dispose(){FrameHandle? h;lock(_gate){h=_handle;_handle=null;}h?.ReleaseReference();GC.SuppressFinalize(this);}
     ~FloatPlaneFrame()=>Dispose();
-    public override string ToString()=>$"Float32 {Width}×{Height} {Quantity} [{Unit}]；查看Preview端口，预览不是原始数值";
+    public override string ToString()=>$"Float32 {Width}×{Height} {Quantity} [{Unit}]" +
+        (Quantity == "neighborhood-sum" ? "" : "；查看Preview端口，预览不是原始数值");
 }
 public sealed class FloatPlaneBuilder:IDisposable
 {

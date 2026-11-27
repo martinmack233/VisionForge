@@ -56,6 +56,8 @@ public sealed class NodeAuthoringCatalog
         Register<ColorChannelOptions>("ColorChannel", "工作颜色通道提取", "图像预处理");
         Register<FindContoursOptions>("FindContours", "提取全部轮廓", "目标检测");
         Register<ShapeAnalysisOptions>("ContourAnalysis", "全部轮廓形状分析", "目标检测");
+        Register<ContourEnvelopeOptions>("ContourEnvelope", "轮廓包围几何", "几何测量");
+        Register<ImageFilterOptions>("ImageFilter", "图像滤波", "图像预处理");
         Register<HoughLinesOptions>("HoughLinesP", "概率霍夫线段", "目标检测");
         Register<HoughCirclesOptions>("HoughCircles", "霍夫圆检测", "目标检测");
         Register<CannyOptions>("Canny", "Canny边缘", "图像预处理");

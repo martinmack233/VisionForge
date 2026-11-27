@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using VisionPlatform.Contracts.Collections;
 using VisionPlatform.Contracts.Geometry;
+using VisionPlatform.Contracts.Measurement;
 
 namespace VisionPlatform.Editor.Wpf.Imaging;
 public sealed partial class ImageViewportControl
@@ -33,12 +34,11 @@ public sealed partial class ImageViewportControl
             var color = Brush(p.Color(item)); var pen = new Pen(color, p.LineWidth); var fill = Brush(p.FillColor, p.FillOpacity);
             if (item is ContourItem actual) DrawShape(actual.Points, actual.Closed, pen, actual.Closed ? fill : null);
             else if (item.Region is { } roi) DrawShape(roi.Corners(), true, pen, fill);
+            else if (CircleOf(item) is { } circle) DrawCircle(circle, pen, fill);
             else switch (item)
             {
-                case ContourItem contour: DrawShape(contour.Points, contour.Closed, pen, contour.Closed ? fill : null); break;
                 case CodeItem code: DrawShape(code.Points, true, pen, fill); break;
                 case PointSetItem points: foreach (var point in points.Points.Take(2000)) drawing.DrawEllipse(null, pen, ViewTransform.ToScreen(point), 2, 2); break;
-                case CircleItem circle: drawing.DrawEllipse(fill, pen, ViewTransform.ToScreen(circle.Circle.Center), circle.Circle.Radius * ViewTransform.Zoom, circle.Circle.Radius * ViewTransform.Zoom); break;
                 case LineItem line: var o = line.Line.Origin; var v = line.Line.Direction; drawing.DrawLine(pen, ViewTransform.ToScreen(o), ViewTransform.ToScreen(line.EndPoint ?? new(o.X + v.X * 100, o.Y + v.Y * 100))); break;
             }
             var label = display.Label(item, index); if (label.Length > 512) label = label[..512] + "…";
@@ -57,9 +57,16 @@ public sealed partial class ImageViewportControl
                 var points = r.Corners().Select(ViewTransform.ToScreen).ToArray();
                 anchor = p.Position == CollectionLabelPosition.FollowTarget ? ViewTransform.ToScreen(new(r.CenterX, r.CenterY)) : new(points.Min(v => v.X), p.Position == CollectionLabelPosition.Below ? points.Max(v => v.Y) + 4 : points.Min(v => v.Y) - formatted.Height - 4);
             }
+            else if (CircleOf(item) is { } labelCircle)
+            {
+                anchor = ViewTransform.ToScreen(labelCircle.Center);
+                var radius = labelCircle.Radius * ViewTransform.Zoom;
+                if (p.Position == CollectionLabelPosition.Above) anchor.Y -= radius + formatted.Height + 4;
+                if (p.Position == CollectionLabelPosition.Below) anchor.Y += radius + 4;
+            }
             else
             {
-                Point2D? position = item switch { LineItem l => l.Line.Origin, CircleItem c => c.Circle.Center, ContourItem c when c.Points.Count > 0 => c.Points[0], _ => null };
+                Point2D? position = item switch { LineItem l => l.Line.Origin, ContourItem c when c.Points.Count > 0 => c.Points[0], _ => null };
                 if (position is null) continue;
                 anchor = ViewTransform.ToScreen(position.Value);
             }
@@ -75,16 +82,21 @@ public sealed partial class ImageViewportControl
         else if (CollectionSelection is { } selectedItem && Matches(selectedItem))
         {
             var highlight = new Pen(Brush("#FFCB00"), Math.Max(3, p.LineWidth + 2));
-            switch (selectedItem)
+            if (CircleOf(selectedItem) is { } circle) DrawCircle(circle, highlight, null);
+            else switch (selectedItem)
             {
-                case ContourItem c: DrawShape(c.Points, c.Closed, highlight, null); break;
                 case CodeItem c: DrawShape(c.Points, true, highlight, null); break;
                 case PointSetItem points: foreach (var point in points.Points.Take(2000)) drawing.DrawEllipse(null, highlight, ViewTransform.ToScreen(point), 4, 4); break;
-                case CircleItem c: drawing.DrawEllipse(null, highlight, ViewTransform.ToScreen(c.Circle.Center), c.Circle.Radius * ViewTransform.Zoom, c.Circle.Radius * ViewTransform.Zoom); break;
                 case LineItem l: drawing.DrawLine(highlight, ViewTransform.ToScreen(l.Line.Origin), ViewTransform.ToScreen(l.EndPoint ?? new(l.Line.Origin.X + l.Line.Direction.X * 100, l.Line.Origin.Y + l.Line.Direction.Y * 100))); break;
             }
         }
         bool Matches(VisionItem item) => item.Origin.CoordinateSpaceId == _frame.CoordinateSpace.Id && (item.Origin.FrameId is null || item.Origin.FrameId == _frame.FrameId);
+        static CircleGeometry? CircleOf(VisionItem item) => item switch { CircleItem c => c.Circle, ContourEnvelopeItem c => c.Circle, _ => null };
+        void DrawCircle(CircleGeometry circle, Pen pen, System.Windows.Media.Brush? fill)
+        {
+            var radius = circle.Radius * ViewTransform.Zoom;
+            drawing.DrawEllipse(fill, pen, ViewTransform.ToScreen(circle.Center), radius, radius);
+        }
         static SolidColorBrush Brush(string hex, double opacity = 1) { var brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex)) { Opacity = opacity }; brush.Freeze(); return brush; }
         void DrawShape(IReadOnlyList<Point2D> points, bool closed, Pen pen, System.Windows.Media.Brush? fill)
         {

@@ -6,7 +6,7 @@ using VisionPlatform.Contracts.Results;
 
 namespace VisionPlatform.Contracts.Collections;
 
-public enum VisionItemKind { Roi, Blob, Detection, Contour, PointSet, Line, Circle, Text, Code, Measurement, Iteration, Scalar }
+public enum VisionItemKind { Roi, Blob, Detection, Contour, PointSet, Line, Circle, Text, Code, Measurement, Iteration, Scalar, ContourEnvelope }
 public enum BusinessState { Ok, Ng, Unrecognized, Error, Unfinished }
 /// <summary>An execution association, never a cross-frame tracking identifier.</summary>
 public sealed record ItemOrigin(Guid RunId, string NodeId, int SourceIndex, Guid? FrameId, string CoordinateSpaceId, string Key);
@@ -76,6 +76,8 @@ public sealed record ContourItem(ItemOrigin Source, IReadOnlyList<Point2D> Point
 {
     public int ParentIndex { get; init; } = -1;
     public bool? IsHole { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public ContourRasterSource? RasterSource { get; init; }
     public ContourAnalysis? Analysis { get; init; }
     public override RotatedRectRoi? Region => Analysis?.MinimumRectangle;
     public override BusinessState State => Analysis is { Area: null } ? BusinessState.Ng : BusinessState.Ok;
@@ -111,7 +113,8 @@ public sealed record LineItem(ItemOrigin Source, LineGeometry Line) : VisionItem
 public sealed record CircleItem(ItemOrigin Source, CircleGeometry Circle) : VisionItem(Source)
 {
     public override VisionItemKind Kind => VisionItemKind.Circle;
-    public override IReadOnlyDictionary<string, CollectionValue> Fields => Data(("X", Circle.Center.X), ("Y", Circle.Center.Y), ("Radius", Circle.Radius));
+    public override IReadOnlyDictionary<string, CollectionValue> Fields =>
+        Data(("X", Circle.Center.X), ("Y", Circle.Center.Y), ("Radius", Circle.Radius), ("Diameter", Circle.Radius * 2));
 }
 public sealed record MeasurementItem(ItemOrigin Source, MeasurementResult Measurement) : VisionItem(Source)
 {

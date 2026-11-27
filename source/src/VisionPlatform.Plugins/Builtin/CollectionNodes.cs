@@ -156,7 +156,8 @@ public static class CollectionFields
         VisionItemKind.Detection => Geometry.Concat(["ClassId", "Class", "Confidence"]),
         VisionItemKind.Text => Geometry.Concat(["Text", "Confidence"]),
         VisionItemKind.Contour => Geometry.Concat(["PointCount", "Closed", "ParentIndex", "IsHole", "Area", "SignedArea", "Perimeter", "Circularity", "AspectRatio", "Rectangularity", "EllipseWidth", "EllipseHeight", "EllipseAngle", "AnalysisDetail"]), VisionItemKind.PointSet => ["PointCount"],
-        VisionItemKind.Line => ["X", "Y", "EndX", "EndY", "Length", "DirectionX", "DirectionY"], VisionItemKind.Circle => ["X", "Y", "Radius"],
+        VisionItemKind.Line => ["X", "Y", "EndX", "EndY", "Length", "DirectionX", "DirectionY"], VisionItemKind.Circle => ["X", "Y", "Radius", "Diameter"],
+        VisionItemKind.ContourEnvelope => Geometry.Concat(["Left", "Top", "Radius", "Diameter", "Method", "Status", "Reason", "Valid"]),
         VisionItemKind.Code => ["Text", "Format"],
         _ => c.Items.SelectMany(i => i.Fields.Keys).Distinct(StringComparer.OrdinalIgnoreCase)
     };
@@ -207,7 +208,8 @@ public static class ItemRoiConversion
         if (region is null && envelope)
         {
             IReadOnlyList<Point2D>? points = item switch { ContourItem c => c.Points, CodeItem c => c.Points, PointSetItem p => p.Points, _ => null };
-            if (item is CircleItem circle) region = new(circle.Circle.Center.X, circle.Circle.Center.Y, circle.Circle.Radius * 2, circle.Circle.Radius * 2, 0, item.Origin.CoordinateSpaceId);
+            var circle = item switch { CircleItem c => c.Circle, ContourEnvelopeItem c => c.Circle, _ => null };
+            if (circle is not null) region = new(circle.Center.X, circle.Center.Y, circle.Radius * 2, circle.Radius * 2, 0, item.Origin.CoordinateSpaceId);
             else if (points is { Count: > 1 }) region = Bounds(points, item.Origin.CoordinateSpaceId);
         }
         if (region is null) throw new ArgumentException($"{item.Kind} has no rectangular ROI. For contours/circles/codes explicitly enable AxisAlignedEnvelope; lines have no finite-width ROI.");

@@ -40,11 +40,11 @@ public sealed class CollectionResultsView : UserControl
         debug.Children.Add(new TextBlock { Text = "只列出本次保留的迭代。未保留的图像不会复用旧结果；可在逐项节点调整保留数量及预算。", TextWrapping = TextWrapping.Wrap });
         Grid.SetRow(debug, 4); grid.Children.Add(debug); _table.Height = 240; Content = new ScrollViewer { Content = grid, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         _copy.Click += (_, _) => { if (_report is not null) Clipboard.SetText(_report.CopyText()); };
-        _local.Click += (_, _) => { if (_table.SelectedItem is CollectionTableRow { Item.Region: { } roi }) FocusRequested?.Invoke(roi); };
+        _local.Click += (_, _) => { if (FocusBounds((_table.SelectedItem as CollectionTableRow)?.Item) is { } roi) FocusRequested?.Invoke(roi); };
         _table.SelectionChanged += (_, _) =>
         {
             if (_updating) return;
-            var row = _table.SelectedItem as CollectionTableRow; (Session as EditorSession)?.SelectCollectionItem(row?.Item); _local.IsEnabled = row?.Item.Region is not null;
+            var row = _table.SelectedItem as CollectionTableRow; (Session as EditorSession)?.SelectCollectionItem(row?.Item); _local.IsEnabled = FocusBounds(row?.Item) is not null;
             _details.Text = row is null ? "选择一项查看完整字段和来源。" : $"序号（从0开始）：{row.Index}\n来源：{row.Item.Origin.Key}\nFrameId：{row.Item.Origin.FrameId?.ToString() ?? "原结果未提供"}\n坐标空间：{row.Item.Origin.CoordinateSpaceId}\n" + string.Join("\n", row.Item.Fields.Select(p => p.Key + " = " + p.Value.Format(12)));
         };
         _iteration.SelectionChanged += (_, _) => { if (!_updating) { _node.ItemsSource = (_iteration.SelectedItem as IterationTrace)?.Nodes; _node.SelectedIndex = 0; } };
@@ -54,6 +54,15 @@ public sealed class CollectionResultsView : UserControl
             if (Session is EditorSession session && _iteration.SelectedItem is IterationTrace trace && _node.SelectedItem is NodeExecutionResult node && _port.SelectedItem is string port)
             { session.InspectIterationOutput(trace.Index, node.NodeId, port); _details.Text = $"迭代 {trace.Index} · RunId {trace.RunId}\n{node.NodeId}：{node.Status} · {node.ExecutionTime.TotalMilliseconds:F3} ms\n{node.ErrorMessage}\n" + string.Join("\n", session.SelectedOutputInspection?.Fields.Select(f => f.Name + ": " + f.Value) ?? []); }
         };
+    }
+
+    private static RotatedRectRoi? FocusBounds(VisionItem? item)
+    {
+        if (item?.Region is { } region) return region;
+        var circle = item switch { CircleItem c => c.Circle, ContourEnvelopeItem c => c.Circle, _ => null };
+        return circle is { Radius: > 0 }
+            ? new(circle.Center.X, circle.Center.Y, circle.Radius * 2, circle.Radius * 2, 0, circle.CoordinateSpaceId)
+            : null;
     }
     private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

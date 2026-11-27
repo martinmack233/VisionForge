@@ -1,0 +1,265 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "2b7bd612-a66b-4749-8765-c2bd11a12893",
+  "ProjectName": "轮廓包围几何 · 矩形与圆",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": "Mono8"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "contours",
+      "NodeTypeId": "FindContours",
+      "Name": "FindContours",
+      "Parameters": {
+        "Retrieval": "Tree"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "axis",
+      "NodeTypeId": "ContourEnvelope",
+      "Name": "轴对齐外接矩形",
+      "Parameters": {
+        "Mode": "AxisAlignedRectangle"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "rotated",
+      "NodeTypeId": "ContourEnvelope",
+      "Name": "最小面积旋转矩形",
+      "Parameters": {
+        "Mode": "MinimumAreaRectangle"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "outer",
+      "NodeTypeId": "ContourEnvelope",
+      "Name": "最小外接圆",
+      "Parameters": {
+        "Mode": "MinimumEnclosingCircle"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "inner",
+      "NodeTypeId": "ContourEnvelope",
+      "Name": "最大内接圆",
+      "Parameters": {
+        "Mode": "MaximumInscribedCircle"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "valid",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "CollectionFilter",
+      "Parameters": {
+        "Field": "Valid",
+        "Comparison": "Equal",
+        "Boolean": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "filter_radius",
+      "NodeTypeId": "CollectionFilter",
+      "Name": "CollectionFilter",
+      "Parameters": {
+        "Field": "Radius",
+        "Comparison": "GreaterOrEqual",
+        "Number": 12
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "sort",
+      "NodeTypeId": "CollectionSort",
+      "Name": "CollectionSort",
+      "Parameters": {
+        "Field": "Radius",
+        "Descending": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "select",
+      "NodeTypeId": "CollectionSelect",
+      "Name": "CollectionSelect",
+      "Parameters": {
+        "Index": 0
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "CollectionDisplay",
+      "Name": "CollectionDisplay",
+      "Parameters": {
+        "Fields": "Index,Radius,Diameter",
+        "FillOpacity": 0.14
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "each",
+      "NodeTypeId": "ForEach",
+      "Name": "逐项读取直径",
+      "Parameters": {
+        "Body": {
+          "Version": 1,
+          "InputNodeId": "current",
+          "OutputNodeId": "collect",
+          "NodeLocations": {},
+          "Nodes": [
+            {
+              "NodeId": "current",
+              "NodeTypeId": "IterationInput",
+              "Name": "IterationInput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "value",
+              "NodeTypeId": "ItemValue",
+              "Name": "ItemValue",
+              "Parameters": {
+                "Field": "Diameter"
+              },
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            },
+            {
+              "NodeId": "collect",
+              "NodeTypeId": "IterationOutput",
+              "Name": "IterationOutput",
+              "Parameters": {},
+              "PluginVersion": "1.0.0",
+              "IsEnabled": true
+            }
+          ],
+          "Connections": [
+            {
+              "SourceNodeId": "current",
+              "SourcePort": "Item",
+              "TargetNodeId": "value",
+              "TargetPort": "Item"
+            },
+            {
+              "SourceNodeId": "value",
+              "SourcePort": "Number",
+              "TargetNodeId": "collect",
+              "TargetPort": "Number"
+            }
+          ]
+        }
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "contours",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "axis",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "rotated",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "outer",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "contours",
+      "SourcePort": "Collection",
+      "TargetNodeId": "inner",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "inner",
+      "TargetPort": "Mask"
+    },
+    {
+      "SourceNodeId": "inner",
+      "SourcePort": "Collection",
+      "TargetNodeId": "valid",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "valid",
+      "SourcePort": "Collection",
+      "TargetNodeId": "filter_radius",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "filter_radius",
+      "SourcePort": "Collection",
+      "TargetNodeId": "sort",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "select",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "display",
+      "TargetPort": "Collection"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "sort",
+      "SourcePort": "Collection",
+      "TargetNodeId": "each",
+      "TargetPort": "Collection"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

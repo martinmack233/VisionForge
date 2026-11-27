@@ -59,7 +59,8 @@ public static class OutputInspector
                 Add("方向",transform.SourceSpaceId+" → "+transform.TargetSpaceId);Add("矩阵",string.Join(", ",transform.Matrix.Values.Select(v=>v.ToString("G17",CultureInfo.InvariantCulture))));Add("意义","正向像素中心映射；透视矩阵不视为仿射");break;
             case FloatPlaneFrame plane:
                 Add("数据类型","Float32真实带符号数值，非Mono8");Add("尺寸",$"{plane.Width}×{plane.Height}");Add("量",plane.Quantity);Add("单位",plane.Unit);Add("帧",plane.FrameId);Add("坐标",plane.CoordinateSpace);
-                using(var lease=plane.Lease()){var samples=System.Runtime.InteropServices.MemoryMarshal.Cast<byte,float>(lease.GetRowSpan(0));for(var x=0;x<Math.Min(32,samples.Length);x++)Add($"首行[{x}]",samples[x]);}Add("预览","查看Preview口，8位绝对值预览不能代替原梯度");break;
+                using(var lease=plane.Lease()){var samples=System.Runtime.InteropServices.MemoryMarshal.Cast<byte,float>(lease.GetRowSpan(0));for(var x=0;x<Math.Min(32,samples.Length);x++)Add($"首行[{x}]",samples[x]);}
+                Add("预览",plane.Quantity == "neighborhood-sum" ? "实际邻域和；需要图像预览时选择均值方式。" : "查看Preview口，8位绝对值预览不能代替原梯度");break;
             case EnhancementStatistics statistics:
                 Add("实际统计规则",statistics.Rule);Add("帧",statistics.FrameId);Add("尺寸",$"{statistics.Width}×{statistics.Height}");foreach(var channel in statistics.Channels)Add("通道 "+channel.Channel,$"输入[{channel.InputMinimum:G17},{channel.InputMaximum:G17}] 均值{channel.InputMean:G17} / 输出[{channel.OutputMinimum:G17},{channel.OutputMaximum:G17}] 均值{channel.OutputMean:G17}");break;
             case VisionCollection collection:

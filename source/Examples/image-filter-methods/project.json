@@ -1,0 +1,182 @@
+{
+  "SchemaVersion": 3,
+  "ProjectId": "2476c721-b2c8-4ead-96a0-fccd075f9284",
+  "ProjectName": "图像滤波 · 噪声与方向",
+  "Nodes": [
+    {
+      "NodeId": "input",
+      "NodeTypeId": "ImageInput",
+      "Name": "ImageInput",
+      "Parameters": {
+        "Path": "input.png",
+        "PixelFormat": "Mono8"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "mean",
+      "NodeTypeId": "ImageFilter",
+      "Name": "均值 / 方框",
+      "Parameters": {
+        "Method": "Mean",
+        "KernelWidth": 5,
+        "KernelHeight": 3
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "gauss",
+      "NodeTypeId": "ImageFilter",
+      "Name": "高斯",
+      "Parameters": {
+        "Method": "Gaussian",
+        "KernelSize": 5,
+        "SigmaX": 1.2
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "median",
+      "NodeTypeId": "ImageFilter",
+      "Name": "中值",
+      "Parameters": {
+        "Method": "Median",
+        "KernelSize": 5
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "bilateral",
+      "NodeTypeId": "ImageFilter",
+      "Name": "双边",
+      "Parameters": {
+        "Method": "Bilateral",
+        "Diameter": 7,
+        "SigmaColor": 18,
+        "SigmaSpace": 5
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "horizontal",
+      "NodeTypeId": "ImageFilter",
+      "Name": "方向平滑 · 横向",
+      "Parameters": {
+        "Method": "Directional",
+        "KernelSize": 7,
+        "SamplingDirection": "Horizontal"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "vertical",
+      "NodeTypeId": "ImageFilter",
+      "Name": "方向平滑 · 纵向",
+      "Parameters": {
+        "Method": "Directional",
+        "KernelSize": 7,
+        "SamplingDirection": "Vertical"
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "sum",
+      "NodeTypeId": "ImageFilter",
+      "Name": "方框邻域和",
+      "Parameters": {
+        "Method": "BoxSum",
+        "KernelWidth": 5,
+        "KernelHeight": 3
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "edges",
+      "NodeTypeId": "Canny",
+      "Name": "Canny",
+      "Parameters": {
+        "Low": 42,
+        "High": 100,
+        "L2Gradient": true
+      },
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    },
+    {
+      "NodeId": "display",
+      "NodeTypeId": "ImageDisplay",
+      "Name": "ImageDisplay",
+      "Parameters": {},
+      "PluginVersion": "1.0.0",
+      "IsEnabled": true
+    }
+  ],
+  "Connections": [
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "mean",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "gauss",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "median",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "bilateral",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "horizontal",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "vertical",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "input",
+      "SourcePort": "Image",
+      "TargetNodeId": "sum",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "bilateral",
+      "SourcePort": "ProcessedImage",
+      "TargetNodeId": "edges",
+      "TargetPort": "Image"
+    },
+    {
+      "SourceNodeId": "edges",
+      "SourcePort": "Edges",
+      "TargetNodeId": "display",
+      "TargetPort": "Image"
+    }
+  ],
+  "ROI": [],
+  "TemplateResources": [],
+  "AlgorithmVersion": {},
+  "AiProject": null
+}

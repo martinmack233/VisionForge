@@ -41,7 +41,7 @@ if not args.zip_only:
  bom['brand_compatibility']=dict(primary_launcher='VisionForge.exe',legacy_launcher='VisionStudio.exe',internal_assemblies_renamed=False,configuration_root_unchanged='%LOCALAPPDATA%/VisionStudio',project_schema_changed=False)
  (target/'component-manifest.json').write_text(json.dumps(bom,ensure_ascii=False,indent=2),encoding='utf-8')
  packages=target/'ProjectPackages';packages.mkdir(exist_ok=True)
- for example in ['operators-contrast-edges','operators-matrix-warp','operators-random-logic','operators-file-read','operators-tcp-request','operators-modbus-tcp','collection-multi-ocr','collection-blob-measure','template-follow']+[p.name for p in sorted((root/'Examples').glob('beginner-*')) if p.is_dir()]:
+ for example in ['operators-contrast-edges','operators-matrix-warp','operators-random-logic','operators-file-read','operators-tcp-request','operators-modbus-tcp','collection-multi-ocr','collection-blob-measure','template-follow','image-filter-methods','contour-envelope-geometry']+[p.name for p in sorted((root/'Examples').glob('beginner-*')) if p.is_dir()]:
   output=packages/(example+'.vspkg')
   if output.exists():continue
   p=subprocess.run([str(target/'VisionPlatform.Console.exe'),'package-export',str(target/'Examples'/example/'project.json'),str(output)],cwd=target,capture_output=True,text=True,encoding='utf-8',timeout=30)

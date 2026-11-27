@@ -4,6 +4,10 @@
 
 This directory contains the buildable VisionForge 0.6.3 source snapshot, its tests and synthetic examples. Run `.\build.ps1` here with PowerShell 7 and the .NET 10 SDK selected by `global.json`.
 
+当前快照在 0.6.3 基线上加入图像滤波和轮廓包围几何。历史 0.6.3 下载包仍对应原发行记录。
+
+The current snapshot adds image filtering and contour geometry to the 0.6.3 baseline. [算子说明和示例 / Operator guide and examples](docs/0.6.4-滤波与轮廓几何.md)
+
 - [解决方案 / Solution](VisionPlatform.sln)
 - [许可证及通知 / License notices](licenses/) · [第三方许可 / Third-party license notices](third_party/licenses/)
 - [CvInspect LICENSE](third_party/CvInspect/LICENSE) · [Nodify LICENSE](third_party/Nodify/LICENSE)
@@ -13,7 +17,7 @@ This directory contains the buildable VisionForge 0.6.3 source snapshot, its tes
 
 The public snapshot includes a synthetic fixture for reading legacy projects. Historical logs, machine-specific comparisons, the external YOLOStudio project, and the vendor SDK archive remain in the private development environment. The included notices apply to their respective components.
 
-## 快照验证 | Snapshot verification
+## 0.6.3 基线验证 | 0.6.3 baseline verification
 
 锁定依赖还原与 Release 构建通过，零警告、零错误。本目录运行的 850 项回归中，847 项通过。其余 3 项实际 YOLOStudio 集成测试要求上级目录有 `YOLOStudio/.venv/Scripts/python.exe` 及对应工作区代码。独立快照缺少该外部环境，测试保留原有断言。
 

@@ -4,6 +4,8 @@
 
 视构是一款面向 **Windows 11 x64** 的工业视觉工作台。用可视化节点编排图像采集、预处理、定位、测量、检测和结果输出。算法流程可以在桌面调试，也可以交给 Console、RuntimeHost 或 .NET 程序执行。
 
+公开源码现已加入「图像滤波」和「轮廓包围几何」。支持多方式 ROI 滤波、Float32 方框邻域和、外接矩形与旋转矩形、最小外接圆及基于二值掩膜的像素近似最大内接圆。从当前快照构建后，可在「方案示例」运行两份合成工程。[参数、端口与示例说明](source/docs/0.6.4-滤波与轮廓几何.md)
+
 ![VisionForge 逐项检测实际界面](docs/images/foreach-inspection.png)
 
 ## 可用功能和特点
@@ -68,6 +70,8 @@
 [Source snapshot](source/) · [License notices](source/licenses/) · [Quick start](docs/quick-start.md) · [Developer integration](docs/integration.md) · [AI-assisted development](docs/ai-assisted-development.md) · [0.6.3 release information](release-info/v0.6.3/) · [Release downloads](https://github.com/martinmack233/VisionForge/releases)
 
 VisionForge is an industrial machine vision workbench for **Windows 11 x64**. Its visual editor lets you connect acquisition, preprocessing, alignment, measurement, inspection, and result output. You can debug a workflow in the desktop app and run it through Console, RuntimeHost, or a .NET application.
+
+The public source snapshot now includes `ImageFilter` and `ContourEnvelope`. They cover ROI filtering, Float32 neighborhood sums, upright and rotated bounding rectangles, minimum enclosing circles, and mask-based approximate largest inscribed circles. Build the current snapshot to run the two synthetic examples from Example Projects. [Operator and example guide](source/docs/0.6.4-滤波与轮廓几何.md)
 
 ### Features
 

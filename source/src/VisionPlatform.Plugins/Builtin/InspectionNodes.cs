@@ -73,8 +73,8 @@ public sealed class ContourAnalysisNode:NodeBase<ShapeAnalysisOptions>
     public override ValueTask<NodeOutput> ExecuteAsync(NodeExecutionContext c,CancellationToken ct)
     {
         var r=ShapeProcessors.Analyze(c.Input<VisionCollection>("Collection"),c.Parameters<ShapeAnalysisOptions>(),ct);
-        var contours=r.Items.Cast<ContourItem>().ToArray();var hulls=new VisionCollection(VisionItemKind.Contour,contours.Select(i=>i with{Points=i.Analysis!.ConvexHull,Analysis=null}));
-        var approximation=new VisionCollection(VisionItemKind.Contour,contours.Select(i=>i with{Points=i.Analysis!.Approximation,Analysis=null}));var rects=new VisionCollection(VisionItemKind.Roi,contours.Where(i=>i.Region is not null).Select(i=>new RoiItem(i.Origin,i.Region!){OriginalItem=i}));
+        var contours=r.Items.Cast<ContourItem>().ToArray();var hulls=new VisionCollection(VisionItemKind.Contour,contours.Select(i=>i with{Points=i.Analysis!.ConvexHull,Analysis=null,RasterSource=null}));
+        var approximation=new VisionCollection(VisionItemKind.Contour,contours.Select(i=>i with{Points=i.Analysis!.Approximation,Analysis=null,RasterSource=null}));var rects=new VisionCollection(VisionItemKind.Roi,contours.Where(i=>i.Region is not null).Select(i=>new RoiItem(i.Origin,i.Region!){OriginalItem=i}));
         return ValueTask.FromResult(new NodeOutput(new Dictionary<string,object>{["Collection"]=r,["ConvexHulls"]=hulls,["Approximations"]=approximation,["Rectangles"]=rects,["Count"]=r.Count}));
     }
 }
@@ -112,7 +112,8 @@ public sealed class ItemGeometryNode:NodeBase<ItemGeometryOptions>
     {
         var item=c.Input<VisionItem>("Item");if(item.Origin.CoordinateSpaceId!=c.Parameters<ItemGeometryOptions>().CoordinateSpaceId)throw new ArgumentException("几何坐标空间不同；先显式变换或配置匹配的测量空间。");
         var o=new Dictionary<string,object>();if(item is LineItem{EndPoint:{}end} line){o["Line"]=line.Line;o["PointA"]=line.Line.Origin;o["PointB"]=end;}
-        else if(item is CircleItem circle){o["Circle"]=circle.Circle;o["PointA"]=circle.Circle.Center;o["PointB"]=new Point2D(circle.Circle.Center.X+circle.Circle.Radius,circle.Circle.Center.Y);}
+        else if((item switch { CircleItem existing => existing.Circle, ContourEnvelopeItem envelope => envelope.Circle, _ => null }) is { } circle)
+        {o["Circle"]=circle;o["PointA"]=circle.Center;o["PointB"]=new Point2D(circle.Center.X+circle.Radius,circle.Center.Y);}
         else throw new ArgumentException("请显式选择带端点的线段或圆；不默认选择集合第一项。");return ValueTask.FromResult(new NodeOutput(o));
     }
 }

@@ -50,6 +50,8 @@ tools/BoqCompatibilityProbe/BoqNet48Probe.exe
 # Self-authored operator expansion sample rasters.
 !Examples/operators-*/*.png
 !Examples/beginner-*/*.png
+!Examples/image-filter-methods/*.png
+!Examples/contour-envelope-geometry/*.png
 
 # Small, self-authored documentation evidence and current release screenshots.
 !docs/使用与接入/核对记录/离线示例输出/*.png

@@ -57,10 +57,12 @@ public static class ShapeProcessors
         Cv2.FindContours(l.Mat,out Point[][] points,out HierarchyIndex[] hierarchy,mode,p.Chain==ContourChain.Simple?ContourApproximationModes.ApproxSimple:ContourApproximationModes.ApproxNone);
         ct.ThrowIfCancellationRequested();if(points.Length>p.MaximumContours||points.Sum(x=>(long)x.Length)>p.MaximumPoints)throw new ArgumentException("真实轮廓结果超过预算，请缩小ROI；未丢弃目标或只选最大项。");
         var items=new List<ContourItem>();
+        var raster = new ContourRasterSource(image.BufferHandle.BufferId, RasterBounds(image), RasterBounds(v),
+            p.Retrieval is ContourRetrieval.Tree or ContourRetrieval.CComp);
         for(var i=0;i<points.Length;i++)
         {
             ct.ThrowIfCancellationRequested();var depth=0;var parent=hierarchy[i].Parent;var a=parent;while(a>=0){if(++depth>hierarchy.Length)throw new InvalidDataException("轮廓层级异常。");a=hierarchy[a].Parent;}
-            items.Add(new(InspectionFrames.Origin(run,node,i,image),Array.AsReadOnly(points[i].Select(pt=>new Point2D(pt.X+v.CoordinateSpace.OriginX,pt.Y+v.CoordinateSpace.OriginY)).ToArray()),true){ParentIndex=parent,IsHole=p.Retrieval==ContourRetrieval.List?null:depth%2==1});
+            items.Add(new(InspectionFrames.Origin(run,node,i,image),Array.AsReadOnly(points[i].Select(pt=>new Point2D(pt.X+v.CoordinateSpace.OriginX,pt.Y+v.CoordinateSpace.OriginY)).ToArray()),true){ParentIndex=parent,IsHole=p.Retrieval==ContourRetrieval.List?null:depth%2==1,RasterSource=raster});
         }
         return new(VisionItemKind.Contour,items);
     }
@@ -75,21 +77,41 @@ public static class ShapeProcessors
             // Translate before float-based OpenCV geometry to avoid large-origin float precision loss.
             var offset=item.Points[0];var pts=item.Points.Select(q=>new Point2f((float)(q.X-offset.X),(float)(q.Y-offset.Y))).ToArray();
             Point2D Global(Point2f pt)=>new(pt.X+offset.X,pt.Y+offset.Y);
-            var signed=Cv2.ContourArea(pts,true);var area=Math.Abs(signed);var perimeter=Cv2.ArcLength(pts,true);var bounds=Cv2.BoundingRect(pts);var rect=Cv2.MinAreaRect(pts);
-            // Canonical long-axis rectangle: width>=height, clockwise angle in [-90,90).
-            var width=(double)rect.Size.Width;var height=(double)rect.Size.Height;var angle=(double)rect.Angle;
-            if(width<height){(width,height)=(height,width);angle+=90;}
-            angle=((angle+90)%180+180)%180-90;
-            var min=width>1e-8&&height>1e-8?new RotatedRectRoi(rect.Center.X+offset.X,rect.Center.Y+offset.Y,width,height,angle,item.Origin.CoordinateSpaceId):null;
+            var signed=Cv2.ContourArea(pts,true);var area=Math.Abs(signed);var perimeter=Cv2.ArcLength(pts,true);
+            var bounds = AxisAlignedRectangle(pts, offset);
+            var min = MinimumRectangle(pts, offset, item.Origin.CoordinateSpaceId);
             var hull=Cv2.ConvexHull(pts);var approx=Cv2.ApproxPolyDP(pts,p.ApproximationEpsilon,true);EllipseGeometry? ellipse=null;string? detail=null;
             if(p.FitEllipse)
             {
                 if(pts.Length<5||area<1e-8)detail="椭圆拟合需要至少5个非退化点；其余有效指标保留。";
                 else{try{var fit=Cv2.FitEllipse(pts);if(fit.Size.Width>1e-8&&fit.Size.Height>1e-8&&float.IsFinite(fit.Angle))ellipse=new(Global(fit.Center),fit.Size.Width,fit.Size.Height,fit.Angle,item.Origin.CoordinateSpaceId);else detail="椭圆拟合退化。";}catch(OpenCVException ex){detail="椭圆拟合失败："+ex.Message;}}
             }
-            output.Add(item with{Analysis=new(area>1e-8?area:null,area>1e-8?signed:null,perimeter>1e-8?perimeter:null,new(bounds.X+offset.X,bounds.Y+offset.Y,bounds.Width,bounds.Height),min,ellipse,Array.AsReadOnly(hull.Select(Global).ToArray()),Array.AsReadOnly(approx.Select(Global).ToArray()),area>1e-8&&perimeter>1e-8?4*Math.PI*area/(perimeter*perimeter):null,min is null?null:min.Width/min.Height,min is null||area<1e-8?null:area/(min.Width*min.Height),area<1e-8?"零面积退化轮廓，面积比指标未定义。":detail)});
+            output.Add(item with{Analysis=new(area>1e-8?area:null,area>1e-8?signed:null,perimeter>1e-8?perimeter:null,bounds,min,ellipse,Array.AsReadOnly(hull.Select(Global).ToArray()),Array.AsReadOnly(approx.Select(Global).ToArray()),area>1e-8&&perimeter>1e-8?4*Math.PI*area/(perimeter*perimeter):null,min is null?null:min.Width/min.Height,min is null||area<1e-8?null:area/(min.Width*min.Height),area<1e-8?"零面积退化轮廓，面积比指标未定义。":detail)});
         }
         return new(VisionItemKind.Contour,output);
+    }
+
+    internal static RectRoi RasterBounds(ImageFrame image) =>
+        new(image.CoordinateSpace.OriginX, image.CoordinateSpace.OriginY, image.Width, image.Height);
+
+    internal static RectRoi AxisAlignedRectangle(Point2f[] points, Point2D offset)
+    {
+        var b = Cv2.BoundingRect(points);
+        return new(b.X + offset.X, b.Y + offset.Y, b.Width, b.Height);
+    }
+
+    internal static RotatedRectRoi? MinimumRectangle(Point2f[] points, Point2D offset, string space)
+    {
+        var rect = Cv2.MinAreaRect(points);
+        // Canonical long-axis rectangle: width >= height, clockwise angle in [-90,90).
+        var width = (double)rect.Size.Width;
+        var height = (double)rect.Size.Height;
+        var angle = (double)rect.Angle;
+        if (width < height) { (width, height) = (height, width); angle += 90; }
+        angle = ((angle + 90) % 180 + 180) % 180 - 90;
+        return width > 1e-8 && height > 1e-8
+            ? new(rect.Center.X + offset.X, rect.Center.Y + offset.Y, width, height, angle, space)
+            : null;
     }
     public static VisionCollection Lines(ImageFrame image,HoughLinesOptions p,RotatedRectRoi? roi,Guid run,string node,CancellationToken ct)
     {

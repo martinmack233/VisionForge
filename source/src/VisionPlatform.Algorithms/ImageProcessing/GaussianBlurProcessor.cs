@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using OpenCvSharp;
 using VisionPlatform.Contracts.Geometry;
 using VisionPlatform.Contracts.Images;
@@ -5,7 +6,13 @@ using VisionPlatform.Imaging;
 
 namespace VisionPlatform.Algorithms.ImageProcessing;
 
-public enum GaussianBorderType { Constant, Replicate, Reflect, Reflect101 }
+public enum GaussianBorderType
+{
+    [Display(Name = "常量补零")] Constant,
+    [Display(Name = "复制最近边缘像素")] Replicate,
+    [Display(Name = "镜像（含边缘像素）")] Reflect,
+    [Display(Name = "镜像（不含边缘像素）")] Reflect101
+}
 
 public sealed record GaussianBlurOptions
 {
@@ -43,19 +50,23 @@ public static class GaussianBlurProcessor
         using var builder = new ImageFrameBuilder(view.Width, view.Height, image.PixelFormat, coordinateSpace: view.CoordinateSpace);
         using var output = Mat.FromPixelData(view.Height, view.Width, image.PixelFormat.BytesPerPixel() == 1 ? MatType.CV_8UC1 : MatType.CV_8UC3,
             builder.DataPointer, builder.Stride);
-        var border = options.BorderType switch
+        Apply(input.Mat, output, options);
+        ct.ThrowIfCancellationRequested();
+        return builder.Build(image.FrameId, image.Timestamp);
+    }
+
+    internal static BorderTypes ToBorder(GaussianBorderType value) => (value switch
         {
             GaussianBorderType.Constant => BorderTypes.Constant,
             GaussianBorderType.Replicate => BorderTypes.Replicate,
             GaussianBorderType.Reflect => BorderTypes.Reflect,
             GaussianBorderType.Reflect101 => BorderTypes.Reflect101,
-            _ => throw new ArgumentOutOfRangeException(nameof(options))
-        };
-        Cv2.GaussianBlur(input.Mat, output, new Size(options.KernelSize, options.KernelSize),
-            options.SigmaX, options.SigmaY, border | BorderTypes.Isolated);
-        ct.ThrowIfCancellationRequested();
-        return builder.Build(image.FrameId, image.Timestamp);
-    }
+            _ => throw new ArgumentOutOfRangeException(nameof(value))
+        }) | BorderTypes.Isolated;
+
+    internal static void Apply(Mat input, Mat output, GaussianBlurOptions options) =>
+        Cv2.GaussianBlur(input, output, new Size(options.KernelSize, options.KernelSize),
+            options.SigmaX, options.SigmaY, ToBorder(options.BorderType));
 
     private static ImageFrame CreateInputView(ImageFrame image, RectRoi? roi)
     {

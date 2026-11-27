@@ -129,7 +129,8 @@ public static class HostResultProjector
         Fields = i.Fields.Take(128).ToDictionary(p => p.Key, p => p.Value with { Text = Text(p.Value.Text) }),
         Contour = i is ContourItem contour ? new { Points=contour.Points.Take(128).ToArray(), contour.Closed, contour.ParentIndex, contour.IsHole, Ellipse=contour.Analysis?.Ellipse } : null,
         Line = i is LineItem line ? new { line.Line, line.EndPoint } : null,
-        Circle = i is CircleItem circle ? circle.Circle : null,
+        Circle = i switch { CircleItem circle => circle.Circle, ContourEnvelopeItem envelope => envelope.Circle, _ => null },
+        Envelope = i is ContourEnvelopeItem bounds ? new { bounds.Mode, bounds.Status, bounds.AxisAlignedBounds, bounds.Corners, Reason = Text(bounds.Reason) } : null,
         Iteration = i is IterationItem iteration ? new { iteration.Index, iteration.IterationRunId, iteration.Status, Milliseconds = iteration.ExecutionTime.TotalMilliseconds, Error = Text(iteration.Error) } : null };
     private static IReadOnlyList<RecognitionOverlay> Overlays(IReadOnlyList<RecognitionOverlay> overlays) => overlays.Take(256)
         .Select(o => o with { Label = Text(o.Label)!, Points = o.Points.Take(64).ToArray() }).ToArray();

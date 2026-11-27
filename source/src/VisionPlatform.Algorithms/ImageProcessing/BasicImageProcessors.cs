@@ -89,8 +89,13 @@ public sealed class MedianBlurProcessor : IImageProcessingAlgorithm<MedianBlurOp
         cancellationToken.ThrowIfCancellationRequested();
         using var view = ProcessingFrame.View(image, roi);
         // k=1 is an explicitly defined independent identity output.
-        return ProcessingFrame.Execute(view, (input, output) =>
-        { if (options.KernelSize == 1) input.CopyTo(output); else Cv2.MedianBlur(input, output, options.KernelSize); }, cancellationToken);
+        return ProcessingFrame.Execute(view, (input, output) => Apply(input, output, options.KernelSize), cancellationToken);
+    }
+
+    internal static void Apply(Mat input, Mat output, int kernelSize)
+    {
+        if (kernelSize == 1) input.CopyTo(output);
+        else Cv2.MedianBlur(input, output, kernelSize);
     }
 }
 
